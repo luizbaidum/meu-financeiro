@@ -1,13 +1,13 @@
 <?php 
 
 abstract class TableNames {
-    public function getTableName(string $action)
+    public static function getTableName(string $action)
     {
         $ret = "";
 
         $tables = new TablesList();
 
-        $ret = $tables->$arr_tables[$action];
+        $ret = $tables->arr_tables[$action];
 
         $tables = NULL;
 
@@ -16,6 +16,9 @@ abstract class TableNames {
 }
 
 class TablesList {
+
+    public $table_names = array();
+
     public $arr_tables = [
         "add_categoria" => "categoria_receitas_despesas",
         "del_categoria" => "categoria_receitas_despesas",
