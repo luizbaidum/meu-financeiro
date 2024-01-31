@@ -2,14 +2,14 @@
 
 require_once "diretorio.php";
 require_once Diretorio::diretorio . "\\table_names\\table_names.php";
-require_once Diretorio::diretorio . "\\connection\\conexao.php";
+require_once Diretorio::diretorio ."\\connection\\conexao.php";
 
 class CRUD {
     private function executarQuery($query, $arr_values = [])
     {
         $operacao = strtoupper(strtok($query, " "));
 
-        $stmt = $con->prepare($query);
+        $stmt = gerarConexao()->prepare($query);
 
         if (!empty($arr_values))
             $stmt->execute($arr_values);

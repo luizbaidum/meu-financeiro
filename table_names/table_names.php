@@ -20,11 +20,9 @@ class TablesList {
     public $table_names = array();
 
     public $arr_tables = [
-        "add_categoria" => "categoria_receitas_despesas",
-        "del_categoria" => "categoria_receitas_despesas",
-        "add_despesa"   => "receitas_despesas",
-        "del_despesa"   => "receitas_despesas",
-        "add_receita"   => "receitas_despesas",
-        "del_receita"   => "receitas_despesas"
+        "add_categoria" => "categoria_movimentos",
+        "del_categoria" => "categoria_movimentos",
+        "add_movimentos" => "movimentos",
+        "del_movimentos" => "movimentos"
     ];
 }

@@ -1,13 +1,16 @@
 <?php
+    function gerarConexao()
+    {
+        global $con;
 
-$host = "localhost";
-$db = "meu-financeiro";
-$user = "root";
-$pw = "";
+        $host = "localhost";
+        $db = "meu_financeiro";
+        $user = "root";
+        $pw = "";
 
-global $con;
-
-$con = new \PDO("mysql:host=$host; dbname=$db", $user, $pw);
-$con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
+        $con = new \PDO("mysql:host=$host; dbname=$db", $user, $pw);
+        $con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        
+        return $con;
+    }
 ?>
