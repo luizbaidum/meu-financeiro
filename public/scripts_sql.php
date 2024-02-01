@@ -27,7 +27,7 @@ class CRUD {
                 break;
             case "SELECT":
             case "SHOW":
-                $retornar_select = $stmt->fetchAll(\PDO::FETCH_OBJ);
+                $retornar_select = $stmt->fetchAll();
                 $result = $retornar_select;
                 break;
         }
@@ -93,24 +93,12 @@ class CRUD {
        return $this->executarQuery($query, $arr_values);
     }
 
-    public function select(string $action, array $get)
+    public function selectAll($action)
     {
-        $arr_values = array();
         $table = TableNames::getTableName($action);
 
-        foreach ($get as $k => $v) {
-            $campo = $k;
-            $valor = $v;
-        }
+        $query = "SELECT $table.* FROM $table";
 
-        $query = "SELECT * FROM $table WHERE $campo = ?";
-        $arr_values[] = $valor;
-
-        return $this->executarQuery($query, $arr_values);
-    }
-
-    public function selectAll()
-    {
-        
+        return $this->executarQuery($query);
     }
 }
