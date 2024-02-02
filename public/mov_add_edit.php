@@ -4,7 +4,7 @@
     $crud = new CRUD();
 
     if (!empty($_POST))
-        $crud->insert("add_movimentos", $_POST);
+        $crud->insert("movimento", $_POST);
 ?>
 
 <?php require_once ("header.php"); ?>
@@ -26,7 +26,7 @@
                             <select class="form-control" id="idCategoria" name="idCategoria" required>
                                 <option value="">Selecione</option>
                                 <?php 
-                                    $categorias = $crud->selectAll("add_categoria");
+                                    $categorias = $crud->selectAll("categoria", [], []);
                                     foreach ($categorias as $cat):
                                 ?>
                                     <option value="<?= $cat["idCategoria"]; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>

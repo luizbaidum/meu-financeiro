@@ -93,11 +93,40 @@ class CRUD {
        return $this->executarQuery($query, $arr_values);
     }
 
-    public function selectAll($action)
+    //selectAll(action: "movimento", where_conditions: [['valor', '>', '15000']], order_conditions: ['dataMovimento' => 'DESC']);
+    public function selectAll($action, array $where_conditions, array $order_conditions)
     {
         $table = TableNames::getTableName($action);
 
-        $query = "SELECT $table.* FROM $table";
+        $where = "";
+        $order = "";
+
+        if (!empty($where_conditions)) {
+            $where = "WHERE ";
+            foreach ($where_conditions as $part)
+                $where .= "$part[0] $part[1] $part[2]";
+                //column, condition, value
+                //coluna > 1
+        }
+
+        if (!empty($order_conditions)) {
+            $order = "ORDER BY ";
+            foreach ($order_conditions as $column => $cond)
+                $order .= "$column $cond";
+        }
+
+        $query = "SELECT $table.* FROM $table $where $order";
+
+        return $this->executarQuery($query);
+    }
+
+    public function indexTable()
+    {
+        $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo
+                    FROM movimentos 
+                    INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
+                    WHERE 0 = 0 
+                    ORDER BY dataMovimento DESC";
 
         return $this->executarQuery($query);
     }

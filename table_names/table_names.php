@@ -20,9 +20,7 @@ class TablesList {
     public $table_names = array();
 
     public $arr_tables = [
-        "add_categoria" => "categoria_movimentos",
-        "del_categoria" => "categoria_movimentos",
-        "add_movimentos" => "movimentos",
-        "del_movimentos" => "movimentos"
+        "categoria" => "categoria_movimentos",
+        "movimento" => "movimentos"
     ];
 }
