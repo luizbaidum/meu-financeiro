@@ -8,7 +8,7 @@
     $resultado = 0;
 ?>
      
-    <main>
+    <main class="container">
         <table class="table">
             <theader>
                 <tr>

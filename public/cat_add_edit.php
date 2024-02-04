@@ -17,7 +17,7 @@
 ?>
 
 <?php require_once ("header.php"); ?>
-    <main>
+    <main class="container">
         <div class="card p-1">
             <form action="cat_add_edit.php" method="post">
                 <div class="form-group">
