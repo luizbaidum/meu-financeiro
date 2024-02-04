@@ -7,7 +7,7 @@
 
         if ($_POST["tipo"] != "R" && $_POST["tipo"] != "D"): ?>
             <div class="m-2 bg-light">
-                <p class="text-danger">Atenção: Definir tipo como R ou D.</p>
+                <p class="text-danger">Atenção: Definir tipo como R, D ou A.</p>
             </div>
         <?php else:
             $crud = new CRUD();
@@ -31,7 +31,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <label for="tipo">Tipo</label>
-                                <input type="text" class="form-control" id="tipo" placeholder="(R ou D)" name="tipo" required>
+                                <input type="text" class="form-control" id="tipo" placeholder="(R, D ou A)" name="tipo" required>
                             </div>
                         </div>
                     </div>

@@ -40,10 +40,10 @@
                                 <label for="tipo">Valor (EUA e apenas inteiro)</label>
                                 <input type="number" class="form-control" id="idValor" name="valor" required>
                             </div>
-                            <div class="col-6 mt-4">
+                           <!-- <div class="col-6 mt-4">
                                 <label for="tipo">No Cartão?</label>
                                 <input type="checkbox" id="idCartao" name="cartao" value="1">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

@@ -36,7 +36,7 @@
             </tbody>
             <tfoot>
                 <tr class="table-dark">
-                    <td colspan="3" style="text-align: right">Resultado (Receitas - Despesas)</td>
+                    <td colspan="3" style="text-align: right">Resultado (Rec. - Des. - Apli.)</td>
                     <td>$ <?= $resultado; ?></td>
                 </tr>
             </tfoot>
