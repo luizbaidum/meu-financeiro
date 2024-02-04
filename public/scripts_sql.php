@@ -27,7 +27,7 @@ class CRUD {
                 break;
             case "SELECT":
             case "SHOW":
-                $retornar_select = $stmt->fetchAll(\PDO::FETCH_OBJ);
+                $retornar_select = $stmt->fetchAll();
                 $result = $retornar_select;
                 break;
         }
@@ -93,24 +93,41 @@ class CRUD {
        return $this->executarQuery($query, $arr_values);
     }
 
-    public function select(string $action, array $get)
+    //selectAll(action: "movimento", where_conditions: [['valor', '>', '15000']], order_conditions: ['dataMovimento' => 'DESC']);
+    public function selectAll($action, array $where_conditions, array $order_conditions)
     {
-        $arr_values = array();
         $table = TableNames::getTableName($action);
 
-        foreach ($get as $k => $v) {
-            $campo = $k;
-            $valor = $v;
+        $where = "";
+        $order = "";
+
+        if (!empty($where_conditions)) {
+            $where = "WHERE ";
+            foreach ($where_conditions as $part)
+                $where .= "$part[0] $part[1] $part[2]";
+                //column, condition, value
+                //coluna > 1
         }
 
-        $query = "SELECT * FROM $table WHERE $campo = ?";
-        $arr_values[] = $valor;
+        if (!empty($order_conditions)) {
+            $order = "ORDER BY ";
+            foreach ($order_conditions as $column => $cond)
+                $order .= "$column $cond";
+        }
 
-        return $this->executarQuery($query, $arr_values);
+        $query = "SELECT $table.* FROM $table $where $order";
+
+        return $this->executarQuery($query);
     }
 
-    public function selectAll()
+    public function indexTable()
     {
-        
+        $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo
+                    FROM movimentos 
+                    INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
+                    WHERE 0 = 0 
+                    ORDER BY dataMovimento DESC";
+
+        return $this->executarQuery($query);
     }
 }

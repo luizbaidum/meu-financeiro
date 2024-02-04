@@ -11,7 +11,7 @@
             </div>
         <?php else:
             $crud = new CRUD();
-            $crud->insert("add_categoria", $_POST);
+            $crud->insert("categoria", $_POST);
         endif;
     }
 ?>
