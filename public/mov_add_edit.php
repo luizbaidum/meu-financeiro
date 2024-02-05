@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="idCategoria">Categoria</label>
-                            <select class="form-control" id="idCategoria" name="idCategoria" required>
+                            <select class="form-select" id="idCategoria" name="idCategoria" required>
                                 <option value="">Selecione</option>
                                 <?php 
                                     $categorias = $crud->selectAll("categoria", [], []);

@@ -120,12 +120,16 @@ class CRUD {
         return $this->executarQuery($query);
     }
 
-    public function indexTable()
+    public function indexTable($month = "")
     {
+        $where = "";
+        if (!empty($month))
+            $where = " AND (MONTH(dataMovimento) = '$month')";
+
         $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
                     INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
-                    WHERE 0 = 0 
+                    WHERE 0 = 0 $where
                     ORDER BY dataMovimento DESC";
 
         return $this->executarQuery($query);
