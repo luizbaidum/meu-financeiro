@@ -3,12 +3,35 @@
     require_once ("header.php"); 
 
     $crud = new CRUD();
-    $movimentos = $crud->indexTable();
+
+    if (isset($_POST["mes"]) && !empty($_POST["mes"]))
+        $movimentos = $crud->indexTable($_POST["mes"]);
+    else
+        $movimentos = $crud->indexTable();
 
     $resultado = 0;
+    $mes_selecionado = $_POST["mes"] ?? "0";
+
+    $months = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 ?>
      
     <main class="container">
+        <form action="index.php" method="post">
+            <div class="form-group m-2">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="idMes">Mês</label>
+                        <select class="form-select" id="idMes" name="idMes">
+                            <option value="0">Todos</option>
+                            <?php foreach ($months as $k => $v): ?>
+                                <option value="<?= ($k + 1); ?>"<?= (($k + 1) == $mes_selecionado ? "selected" : ""); ?>><?= $v; ?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <table class="table">
             <theader>
                 <tr>
@@ -27,7 +50,7 @@
                             $resultado -= $mov["valor"];
                     ?>
                     <tr>
-                        <td><?= $mov["dataMovimento"]; ?></td>
+                        <td class="data-movimento"><?= $mov["dataMovimento"]; ?></td>
                         <td><?= $mov["nomeMovimento"]; ?></td>
                         <td><?= $mov["categoria"]; ?></td>
                         <td>$ <?= ($mov["tipo"] == "R" ? "+ " : "- ") . $mov["valor"]; ?></td>
@@ -43,4 +66,7 @@
         </table>
     </main>
 </body>
+
+<script id="scripts" src="js/geral.js"></script>
+
 </html>
