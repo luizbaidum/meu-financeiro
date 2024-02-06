@@ -5,7 +5,7 @@
 
         $_POST["tipo"] = strtoupper($_POST["tipo"]);
 
-        if ($_POST["tipo"] != "R" && $_POST["tipo"] != "D"): ?>
+        if ($_POST["tipo"] != "R" && $_POST["tipo"] != "D" && $_POST["tipo"] != "A"): ?>
             <div class="m-2 bg-light">
                 <p class="text-danger">Atenção: Definir tipo como R, D ou A.</p>
             </div>
