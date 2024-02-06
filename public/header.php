@@ -1,8 +1,9 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <title>Title</title>
+    <title>Financas</title>
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap.css.map">
