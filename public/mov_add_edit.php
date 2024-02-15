@@ -51,5 +51,5 @@
             </form>
         </div>
     </main>
-</body>
-</html>
+
+<?php include_once ("bottom.php"); ?>

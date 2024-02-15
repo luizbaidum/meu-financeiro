@@ -65,8 +65,5 @@
             </tfoot>
         </table>
     </main>
-</body>
 
-<script id="scripts" src="js/geral.js"></script>
-
-</html>
+<?php include_once ("bottom.php"); ?>
