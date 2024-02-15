@@ -1,3 +1,11 @@
+<?php
+    if (empty($_SESSION) || !isset($_SESSION))
+        session_start();
+
+    if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true)
+        header ("location: login.php");
+?>
+
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">

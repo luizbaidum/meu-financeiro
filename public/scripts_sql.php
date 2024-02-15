@@ -134,4 +134,20 @@ class CRUD {
 
         return $this->executarQuery($query);
     }
+
+    public function fazerLogin($dados)
+    {
+        $arr_values = array();
+
+        $query = "SELECT idUsuario FROM usuarios WHERE usuarios.login = ? AND usuarios.senha = ?";
+        $arr_values[] = $dados["login"];
+        $arr_values[] = $dados["senha"];
+
+        $result = $this->executarQuery($query, $arr_values);
+
+        if (count($result) == 1 && isset($result[0]["idUsuario"]) && !empty($result[0]["idUsuario"]))
+            return true;
+
+        return false;
+    }
 }
