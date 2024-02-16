@@ -20,8 +20,8 @@
             <div class="form-group m-2">
                 <div class="row">
                     <div class="col-6">
-                        <label for="idMes">Month</label>
-                        <select class="form-select" id="idMes" name="idMes">
+                        <label for="idMesIndex">Month</label>
+                        <select class="form-select" id="idMesIndex" name="idMesIndex">
                             <option value="0">Todos</option>
                             <?php foreach ($months as $k => $v): ?>
                                 <option value="<?= ($k + 1); ?>"<?= (($k + 1) == $mes_selecionado ? "selected" : ""); ?>><?= $v; ?></option>

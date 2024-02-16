@@ -1,10 +1,18 @@
-document.getElementById("idMes").addEventListener("change", () => {
+var elemento_select = "";
+var url_action = document.forms[0].baseURI;
+
+if (document.getElementById("idMesIndex"))
+    elemento_select = document.getElementById("idMesIndex");
+else if (document.getElementById("idMesIndicadores"))
+    elemento_select = document.getElementById("idMesIndicadores");
+
+elemento_select.addEventListener("change", () => {
     let post_data = new FormData();
-    post_data.append("mes", document.getElementById("idMes").value)
+    post_data.append("mes", elemento_select.value)
 
     var req = new XMLHttpRequest();
 
-    req.open("POST", "index.php", true);
+    req.open("POST", url_action, true);
     req.send(post_data);
     req.onreadystatechange = function () {
         if (req.readyState != 4) 

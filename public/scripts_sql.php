@@ -93,12 +93,13 @@ class CRUD {
        return $this->executarQuery($query, $arr_values);
     }
 
-    //selectAll(action: "movimento", where_conditions: [['valor', '>', '15000']], order_conditions: ['dataMovimento' => 'DESC']);
-    public function selectAll($action, array $where_conditions, array $order_conditions)
+    //selectAll(action: "movimento", where_conditions: [['valor', '>', '15000']], group_conditions: ['tabela', 'coluna', 'tabela2', 'coluna2'], order_conditions: ['dataMovimento' => 'DESC']);
+    public function selectAll($action, array $where_conditions, array $group_conditions, array $order_conditions)
     {
         $table = TableNames::getTableName($action);
 
         $where = "";
+        $group = "";
         $order = "";
 
         if (!empty($where_conditions)) {
@@ -106,7 +107,18 @@ class CRUD {
             foreach ($where_conditions as $part)
                 $where .= "$part[0] $part[1] $part[2]";
                 //column, condition, value
-                //coluna > 1
+                //Ex.: coluna > 1
+        }
+
+        if (!empty($group_conditions)) {
+            $group = "GROUP BY ";
+
+            $total = count($group_conditions);
+
+            for ($i = 0; $i < $total; $i += 2)
+                $group .= $group_conditions[$i] . "." . $group_conditions[$i + 1] . ", ";                
+
+            $group = rtrim($group, ", ");
         }
 
         if (!empty($order_conditions)) {
@@ -115,7 +127,7 @@ class CRUD {
                 $order .= "$column $cond";
         }
 
-        $query = "SELECT $table.* FROM $table $where $order";
+        $query = "SELECT $table.* FROM $table $where $group $order";
 
         return $this->executarQuery($query);
     }
@@ -124,7 +136,7 @@ class CRUD {
     {
         $where = "";
         if (!empty($month))
-            $where = " AND (MONTH(dataMovimento) = '$month')";
+            $where = " AND (MONTH(movimentos.dataMovimento) = '$month')";
 
         $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
@@ -149,5 +161,20 @@ class CRUD {
             return true;
 
         return false;
+    }
+
+    public function indicadores($month = "")
+    {
+        $where = "";
+        if (!empty($month))
+            $where = " AND (MONTH(movimentos.dataMovimento) = '$month')";
+
+        $query = "SELECT SUM(movimentos.valor) AS total, categoria_movimentos.categoria
+                    FROM movimentos 
+                    INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
+                    WHERE 0 = 0 $where
+                    GROUP BY movimentos.idCategoria";
+
+        return $this->executarQuery($query);
     }
 }
