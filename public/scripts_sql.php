@@ -169,11 +169,12 @@ class CRUD {
         if (!empty($month))
             $where = " AND (MONTH(movimentos.dataMovimento) = '$month')";
 
-        $query = "SELECT SUM(movimentos.valor) AS total, categoria_movimentos.categoria
+        $query = "SELECT SUM(movimentos.valor) AS total, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
                     INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
                     WHERE 0 = 0 $where
-                    GROUP BY movimentos.idCategoria";
+                    GROUP BY movimentos.idCategoria
+                    ORDER BY total DESC";
 
         return $this->executarQuery($query);
     }

@@ -12,6 +12,18 @@
     $mes_selecionado = $_POST["mes"] ?? "0";
 
     $months = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+	$receitas = 0;
+	$aplicado = 0;
+	foreach ($indicadores as $value) {
+		if ($value["tipo"] == "R" && $value["categoria"] != "Devolução de Aplicação")
+			$receitas += $value["total"];
+		
+		if ($value["categoria"] == "Aplicação")
+			$aplicado += $value["total"];
+		elseif ($value["categoria"] == "Devolução de Aplicação")
+			$aplicado -= $value["total"];
+	}	
 ?>
 
 <main class="container">
@@ -31,11 +43,28 @@
 		</div>
 	</form>
 	<div class="card p-1">
-		<pre>
-			<?php 
-			    print_r($indicadores); 
-			?>
-		</pre>
+		<div class="row card-body">
+			<div class="col-12">
+				Total Receitas: <?= $receitas; ?>
+			</div>
+			<div class="col-12">
+				Total Aplicado: <?= $aplicado; ?>
+			</div>
+		</div>
+		<div class="row">
+			<?php foreach ($indicadores as $value): ?>
+				<div class="col-6">
+					<div class="card">
+						<div class="card-header">
+							<?= $value["categoria"]; ?>
+						</div>
+						<div class="card-body">
+							<?= ($value["tipo"] == "R" ? "+ " : "- ") . $value["total"]; ?>
+						</div>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
 	</div>
 </main>
 
