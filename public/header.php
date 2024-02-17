@@ -27,7 +27,7 @@
     <header class="container mb-2">
         <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
             <a class="navbar-brand" href="index.php">Home</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -37,6 +37,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="mov_add_edit.php">Movimentos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="indicadores.php">Indicadores</a>
                     </li>
                 </ul>
             </div>
