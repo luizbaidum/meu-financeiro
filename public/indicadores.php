@@ -19,9 +19,9 @@
 		if ($value["tipo"] == "R" && $value["categoria"] != "Devolução de Aplicação")
 			$receitas += $value["total"];
 		
-		if ($value["categoria"] == "Aplicação")
+		if ($value["idCategoria"] == 12) //"Aplicação"
 			$aplicado += $value["total"];
-		elseif ($value["categoria"] == "Devolução de Aplicação")
+		elseif ($value["idCategoria"] == 10) //"Devolução de Aplicação"
 			$aplicado -= $value["total"];
 	}	
 ?>
