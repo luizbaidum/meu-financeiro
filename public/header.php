@@ -41,6 +41,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="indicadores.php">Indicadores</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orcamento.php">Orçamento</a>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -5,6 +5,8 @@ if (document.getElementById("idMesIndex"))
     elemento_select = document.getElementById("idMesIndex");
 else if (document.getElementById("idMesIndicadores"))
     elemento_select = document.getElementById("idMesIndicadores");
+else if (document.getElementById("idMesOrcamentos"))
+    elemento_select = document.getElementById("idMesOrcamentos");
 
 elemento_select.addEventListener("change", () => {
     let post_data = new FormData();

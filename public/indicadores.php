@@ -53,7 +53,7 @@
 		</div>
 		<div class="row">
 			<?php foreach ($indicadores as $value): ?>
-				<div class="col-6">
+				<div class="col-6 mb-2">
 					<div class="card">
 						<div class="card-header">
 							<?= $value["categoria"]; ?>

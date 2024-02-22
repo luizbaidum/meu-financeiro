@@ -178,4 +178,24 @@ class CRUD {
 
         return $this->executarQuery($query);
     }
+
+    public function orcamentos($month = "")
+    {
+        $where = "";
+        if (!empty($month))
+            $where = " AND (MONTH(orcamentos.dataOrcamento) = '$month')";
+
+        $query = "SELECT SUM(orcamentos.valor) AS totalOrcado, 
+                            categoria_movimentos.idCategoria, 
+                            categoria_movimentos.categoria, 
+                            categoria_movimentos.tipo, 
+                            MONTH(orcamentos.dataOrcamento) AS mesOrcado
+                    FROM orcamentos 
+                    INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = orcamentos.idCategoria
+                    WHERE 0 = 0 $where
+                    GROUP BY orcamentos.idCategoria
+                    ORDER BY totalOrcado DESC";
+
+        return $this->executarQuery($query);
+    }
 }
