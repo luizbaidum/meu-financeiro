@@ -16,7 +16,7 @@
 	$receitas = 0;
 	$aplicado = 0;
 	foreach ($indicadores as $value) {
-		if ($value["tipo"] == "R" && $value["categoria"] != "Devolução de Aplicação")
+		if ($value["tipo"] == "R" && $value["idCategoria"] != 10) //"Devolução de Aplicação"
 			$receitas += $value["total"];
 		
 		if ($value["idCategoria"] == 12) //"Aplicação"
