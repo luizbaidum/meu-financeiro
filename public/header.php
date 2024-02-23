@@ -1,6 +1,6 @@
 <?php
     header('Content-type: text/html; charset=utf-8');    
-    setlocale(LC_ALL, NULL); //limpa com defaults
+    setlocale(LC_ALL, NULL);
     setlocale(LC_ALL, 'pt_BR.utf-8');
 
     if (empty($_SESSION) || !isset($_SESSION))
