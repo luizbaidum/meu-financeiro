@@ -22,6 +22,7 @@ class TablesList {
     public $arr_tables = [
         "categoria" => "categoria_movimentos",
         "movimento" => "movimentos",
-        "orcamento" => "orcamentos"
+        "orcamento" => "orcamentos",
+        "lembrete"  => "lembretes"
     ];
 }

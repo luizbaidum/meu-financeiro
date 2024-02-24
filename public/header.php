@@ -3,11 +3,15 @@
     setlocale(LC_ALL, NULL);
     setlocale(LC_ALL, 'pt_BR.utf-8');
 
+    require_once "scripts_sql.php";
+
     if (empty($_SESSION) || !isset($_SESSION))
         session_start();
 
     if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true)
         header ("location: login.php");
+
+    $lembretes = (new CRUD())->selectAll("lembrete", [], [], []);
 ?>
 
 <html lang="pt-br">
@@ -37,10 +41,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="cat_add_edit.php">Categorias</a>
+                        <a class="nav-link" href="categorias.php">Categorias</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="mov_add_edit.php">Movimentos</a>
+                        <a class="nav-link" href="movimentos.php">Movimentos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="indicadores.php">Indicadores</a>
@@ -48,7 +52,26 @@
                     <li class="nav-item">
                         <a class="nav-link" href="orcamento.php">Orçamento</a>
                     </li>
+                    <li class="nav-item">
+                        <button class="btn btn-light btn-sm nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLembretes" aria-expanded="false" aria-controls="collapseLembretes">Lembretes</button>
+                    </li>
                 </ul>
             </div>
         </nav>
+
+        <div class="m-2">
+            <div class="collapse" id="collapseLembretes">
+                <div class="card card-body">
+                    <div>
+                        <a class="btn btn-primary btn-sm" href="lembretes.php">Cadastrar</a>
+                    </div>
+                    <div>
+                        <?php foreach ($lembretes as $value): ?>
+                            <hr>
+                            <?= $value["lembrete"]; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
