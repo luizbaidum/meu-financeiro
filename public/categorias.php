@@ -19,7 +19,7 @@
 <?php require_once ("header.php"); ?>
     <main class="container">
         <div class="card p-1">
-            <form action="cat_add_edit.php" method="post">
+            <form action="categorias.php" method="post">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-12 col-sm-6">
