@@ -1,13 +1,13 @@
 
 <?php
-    require_once "scripts_sql.php";
+    require_once ("header.php");
+
     $crud = new CRUD();
 
     if (!empty($_POST))
         $crud->insert("movimento", $_POST);
 ?>
 
-<?php require_once ("header.php"); ?>
     <main class="container">
         <div class="card p-1">
             <form action="movimentos.php" method="post">

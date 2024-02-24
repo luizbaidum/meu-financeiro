@@ -3,11 +3,15 @@
     setlocale(LC_ALL, NULL);
     setlocale(LC_ALL, 'pt_BR.utf-8');
 
+    require_once "scripts_sql.php";
+
     if (empty($_SESSION) || !isset($_SESSION))
         session_start();
 
     if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true)
         header ("location: login.php");
+
+    $lembretes = (new CRUD())->selectAll("lembrete", [], [], []);
 ?>
 
 <html lang="pt-br">
@@ -59,11 +63,13 @@
             <div class="collapse" id="collapseLembretes">
                 <div class="card card-body">
                     <div>
-                        <a class="btn btn-primary btn-sm" href="orcamento.php">Cadastrar</a>
+                        <a class="btn btn-primary btn-sm" href="lembretes.php">Cadastrar</a>
                     </div>
-                    <hr>
                     <div>
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                        <?php foreach ($lembretes as $value): ?>
+                            <hr>
+                            <?= $value["lembrete"]; ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
