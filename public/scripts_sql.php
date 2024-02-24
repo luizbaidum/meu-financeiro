@@ -129,14 +129,7 @@ class CRUD {
 
         $query = "SELECT $table.* FROM $table $where $group $order";
 
-        $result = $this->executarQuery($query);
-
-        foreach ($result as $k_1 => $value_1) {
-            foreach ($value_1 as $k_2 => $value_2)
-                $array[$k_1][$k_2] = mb_convert_encoding($value_1[$k_2], 'UTF-8');
-        }
-
-        return $array ?? [];
+        return $this->executarQuery($query);
     }
 
     public function indexTable($month = "")
@@ -151,14 +144,7 @@ class CRUD {
                     WHERE 0 = 0 $where
                     ORDER BY dataMovimento DESC";
 
-        $result = $this->executarQuery($query);
-
-        foreach ($result as $k_1 => $value_1) {
-            foreach ($value_1 as $k_2 => $value_2)
-                $array[$k_1][$k_2] = mb_convert_encoding($value_1[$k_2], 'UTF-8');
-        }
-
-        return $array ?? [];
+        return $this->executarQuery($query);
     }
 
     public function fazerLogin($dados)
@@ -190,14 +176,7 @@ class CRUD {
                     GROUP BY movimentos.idCategoria
                     ORDER BY total DESC";
 
-        $result = $this->executarQuery($query);
-
-        foreach ($result as $k_1 => $value_1) {
-            foreach ($value_1 as $k_2 => $value_2)
-                $array[$k_1][$k_2] = mb_convert_encoding($value_1[$k_2], 'UTF-8');
-        }
-
-        return $array ?? [];
+        return $this->executarQuery($query);
     }
 
     public function orcamentos($month = "")
@@ -217,13 +196,6 @@ class CRUD {
                     GROUP BY orcamentos.idCategoria
                     ORDER BY totalOrcado DESC";
 
-        $result = $this->executarQuery($query);
-
-        foreach ($result as $k_1 => $value_1) {
-            foreach ($value_1 as $k_2 => $value_2)
-                $array[$k_1][$k_2] = mb_convert_encoding($value_1[$k_2], 'UTF-8');
-        }
-
-        return $array ?? [];
+        return $this->executarQuery($query);
     }
 }
