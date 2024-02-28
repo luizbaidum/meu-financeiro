@@ -53,6 +53,9 @@
                         <a class="nav-link" href="orcamento.php">Orçamento</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="contas_investimentos.php">Contas Invest</a>
+                    </li>
+                    <li class="nav-item">
                         <button class="btn btn-light btn-sm nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLembretes" aria-expanded="false" aria-controls="collapseLembretes">Lembretes</button>
                     </li>
                 </ul>

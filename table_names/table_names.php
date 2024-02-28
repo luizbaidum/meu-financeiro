@@ -20,9 +20,11 @@ class TablesList {
     public $table_names = array();
 
     public $arr_tables = [
-        "categoria" => "categoria_movimentos",
-        "movimento" => "movimentos",
-        "orcamento" => "orcamentos",
-        "lembrete"  => "lembretes"
+        "categoria"          => "categoria_movimentos",
+        "movimento"          => "movimentos",
+        "orcamento"          => "orcamentos",
+        "lembrete"           => "lembretes",
+        "conta_investimento" => "contas_investimentos",
+        "rendimento"         => "rendimentos"
     ];
 }
