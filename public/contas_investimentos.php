@@ -8,6 +8,10 @@
         $_POST["saldoAtual"] = $_POST["saldoInicial"];
         $crud->insert("conta_investimento", $_POST);
     }
+
+    $contas = $crud->selectAll("conta_investimento", [], [], []);
+
+    $total = 0;
 ?>
 
     <main class="container">
@@ -43,7 +47,35 @@
 
         <div class="card mt-1">
             <div class="card-body">
-                teste
+                <table class="table">
+                    <theader>
+                        <tr>
+                            <th>Banco</th>
+                            <th>Título</th>
+                            <th>Saldo inicial</th>
+                            <th>Saldo atual</th>
+                        </tr>
+                    </theader>
+                    <tbody>
+                        <?php 
+                            foreach ($contas as $value): 
+                                $total += $value["saldoAtual"];
+                        ?>
+                            <tr>
+                                <td><?= $value["nomeBanco"]; ?></td>
+                                <td><?= $value["tituloInvest"]; ?></td>
+                                <td>$ <?= $value["saldoInicial"]; ?></td>
+                                <td>$ <?= $value["saldoAtual"]; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-dark">
+                            <td colspan="3" style="text-align: right">Total</td>
+                            <td>$ <?= $total; ?>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </main>
