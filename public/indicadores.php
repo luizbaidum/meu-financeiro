@@ -3,14 +3,10 @@
 
     $crud = new CRUD();
 
-    if (isset($_POST["mes"]) && !empty($_POST["mes"]))
-        $indicadores = $crud->indicadores($_POST["mes"]);
+    if (isset($_POST["mesFiltro"]) && !empty($_POST["mesFiltro"]))
+        $indicadores = $crud->indicadores($_POST["mesFiltro"]);
     else
         $indicadores = $crud->indicadores();
-
-    $mes_selecionado = $_POST["mes"] ?? "0";
-
-    $months = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 
 	$receitas = 0;
 	$aplicado = 0;
@@ -27,19 +23,7 @@
 
 <main class="container">
 	<form action="indicadores.php" method="post">
-		<div class="form-group m-2">
-			<div class="row">
-				<div class="col-6">
-					<label for="idMesIndicadores">Month</label>
-					<select class="form-select" id="idMesIndicadores" name="idMesIndicadores">
-						<option value="0">Todos</option>
-							<?php foreach ($months as $k => $v): ?>
-								<option value="<?= ($k + 1); ?>"<?= (($k + 1) == $mes_selecionado ? "selected" : ""); ?>><?= $v; ?></option>
-							<?php endforeach;?>
-					</select>
-				</div>
-			</div>
-		</div>
+		<?php require_once "select_month.php"; ?>
 	</form>
 	<div class="card p-1">
 		<div class="row card-body">

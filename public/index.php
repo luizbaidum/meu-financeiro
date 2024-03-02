@@ -3,32 +3,17 @@
 
     $crud = new CRUD();
 
-    if (isset($_POST["mes"]) && !empty($_POST["mes"]))
-        $movimentos = $crud->indexTable($_POST["mes"]);
+    if (isset($_POST["mesFiltro"]) && !empty($_POST["mesFiltro"]))
+        $movimentos = $crud->indexTable($_POST["mesFiltro"]);
     else
         $movimentos = $crud->indexTable();
 
     $resultado = 0;
-    $mes_selecionado = $_POST["mes"] ?? "0";
-
-    $months = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 ?>
      
     <main class="container">
         <form action="index.php" method="post">
-            <div class="form-group m-2">
-                <div class="row">
-                    <div class="col-6">
-                        <label for="idMesIndex">Month</label>
-                        <select class="form-select" id="idMesIndex" name="idMesIndex">
-                            <option value="0">Todos</option>
-                            <?php foreach ($months as $k => $v): ?>
-                                <option value="<?= ($k + 1); ?>"<?= (($k + 1) == $mes_selecionado ? "selected" : ""); ?>><?= $v; ?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-                </div>
-            </div>
+            <?php require_once "select_month.php"; ?>
         </form>
 
         <table class="table">

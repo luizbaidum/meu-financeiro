@@ -6,29 +6,14 @@
     if (!empty($_POST) && isset($_POST["dataOrcamento"]))
         $crud->insert("orcamento", $_POST);
 
-    $mes_selecionado = $_POST["mes"] ?? "0";
     $total_orcado = 0;
 
-    $orcamentos = $crud->orcamentos($mes_selecionado);
-
-    $months = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    $orcamentos = $crud->orcamentos($_POST["mesFiltro"] ?? "");
 ?>
 
 <main class="container">
 	<form action="orcamento.php" method="post">
-		<div class="form-group m-2">
-			<div class="row">
-				<div class="col-6">
-					<label for="idMesOrcamentos">Month</label>
-					<select class="form-select" id="idMesOrcamentos" name="idMesOrcamentos">
-                        <option value="0">Todos</option>
-                        <?php foreach ($months as $k => $v): ?>
-                            <option value="<?= ($k + 1); ?>"<?= (($k + 1) == $mes_selecionado ? "selected" : ""); ?>><?= $v; ?></option>
-                        <?php endforeach;?>
-					</select>
-				</div>
-			</div>
-		</div>
+        <?php require_once "select_month.php"; ?>
 	</form>
 	<div class="card p-1">
         <div class="card">
