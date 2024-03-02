@@ -124,7 +124,9 @@ class CRUD {
         if (!empty($order_conditions)) {
             $order = "ORDER BY ";
             foreach ($order_conditions as $column => $cond)
-                $order .= "$column $cond";
+                $order .= "$column $cond,";
+
+            $order = rtrim($order, ",");
         }
 
         $query = "SELECT $table.* FROM $table $where $group $order";
