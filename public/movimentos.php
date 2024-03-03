@@ -5,11 +5,15 @@
     $crud = new CRUD();
 
     if (!empty($_POST)) {
+
+        $id_conta_invest = $_POST["idContaInvest"] ?? "";
+        unset($_POST["idContaInvest"]);
+
         $crud->insert("movimento", $_POST);
 
-        if (!empty($_POST["idContaInvest"])) {
+        if (!empty($id_conta_invest)) {
             $dados = [
-                "idContaInvest"   => $_POST["idContaInvest"],
+                "idContaInvest"   => $id_conta_invest,
                 "valorRendimento" => $_POST["valor"],
                 "dataRendimento"  => $_POST["dataMovimento"]
             ];
