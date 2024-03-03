@@ -4,8 +4,39 @@
 
     $crud = new CRUD();
 
-    if (!empty($_POST))
+    if (!empty($_POST)) {
+
+        $id_conta_invest = $_POST["idContaInvest"] ?? "";
+        unset($_POST["idContaInvest"]);
+
         $crud->insert("movimento", $_POST);
+
+        if (!empty($id_conta_invest)) {
+            $dados = [
+                "idContaInvest"   => $id_conta_invest,
+                "valorRendimento" => $_POST["valor"],
+                "dataRendimento"  => $_POST["dataMovimento"]
+            ];
+
+            switch ($_POST["idCategoria"]) {
+                case "12": //aplicação
+                    $tipo = 4;
+                    break;
+                case "15": //rendimento
+                    $tipo = 2;
+                    break;
+                case "10": //devolução
+                    $tipo = 3;
+                    break;
+                default:
+                    $tipo = "";
+            }
+
+            $dados["tipo"] = $tipo;
+
+            $crud->insert("rendimento", $dados);
+        } 
+    }
 ?>
 
     <main class="container">
@@ -26,7 +57,7 @@
                             <select class="form-select" id="idCategoria" name="idCategoria" required>
                                 <option value="">Selecione</option>
                                 <?php 
-                                    $categorias = $crud->selectAll("categoria", [], [], ["categoria" => "ASC"]);
+                                    $categorias = $crud->selectAll("categoria", [], [], ["tipo" => "ASC", "categoria" => "ASC"]);
                                     foreach ($categorias as $cat):
                                 ?>
                                     <option value="<?= $cat["idCategoria"]; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
@@ -39,6 +70,18 @@
                             <div class="col-6">
                                 <label for="tipo">Valor (EUA e apenas inteiro)</label>
                                 <input type="number" class="form-control" id="idValor" name="valor" required>
+                            </div>
+                            <div class="col-3">
+                                <label for="idContaInvest">Conta Invest (se houver)</label>
+                                <select class="form-select" id="idContaInvest" name="idContaInvest">
+                                    <option value="">Selecione</option>
+                                <?php 
+                                    $invests = $crud->selectAll("conta_investimento", [], [], ["nomeBanco" => "ASC"]);
+                                    foreach ($invests as $value):
+                                ?>
+                                    <option value="<?= $value["idContaInvest"]; ?>"><?= $value["nomeBanco"] . " - " . $value["tituloInvest"]; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                             </div>
                            <!-- <div class="col-6 mt-4">
                                 <label for="tipo">No Cartão?</label>

@@ -1,16 +1,12 @@
 var elemento_select = "";
 var url_action = document.forms[0].baseURI;
 
-if (document.getElementById("idMesIndex"))
-    elemento_select = document.getElementById("idMesIndex");
-else if (document.getElementById("idMesIndicadores"))
-    elemento_select = document.getElementById("idMesIndicadores");
-else if (document.getElementById("idMesOrcamentos"))
-    elemento_select = document.getElementById("idMesOrcamentos");
+if (document.getElementById("idMesFiltro"))
+    elemento_select = document.getElementById("idMesFiltro");
 
 elemento_select.addEventListener("change", () => {
     let post_data = new FormData();
-    post_data.append("mes", elemento_select.value)
+    post_data.append("mesFiltro", elemento_select.value)
 
     var req = new XMLHttpRequest();
 
