@@ -5,6 +5,13 @@
     $crud = new CRUD();
 
     if (!empty($_POST)) {
+        $arr_cat = explode(" - sinal: " , $_POST["idCategoria"]);
+        $_POST["idCategoria"] = $arr_cat[0];
+        $sinal = $arr_cat[1];
+
+        $valor_sem_sinal = $_POST["valor"];
+
+        $_POST["valor"] = $sinal . $_POST["valor"];
 
         $id_conta_invest = $_POST["idContaInvest"] ?? "";
         unset($_POST["idContaInvest"]);
@@ -14,7 +21,7 @@
         if (!empty($id_conta_invest)) {
             $dados = [
                 "idContaInvest"   => $id_conta_invest,
-                "valorRendimento" => $_POST["valor"],
+                "valorRendimento" => $valor_sem_sinal,
                 "dataRendimento"  => $_POST["dataMovimento"]
             ];
 
@@ -60,7 +67,7 @@
                                     $categorias = $crud->selectAll("categoria", [], [], ["tipo" => "ASC", "categoria" => "ASC"]);
                                     foreach ($categorias as $cat):
                                 ?>
-                                    <option value="<?= $cat["idCategoria"]; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
+                                    <option value="<?= $cat["idCategoria"] . " - sinal: " . $cat["sinal"]; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

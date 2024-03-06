@@ -14,10 +14,8 @@
 		if ($value["tipo"] == "R" && $value["idCategoria"] != 10) //"Devolução de Aplicação"
 			$receitas += $value["total"];
 		
-		if ($value["idCategoria"] == 12) //"Aplicação"
+		if ($value["idCategoria"] == 12 || $value["idCategoria"] == 10) //"Aplicação" //"Devolução de Aplicação"
 			$aplicado += $value["total"];
-		elseif ($value["idCategoria"] == 10) //"Devolução de Aplicação"
-			$aplicado -= $value["total"];
 	}	
 ?>
 
@@ -42,7 +40,7 @@
 							<?= $value["categoria"]; ?>
 						</div>
 						<div class="card-body">
-							<?= ($value["tipo"] == "R" ? "+ " : "- ") . $value["total"]; ?>
+							<?= $value["total"]; ?>
 						</div>
 					</div>
 				</div>

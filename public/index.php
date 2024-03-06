@@ -26,18 +26,15 @@
                 </tr>
             </theader>
             <tbody>
-                <?php foreach ($movimentos as $mov): ?>
-                    <?php
-                        if ($mov["tipo"] == "R")
-                            $resultado += $mov["valor"];
-                        else 
-                            $resultado -= $mov["valor"];
-                    ?>
+                <?php 
+                    foreach ($movimentos as $mov): 
+                        $resultado += $mov["valor"];
+                ?>
                     <tr>
                         <td class="data-movimento"><?= $mov["dataMovimento"]; ?></td>
                         <td><?= $mov["nomeMovimento"]; ?></td>
                         <td><?= $mov["categoria"]; ?></td>
-                        <td>$ <?= ($mov["tipo"] == "R" ? "+ " : "- ") . $mov["valor"]; ?></td>
+                        <td>$ <?= $mov["valor"]; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

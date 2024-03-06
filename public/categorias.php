@@ -9,8 +9,12 @@
             <div class="m-2 bg-light">
                 <p class="text-danger">Atenção: Definir tipo como R, D ou A.</p>
             </div>
+        <?php elseif ($_POST["sinal"] != "+" && $_POST["sinal"] != "-"): ?>
+            <div class="m-2 bg-light">
+                <p class="text-danger">Atenção: Definir sinal como + ou -.</p>
+            </div>
         <?php else:
-            $crud = new CRUD();
+            $crud = new CRUD(); 
             $crud->insert("categoria", $_POST);
         endif;
     }
@@ -31,6 +35,10 @@
                             <div class="col-12 col-sm-6">
                                 <label for="tipo">Tipo</label>
                                 <input type="text" class="form-control" id="tipo" placeholder="(R, D ou A)" name="tipo" required>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <label for="tipo">Sinal</label>
+                                <input type="text" class="form-control" id="sinal" placeholder="(+ ou -)" name="sinal" required>
                             </div>
                         </div>
                     </div>
