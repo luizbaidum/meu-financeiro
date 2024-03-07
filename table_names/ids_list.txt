@@ -1,0 +1,31 @@
+2 - Contas Casa
+3 - Contas Tios
+4 - Gerais Mãe
+6 - Rolês/Supérfluos Luiz
+7 - Sal. Líquido Luiz
+8 - Pensões Mãe
+9 - Honestas Luiz
+10 - Devolução de Aplicação
+11 - Outras Receitas
+12 - Aplicação
+13 - Cartões
+14 - Animais
+15 - Rendimento aplic.
+
+atualiza_saldo rendimentos before insert.
+BEGIN
+SELECT contas_investimentos.saldoAtual INTO @atual FROM contas_investimentos WHERE contas_investimentos.idContaInvest = new.idContaInvest;
+UPDATE contas_investimentos SET saldoAtual = (@atual + new.valorRendimento) WHERE contas_investimentos.idContaInvest = new.idContaInvest;
+END
+
+-> feito              
+UPDATE movimentos 
+INNER JOIN categoria_movimentos ON movimentos.idCategoria = categoria_movimentos.idCategoria
+SET valor = (valor * -1)
+WHERE movimentos.idCategoria = categoria_movimentos.idCategoria AND (categoria_movimentos.tipo = 'A' OR categoria_movimentos.tipo = 'D');
+
+ALTER TABLE `categoria_movimentos` ADD `sinal` VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '+ ou -' AFTER `tipo`;
+
+UPDATE `categoria_movimentos` SET `sinal`= '-' WHERE categoria_movimentos.tipo = 'D' OR categoria_movimentos.tipo = 'A';
+UPDATE `categoria_movimentos` SET `sinal`= '+' WHERE categoria_movimentos.tipo = 'R';
+<-
