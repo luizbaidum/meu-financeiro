@@ -17,7 +17,8 @@ BEGIN
 SELECT contas_investimentos.saldoAtual INTO @atual FROM contas_investimentos WHERE contas_investimentos.idContaInvest = new.idContaInvest;
 UPDATE contas_investimentos SET saldoAtual = (@atual + new.valorRendimento) WHERE contas_investimentos.idContaInvest = new.idContaInvest;
 END
-              
+
+-> feito              
 UPDATE movimentos 
 INNER JOIN categoria_movimentos ON movimentos.idCategoria = categoria_movimentos.idCategoria
 SET valor = (valor * -1)
@@ -25,5 +26,6 @@ WHERE movimentos.idCategoria = categoria_movimentos.idCategoria AND (categoria_m
 
 ALTER TABLE `categoria_movimentos` ADD `sinal` VARCHAR(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '+ ou -' AFTER `tipo`;
 
-UPDATE `categoria_movimentos` SET `sinal`= '-' WHERE categoria_movimentos.tipo = 'D' OR  categoria_movimentos.tipo = 'A';
+UPDATE `categoria_movimentos` SET `sinal`= '-' WHERE categoria_movimentos.tipo = 'D' OR categoria_movimentos.tipo = 'A';
 UPDATE `categoria_movimentos` SET `sinal`= '+' WHERE categoria_movimentos.tipo = 'R';
+<-
