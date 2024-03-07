@@ -8,7 +8,7 @@
         <div class="col-6">
             <label for="idMesFiltro">Month</label>
             <select class="form-select" id="idMesFiltro" name="mesFiltro">
-                <option value="0">Todos</option>
+                <option value="">Atual</option>
                     <?php foreach ($months as $k => $v): ?>
                         <option value="<?= ($k + 1); ?>"<?= (($k + 1) == $mes_selecionado ? "selected" : ""); ?>><?= $v; ?></option>
                     <?php endforeach;?>
