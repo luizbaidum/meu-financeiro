@@ -5,44 +5,63 @@
     $crud = new CRUD();
 
     if (!empty($_POST)) {
+
         $arr_cat = explode(" - sinal: " , $_POST["idCategoria"]);
         $_POST["idCategoria"] = $arr_cat[0];
         $sinal = $arr_cat[1];
 
         $valor_sem_sinal = $_POST["valor"];
-
-        $_POST["valor"] = $sinal . $_POST["valor"];
-
         $id_conta_invest = $_POST["idContaInvest"] ?? "";
+
         unset($_POST["idContaInvest"]);
 
-        $crud->insert("movimento", $_POST);
+        //rendimento
+        if ($_POST["idCategoria"] == "15") {
 
-        if (!empty($id_conta_invest)) {
-            $dados = [
+            if (empty($id_conta_invest)): ?>
+                <div class="m-2 bg-light">
+                    <p class="text-danger">Atenção: Selecionar Conta Investimento.</p>
+                </div>
+        <?php endif;
+
+            $item = [
                 "idContaInvest"   => $id_conta_invest,
                 "valorRendimento" => $valor_sem_sinal,
-                "dataRendimento"  => $_POST["dataMovimento"]
+                "dataRendimento"  => $_POST["dataMovimento"],
+                "tipo"            => 2 //lucro
             ];
 
-            switch ($_POST["idCategoria"]) {
-                case "12": //aplicação
-                    $tipo = 4;
-                    break;
-                case "15": //rendimento
-                    $tipo = 2;
-                    break;
-                case "10": //devolução
-                    $tipo = 3;
-                    break;
-                default:
-                    $tipo = "";
+            $crud->insert("rendimento", $item);
+
+        } else {
+            //Inserção de Movimento
+            $_POST["valor"] = $sinal . $_POST["valor"];
+            $crud->insert("movimento", $_POST);
+
+            //Inserção de Rendimento (invest ou retirada)
+            if (!empty($id_conta_invest)) {
+                $item = [
+                    "idContaInvest"   => $id_conta_invest,
+                    "valorRendimento" => $valor_sem_sinal,
+                    "dataRendimento"  => $_POST["dataMovimento"]
+                ];
+    
+                switch ($_POST["idCategoria"]) {
+                    case "12": //aplicação
+                        $tipo = 4;
+                        break;
+                    case "10": //devolução
+                        $tipo = 3;
+                        break;
+                    default:
+                        $tipo = "";
+                }
+    
+                $item["tipo"] = $tipo;
+    
+                $crud->insert("rendimento", $item);
             }
-
-            $dados["tipo"] = $tipo;
-
-            $crud->insert("rendimento", $dados);
-        } 
+        }
     }
 ?>
 

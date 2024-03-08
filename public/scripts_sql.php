@@ -140,6 +140,9 @@ class CRUD {
         if (!empty($month))
             $where = " AND (MONTH(movimentos.dataMovimento) = '$month')";
 
+        if ($month == "13")
+            $where = "";
+
         $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
                     INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
@@ -171,6 +174,9 @@ class CRUD {
         if (!empty($month))
             $where = " AND (MONTH(movimentos.dataMovimento) = '$month')";
 
+        if ($month == "13")
+            $where = "";
+
         $query = "SELECT SUM(movimentos.valor) AS total, categoria_movimentos.idCategoria, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
                     INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
@@ -186,6 +192,9 @@ class CRUD {
         $where = " AND (MONTH(orcamentos.dataOrcamento) = MONTH(CURRENT_DATE()))";
         if (!empty($month))
             $where = " AND (MONTH(orcamentos.dataOrcamento) = '$month')";
+
+        if ($month == "13")
+            $where = "";
 
         $query = "SELECT SUM(orcamentos.valor) AS totalOrcado, 
                             categoria_movimentos.idCategoria, 
