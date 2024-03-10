@@ -10,57 +10,45 @@
         $_POST["idCategoria"] = $arr_cat[0];
         $sinal = $arr_cat[1];
 
-        $valor_sem_sinal = $_POST["valor"];
         $id_conta_invest = $_POST["idContaInvest"] ?? "";
 
         unset($_POST["idContaInvest"]);
 
-        //rendimento
-        if ($_POST["idCategoria"] == "15") {
+        //Inserção de Movimento
+        $_POST["valor"] = $sinal . $_POST["valor"];
+        $crud->insert("movimento", $_POST);
 
-            if (empty($id_conta_invest)): ?>
-                <div class="m-2 bg-light">
-                    <p class="text-danger">Atenção: Selecionar Conta Investimento.</p>
-                </div>
-        <?php endif;
-
+        //Inserção de Rendimento (invest ou retirada)
+        if (!empty($id_conta_invest)) {
             $item = [
                 "idContaInvest"   => $id_conta_invest,
-                "valorRendimento" => $valor_sem_sinal,
-                "dataRendimento"  => $_POST["dataMovimento"],
-                "tipo"            => 2 //lucro
+                "valorRendimento" => $_POST["valor"],
+                "dataRendimento"  => $_POST["dataMovimento"]
             ];
+
+            switch ($_POST["idCategoria"]) {
+                case "12": //aplicação
+                    $tipo = 4;
+                    break;
+                case "10": //devolução
+                    $tipo = 3;
+                    break;
+                default:
+                    $tipo = "";
+            }
+
+            $item["tipo"] = $tipo;
 
             $crud->insert("rendimento", $item);
 
-        } else {
-            //Inserção de Movimento
-            $_POST["valor"] = $sinal . $_POST["valor"];
-            $crud->insert("movimento", $_POST);
-
-            //Inserção de Rendimento (invest ou retirada)
-            if (!empty($id_conta_invest)) {
-                $item = [
-                    "idContaInvest"   => $id_conta_invest,
-                    "valorRendimento" => $valor_sem_sinal,
-                    "dataRendimento"  => $_POST["dataMovimento"]
-                ];
-    
-                switch ($_POST["idCategoria"]) {
-                    case "12": //aplicação
-                        $tipo = 4;
-                        break;
-                    case "10": //devolução
-                        $tipo = 3;
-                        break;
-                    default:
-                        $tipo = "";
-                }
-    
-                $item["tipo"] = $tipo;
-    
-                $crud->insert("rendimento", $item);
-            }
+            $saldo_atual = $crud->getSaldoAtual($id_conta_invest);
+            $item = [
+                "saldoAtual" => ($saldo_atual + $_POST["valor"])
+            ];
+            $item_where = [
+                "idContaInvest" => $id_conta_invest
+            ];
+            $crud->update("conta_investimento", $item, $item_where);
         }
     }
 ?>
