@@ -20,30 +20,31 @@
 
         //Inserção de Rendimento (invest ou retirada)
         if (!empty($id_conta_invest)) {
-            $item = [
-                "idContaInvest"   => $id_conta_invest,
-                "valorRendimento" => $_POST["valor"],
-                "dataRendimento"  => $_POST["dataMovimento"]
-            ];
-
             switch ($_POST["idCategoria"]) {
                 case "12": //aplicação
                     $tipo = 4;
+                    $valor_aplicado = ($_POST["valor"] * -1); //veio negativo, pois aplicação é saída de dinheiro da conta corrente, mas é entrada em aplicações.
                     break;
                 case "10": //devolução
                     $tipo = 3;
+                    $valor_aplicado = ($_POST["valor"] * -1); //veio positivo, pois resgate é entrada de dinheiro da conta corrente, mas é saída em aplicações.
                     break;
                 default:
                     $tipo = "";
             }
 
-            $item["tipo"] = $tipo;
+            $item = [
+                "idContaInvest"   => $id_conta_invest,
+                "valorRendimento" => $valor_aplicado,
+                "dataRendimento"  => $_POST["dataMovimento"],
+                "tipo"            => $tipo
+            ];
 
             $crud->insert("rendimento", $item);
 
             $saldo_atual = $crud->getSaldoAtual($id_conta_invest);
             $item = [
-                "saldoAtual" => ($saldo_atual + $_POST["valor"])
+                "saldoAtual" => ($saldo_atual + $valor_aplicado)
             ];
             $item_where = [
                 "idContaInvest" => $id_conta_invest
