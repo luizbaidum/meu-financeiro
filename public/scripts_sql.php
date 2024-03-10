@@ -76,21 +76,26 @@ class CRUD {
        return $this->executarQuery($query, $arr_values);
     }
 
-    public function update(string $action, array $post)
+    public function update(string $action, array $post, array $where_condition)
     {
         $arr_values = array();
         $table = TableNames::getTableName($action);
 
-        $query = "UPDATE $table SET (";
+        $query = "UPDATE $table SET ";
 
         foreach ($post as $k => $v) {
             $query .= "$k = ?, ";
             $arr_values[] = $v;
         }
 
-        $query = rtrim($query, ", ") . ")";
+        $query = rtrim($query, ", ");
 
-       return $this->executarQuery($query, $arr_values);
+        $where_column = array_key_first($where_condition);
+        $where_value = $where_condition[$where_column];
+
+        $query .= " WHERE $where_column = $where_value";
+
+        return $this->executarQuery($query, $arr_values);
     }
 
     //selectAll(action: "movimento", where_conditions: [['valor', '>', '15000']], group_conditions: ['tabela', 'coluna', 'tabela2', 'coluna2'], order_conditions: ['dataMovimento' => 'DESC']);
@@ -208,5 +213,18 @@ class CRUD {
                     ORDER BY totalOrcado DESC";
 
         return $this->executarQuery($query);
+    }
+
+    public function getSaldoAtual($id_conta_invest)
+    {
+        $arr_values = array();
+
+        $query = "SELECT contas_investimentos.saldoAtual FROM contas_investimentos WHERE contas_investimentos.idContaInvest = ?";
+
+        $arr_values[] = $id_conta_invest;
+
+        $result = $this->executarQuery($query, $arr_values);
+
+        return $result[0]["saldoAtual"];
     }
 }
