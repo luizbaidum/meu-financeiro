@@ -9,7 +9,6 @@
 
         if ($logado) {
             session_start();
-            
             $_SESSION["logado"] = true;
 
             unset($_POST["login"]);
@@ -17,6 +16,10 @@
 
             header ("location: index.php");
         }
+    } else {
+        session_start();
+        if (isset($_SESSION["logado"]) && $_SESSION["logado"] == true) 
+            session_destroy();
     }
 ?>
 

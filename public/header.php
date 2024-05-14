@@ -5,8 +5,7 @@
 
     require_once "scripts_sql.php";
 
-    if (empty($_SESSION) || !isset($_SESSION))
-        session_start();
+    session_start();
 
     if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true)
         header ("location: login.php");
@@ -57,6 +56,11 @@
                     </li>
                     <li class="nav-item">
                         <button class="btn btn-light btn-sm nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLembretes" aria-expanded="false" aria-controls="collapseLembretes">Lembretes</button>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login.php">
+                            <button type="button" class="btn btn-danger">Sair</button>
+                        </a>
                     </li>
                 </ul>
             </div>
