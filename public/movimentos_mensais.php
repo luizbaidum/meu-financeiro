@@ -7,9 +7,12 @@
 
     $crud = new CRUD();
 
+    $arr_mensais = $crud->getMensais();
+
     if (!empty($_POST)) { 
         if (isset($_POST['cadastro']) && $_POST['cadastro'] === 'T') {
-
+            unset($_POST['cadastro']);
+            $crud->insert('mensais', $_POST);
         }
 
         if (isset($_POST['registro']) && $_POST['registro'] === 'T') {
@@ -65,6 +68,43 @@
                 </form>
             </div>
         </div>
+    </div>
+
+    <div class="card mt-2">
+        <form action="movimentos_mensais.php" method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>select</th>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Categoria</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <?php foreach ($arr_mensais as $value): ?>
+                        <tr>
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                            <td>
+                                <?= $value['dataRepete']; ?>
+                            </td>
+                            <td>
+                                <?= $value['nomeMovimento']; ?>
+                            </td>
+                            <td>
+                                <?= $value['valorDespesa']; ?>
+                            </td>
+                            <td>
+                                <?= $value['idCategoria'] . ' - ' . $value['categoria'] . ' - ' . $value['tipo']; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </form>
     </div>
 </main>
 
