@@ -1,8 +1,4 @@
 <?php
-
-//criar cronjobs, se possivel neste servidor, para pegar as despesas mensais e lancar mes a mes a previsao de pgto.
-//se nao der certo, fazer um modelo onde lista e select box onde escolho quais despesas quero lancar no mes. (até melhor, pois deve permitir eu editar o dia e o valor)
-
     require_once ("header.php"); 
 
     $crud = new CRUD();
@@ -16,9 +12,19 @@
         }
 
         if (isset($_POST['registro']) && $_POST['registro'] === 'T') {
-            
+            $item = array();
+            foreach ($_POST['idMovMensal'] as $id) {
+                $item['nomeMovimento'] = $_POST['nomeMovimento'][$id];
+                $item['dataMovimento'] = $_POST['dataMovimento'][$id];
+                $item['idCategoria'] = $_POST['idCategoria'][$id];
+                $item['valor'] = $_POST['valor'][$id];
+
+                $crud->insert('movimento', $item);
+            }
         }
     }
+
+    //VER ONDE BOTAR O SINAL. de nagativo/positivo no valor.
 ?>
 
 <main class="container">
@@ -70,8 +76,9 @@
         </div>
     </div>
 
-    <div class="card mt-2">
+    <div class="card mt-2 p-1">
         <form action="movimentos_mensais.php" method="post">
+            <input type="hidden" value="T" name="registro">
             <table class="table">
                 <thead>
                     <tr>
@@ -86,24 +93,33 @@
                     <?php foreach ($arr_mensais as $value): ?>
                         <tr>
                             <td>
-                                <input type="checkbox">
+                                <input type="checkbox" value="<?= $value['idMovMensal']; ?>" name="idMovMensal[]">
                             </td>
                             <td>
-                                <?= $value['dataRepete']; ?>
+                                <input type="date" id="idDataMovimento" name="dataMovimento[<?= $value['idMovMensal']; ?>]" value="<?= $value['dataRepete']; ?>">
                             </td>
                             <td>
                                 <?= $value['nomeMovimento']; ?>
+                                <input type="hidden" name="nomeMovimento[<?= $value['idMovMensal']; ?>]" value="<?= $value['nomeMovimento']; ?>">
                             </td>
                             <td>
                                 <?= $value['valorDespesa']; ?>
+                                <input type="hidden" name="valor[<?= $value['idMovMensal']; ?>]" value="<?= $value['valorDespesa']; ?>">
                             </td>
                             <td>
                                 <?= $value['idCategoria'] . ' - ' . $value['categoria'] . ' - ' . $value['tipo']; ?>
+                                <input type="hidden" name="idCategoria[<?= $value['idMovMensal']; ?>]" value="<?= $value['idCategoria']; ?>">
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary mt-1">Submit</button>
+                </div>
+            </div>
         </form>
     </div>
 </main>
