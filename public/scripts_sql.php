@@ -232,7 +232,8 @@ class CRUD {
     {
         $query = 'SELECT movimentos_mensais.*, 
                  categoria_movimentos.categoria, 
-                 categoria_movimentos.tipo
+                 categoria_movimentos.tipo,
+                 categoria_movimentos.sinal
             FROM movimentos_mensais 
             INNER JOIN categoria_movimentos ON movimentos_mensais.idCategoria = categoria_movimentos.idCategoria
             WHERE 0 = 0;';

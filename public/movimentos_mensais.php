@@ -13,18 +13,20 @@
 
         if (isset($_POST['registro']) && $_POST['registro'] === 'T') {
             $item = array();
+
             foreach ($_POST['idMovMensal'] as $id) {
+                $arr_cat = explode(' - sinal: ', $_POST['idCategoria'][$id]);
+                $sinal = $arr_cat[1];
+
                 $item['nomeMovimento'] = $_POST['nomeMovimento'][$id];
                 $item['dataMovimento'] = $_POST['dataMovimento'][$id];
-                $item['idCategoria'] = $_POST['idCategoria'][$id];
-                $item['valor'] = $_POST['valor'][$id];
+                $item['idCategoria'] = $arr_cat[0];
+                $item['valor'] = $sinal . $_POST['valor'][$id];
 
                 $crud->insert('movimento', $item);
             }
         }
     }
-
-    //VER ONDE BOTAR O SINAL. de nagativo/positivo no valor.
 ?>
 
 <main class="container">
@@ -108,7 +110,7 @@
                             </td>
                             <td>
                                 <?= $value['idCategoria'] . ' - ' . $value['categoria'] . ' - ' . $value['tipo']; ?>
-                                <input type="hidden" name="idCategoria[<?= $value['idMovMensal']; ?>]" value="<?= $value['idCategoria']; ?>">
+                                <input type="hidden" name="idCategoria[<?= $value['idMovMensal']; ?>]" value="<?= $value["idCategoria"] . " - sinal: " . $value["sinal"]; ?>">
                             </td>
                         </tr>
                     <?php endforeach; ?>
