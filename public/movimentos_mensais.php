@@ -3,8 +3,6 @@
 
     $crud = new CRUD();
 
-    $arr_mensais = $crud->getMensais();
-
     if (!empty($_POST)) { 
         if (isset($_POST['cadastro']) && $_POST['cadastro'] === 'T') {
             unset($_POST['cadastro']);
@@ -27,6 +25,8 @@
             }
         }
     }
+
+    $arr_mensais = $crud->getMensais();
 ?>
 
 <main class="container">
@@ -98,15 +98,23 @@
                                 <input type="checkbox" value="<?= $value['idMovMensal']; ?>" name="idMovMensal[]">
                             </td>
                             <td>
-                                <input type="date" id="idDataMovimento" name="dataMovimento[<?= $value['idMovMensal']; ?>]" value="<?= $value['dataRepete']; ?>">
+                                <?php   
+                                    $dia_original = date('d', strtotime($value['dataRepete']));
+                                    $mes_original = date('m', strtotime($value['dataRepete']));
+                                    $ano_original = date('Y', strtotime($value['dataRepete']));
+                                    $mes_atual = date('m');
+                                    $ano_atual = date('Y');
+                    
+                                    $date = date_format(date_create("$ano_atual-$mes_atual-$dia_original"), 'Y-m-d');
+                                ?>
+                                <input type="date" id="idDataMovimento" name="dataMovimento[<?= $value['idMovMensal']; ?>]" value="<?= $date; ?>">
                             </td>
                             <td>
                                 <?= $value['nomeMovimento']; ?>
                                 <input type="hidden" name="nomeMovimento[<?= $value['idMovMensal']; ?>]" value="<?= $value['nomeMovimento']; ?>">
                             </td>
                             <td>
-                                <?= $value['valorDespesa']; ?>
-                                <input type="hidden" name="valor[<?= $value['idMovMensal']; ?>]" value="<?= $value['valorDespesa']; ?>">
+                                <input type="number" class="form-control"  name="valor[<?= $value['idMovMensal']; ?>]" step=".01" value="<?= $value['valorDespesa']; ?>">
                             </td>
                             <td>
                                 <?= $value['idCategoria'] . ' - ' . $value['categoria'] . ' - ' . $value['tipo']; ?>
