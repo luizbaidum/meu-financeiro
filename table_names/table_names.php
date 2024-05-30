@@ -25,6 +25,7 @@ class TablesList {
         "orcamento"          => "orcamentos",
         "lembrete"           => "lembretes",
         "conta_investimento" => "contas_investimentos",
-        "rendimento"         => "rendimentos"
+        "rendimento"         => "rendimentos",
+        "mensais"            => "movimentos_mensais"
     ];
 }

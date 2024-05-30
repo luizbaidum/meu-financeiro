@@ -227,4 +227,19 @@ class CRUD {
 
         return $result[0]["saldoAtual"];
     }
+
+    public function getMensais()
+    {
+        $query = 'SELECT movimentos_mensais.*, 
+                 categoria_movimentos.categoria, 
+                 categoria_movimentos.tipo,
+                 categoria_movimentos.sinal
+            FROM movimentos_mensais 
+            INNER JOIN categoria_movimentos ON movimentos_mensais.idCategoria = categoria_movimentos.idCategoria
+            WHERE 0 = 0;';
+
+        $result = $this->executarQuery($query, []);
+
+        return $result;
+    }
 }
