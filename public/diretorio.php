@@ -4,7 +4,7 @@ abstract class Diretorio {
     /**
      * Alterar diretório
      */
-    const diretorio = "\\Users\\ACER\\Desktop\\GITHUB\\meu-financeiro";
+    const diretorio = "\\Users\\luizb\\Desktop\\github\\meu-financeiro";
 
     public static function getDiretorio()
     {

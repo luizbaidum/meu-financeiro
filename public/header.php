@@ -23,9 +23,6 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap.css.map">
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
     <style>
         body {
             margin: 0.2%;
@@ -35,50 +32,52 @@
 </head>
 <body>
     <header class="container mb-2">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
-            <a class="navbar-brand" href="index.php">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Cadastros
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="categorias.php">Categorias</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="movimentos.php">Movimentos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="indicadores.php">Indicadores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="orcamento.php">Orçamento</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contas_investimentos.php">Contas Invest</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="movimentos_mensais.php">Movimentos Mensais</a>
-                    </li>
-                    <li class="nav-item">
-                        <button class="btn btn-light btn-sm nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLembretes" aria-expanded="false" aria-controls="collapseLembretes">Lembretes</button>
-                    </li>
-                    <li class="nav-item">
-                        <a href="login.php">
-                            <button type="button" class="btn btn-danger">Sair</button>
-                        </a>
-                    </li>
-                </ul>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.php">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownCadastros" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Cadastros
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownCadastros">
+                                <li><a class="dropdown-item" href="categorias.php">Categorias</a></li>
+                                <li><a class="dropdown-item" href="movimentos.php">Movimentos</a></li>
+                                <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
+                                <li><a class="dropdown-item" href="orcamento.php">Orçamento</a></li>
+                                <li><a class="dropdown-item" href="contas_investimentos.php">Contas Invest</a>
+                                <li><a class="dropdown-item" href="movimentos_mensais.php">Movimentos Mensais</a>
+                                <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownConsultas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Consultas
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownConsultas">
+                                <li><a class="dropdown-item" href="categorias.php">Categorias</a></li>
+                                <li><a class="dropdown-item" href="movimentos.php">Movimentos</a></li>
+                                <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
+                                <li><a class="dropdown-item" href="orcamento.php">Orçamento</a></li>
+                                <li><a class="dropdown-item" href="contas_investimentos.php">Contas Invest</a>
+                                <li><a class="dropdown-item" href="movimentos_mensais.php">Movimentos Mensais</a>
+                                <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-light btn-sm nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLembretes" aria-expanded="false" aria-controls="collapseLembretes">Lembretes</button>
+                        </li>
+                        <li class="nav-item">
+                            <a href="login.php">
+                                <button type="button" class="btn btn-danger">Sair</button>
+                            </a>
+                        </li>                  
+                    </ul>
+                </div>
             </div>
         </nav>
 
