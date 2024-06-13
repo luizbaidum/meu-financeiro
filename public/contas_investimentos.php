@@ -5,13 +5,7 @@
     $crud = new CRUD();
 
     if (!empty($_POST)) {
-        if (isset($_POST["cadContaInvest"])) {
-            unset($_POST["cadContaInvest"]);
-
-            $_POST["saldoAtual"] = $_POST["saldoInicial"];
-            $crud->insert("conta_investimento", $_POST);
-
-        } elseif (isset($_POST["cadRendimento"])) {
+        if (isset($_POST["cadRendimento"])) {
             unset($_POST["cadRendimento"]);
 
             if ($_POST["tipo"] == "1")
@@ -36,46 +30,6 @@
 ?>
 
     <main class="container">
-        <div class="card">
-            <div class="card-header">
-                <button class="btn btn-light btn-sm nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCadContaInvest" aria-expanded="false" aria-controls="collapseCadContaInvest">
-                    Cadastrar Conta Invest
-                </button>
-            </div>
-            <div class="collapse" id="collapseCadContaInvest">
-                <div class="card-body p-1">
-                    <form action="contas_investimentos.php" method="post">
-                        <input type="hidden" name="cadContaInvest" value="1">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-12 col-sm-4">
-                                    <label for="idNomeBanco">Nome Banco</label>
-                                    <input type="text" class="form-control" id="idNomeBanco" name="nomeBanco" required>
-                                </div>
-                                <div class="col-12 col-sm-4">
-                                    <label for="idTituloInvest">Título</label>
-                                    <input type="text" class="form-control" id="idTituloInvest" name="tituloInvest" required>
-                                </div>
-                                <div class="col-12 col-sm-4">
-                                    <label for="idDataInicio">Data Início (m/d/a)</label>
-                                    <input type="date" class="form-control" id="idDataInicio" name="dataInicio" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <label for="idSaldoInicial">Saldo de início (decimal com ponto)</label>
-                                        <input type="number" class="form-control" id="idSaldoInicial" name="saldoInicial" step=".01" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-1">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <div class="card mt-2">
             <div class="card-header">
                 <button class="btn btn-light btn-sm nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCadRendimento" aria-expanded="false" aria-controls="collapseCadRendimento">

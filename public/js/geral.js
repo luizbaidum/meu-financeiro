@@ -1,27 +1,29 @@
 var elemento_select = "";
 var url_action = document.forms[0].baseURI;
 
-if (document.getElementById("idMesFiltro"))
+if (document.getElementById("idMesFiltro")) {
+
     elemento_select = document.getElementById("idMesFiltro");
 
-elemento_select.addEventListener("change", () => {
-    let post_data = new FormData();
-    post_data.append("mesFiltro", elemento_select.value)
-
-    var req = new XMLHttpRequest();
-
-    req.open("POST", url_action, true);
-    req.send(post_data);
-    req.onreadystatechange = function () {
-        if (req.readyState != 4) 
-            return;
-        if (req.status != 200 && req.status != 304)
-            return;
-
-        document.body.innerHTML = req.responseText;
-        getScript('js/geral.js');
-    }
-});
+    elemento_select.addEventListener("change", () => {
+        let post_data = new FormData();
+        post_data.append("mesFiltro", elemento_select.value)
+    
+        var req = new XMLHttpRequest();
+    
+        req.open("POST", url_action, true);
+        req.send(post_data);
+        req.onreadystatechange = function () {
+            if (req.readyState != 4) 
+                return;
+            if (req.status != 200 && req.status != 304)
+                return;
+    
+            document.body.innerHTML = req.responseText;
+            getScript('js/geral.js');
+        }
+    });
+}
 
 function getScript(source) {
     var script = document.createElement('script');
