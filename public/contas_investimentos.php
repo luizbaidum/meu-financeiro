@@ -15,11 +15,14 @@
 
             $saldo_atual = $crud->getSaldoAtual($_POST["idContaInvest"]);
             $item = [
-                "saldoAtual" => ($saldo_atual + $_POST["valorRendimento"])
+                "saldoAtual"    => ($saldo_atual + $_POST["valorRendimento"]),
+                "saldoAnterior" => $saldo_atual,
+                "dataAnterior"  => date("Y-m-d")
             ];
             $item_where = [
                 "idContaInvest" => $_POST["idContaInvest"]
             ];
+
             $crud->update("conta_investimento", $item, $item_where);
         }
     }
@@ -89,8 +92,9 @@
                         <tr>
                             <th>Banco</th>
                             <th>Título</th>
-                            <th>Saldo inicial</th>
                             <th>Saldo atual</th>
+                            <th class="bg-secondary">Saldo anterior</th>
+                            <th class="bg-secondary">Data anterior</th>
                         </tr>
                     </theader>
                     <tbody>
@@ -101,15 +105,17 @@
                             <tr>
                                 <td><?= $value["nomeBanco"]; ?></td>
                                 <td><?= $value["tituloInvest"]; ?></td>
-                                <td>$ <?= $value["saldoInicial"]; ?></td>
                                 <td>$ <?= $value["saldoAtual"]; ?></td>
+                                <td>$ <?= $value["saldoAnterior"]; ?></td>
+                                <td><?= $value["dataAnterior"]; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr class="table-dark">
-                            <td colspan="3" style="text-align: right">Total</td>
+                            <td colspan="2" style="text-align: right">Total</td>
                             <td>$ <?= $total; ?>
+                            <td colspan="2"></td>
                         </tr>
                     </tfoot>
                 </table>

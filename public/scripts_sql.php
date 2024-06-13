@@ -76,14 +76,14 @@ class CRUD {
        return $this->executarQuery($query, $arr_values);
     }
 
-    public function update(string $action, array $post, array $where_condition)
+    public function update(string $action, array $values, array $where_condition)
     {
         $arr_values = array();
         $table = TableNames::getTableName($action);
 
         $query = "UPDATE $table SET ";
 
-        foreach ($post as $k => $v) {
+        foreach ($values as $k => $v) {
             $query .= "$k = ?, ";
             $arr_values[] = $v;
         }
