@@ -49,6 +49,7 @@
                                 <li><a class="dropdown-item" href="cad_movimentos.php">Movimentos</a></li>
                                 <li><a class="dropdown-item" href="cad_contas_investimentos.php">Contas Invest</a>
                                 <li><a class="dropdown-item" href="cad_movimentos_mensais.php">Movimentos Mensais</a>
+                                <li><a class="dropdown-item" href="cad_objetivos.php">Objetivos</a>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
