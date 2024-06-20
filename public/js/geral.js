@@ -14,9 +14,7 @@ if (document.getElementById("idMesFiltro")) {
         req.open("POST", url_action, true);
         req.send(post_data);
         req.onreadystatechange = function () {
-            if (req.readyState != 4) 
-                return;
-            if (req.status != 200 && req.status != 304)
+            if (req.readyState != 4 || (req.status != 200 && req.status != 304)) 
                 return;
     
             document.body.innerHTML = req.responseText;

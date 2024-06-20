@@ -8,31 +8,43 @@ class CRUD {
     private function executarQuery($query, $arr_values = [])
     {
         $operacao = strtoupper(strtok($query, " "));
+        $bd = gerarConexao();
+        $stmt = $bd->prepare($query);
 
-        $stmt = gerarConexao()->prepare($query);
+        try {
+            $bd->beginTransaction();
 
-        if (!empty($arr_values))
-            $stmt->execute($arr_values);
-        else
-            $stmt->execute();
+            if (!empty($arr_values))
+                $stmt->execute($arr_values);
+            else
+                $stmt->execute();
 
-        //$stmt->debugDumpParams();
-        //exit;
+            //$stmt->debugDumpParams();
+            //exit;
+            switch ($operacao) {
+                case "INSERT":
+                    $result = $bd->lastInsertId();
+                    break;
+                case "UPDATE":
+                case "DELETE":
+                    $result = $stmt->rowCount();
+                    break;
+                case "SELECT":
+                case "SHOW":
+                    $retornar_select = $stmt->fetchAll();
+                    $result = $retornar_select;
+                    break;
+            }
 
-        switch ($operacao) {
-            case "INSERT":
-            case "UPDATE":
-            case "DELETE":
-                $result = $stmt->rowCount();
-                break;
-            case "SELECT":
-            case "SHOW":
-                $retornar_select = $stmt->fetchAll();
-                $result = $retornar_select;
-                break;
+            $bd->commit();
+
+            return $result;
+        } catch (PDOException $e) {
+            $bd->rollBack();
+            echo "Failed: " . $e->getMessage();
         }
 
-        return $result;
+        $bd = NULL;
     }
 
     public function insert(string $action, array $post)
@@ -241,5 +253,35 @@ class CRUD {
         $result = $this->executarQuery($query, []);
 
         return $result;
+    }
+
+    public function validarPercentualDisponivel($id_conta_invest, $percentual_obj)
+    {
+        $arr_values = array();
+
+        $query = 'SELECT SUM(objetivos_invest.percentObjContaInvest) AS totalUtilizado FROM objetivos_invest WHERE objetivos_invest.idContaInvest = ?';
+        $arr_values[] = $id_conta_invest;
+
+        $total = $this->executarQuery($query, $arr_values)[0]['totalUtilizado'];
+
+        if ($percentual_obj > (100 - $total)) {
+            return $total;
+        }
+
+        return false;
+    }
+
+    public function atualizarSaldoObj($id_obj, $percentual_obj, $id_conta_invest)
+    {
+        $arr_values = array();
+
+        $query = 'SELECT contas_investimentos.saldoAtual FROM contas_investimentos WHERE contas_investimentos.idContaInvest = ?';
+        $arr_values[0] = $id_conta_invest;
+
+        $atual =  $this->executarQuery($query, $arr_values)[0]['saldoAtual'];
+
+        $vlr_obj = $atual * ($percentual_obj / 100);
+
+        $this->update('obj', ['saldoAtual' => $vlr_obj], ['idObj' => $id_obj]); 
     }
 }
