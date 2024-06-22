@@ -24,8 +24,19 @@
                 case "12": //aplicação
                     $tipo = 4;
                     $valor_aplicado = ($_POST["valor"] * -1); //veio negativo, pois aplicação é saída de dinheiro da conta corrente, mas é entrada em aplicações.
+
+                    $objetivos = $crud->selectAll('obj', [['idContaInvest', '=', $id_conta_invest]], [], []);
+
+                    foreach ($objetivos as $value) {
+                        $item = [
+                            'saldoAtual' => $value['saldoAtual'] + ($valor_aplicado * ($value['percentObjContaInvest'] / 100))
+                        ];
+                        $item_where = ['idObj' => $value['idObj']];
+                        $crud->update('obj', $item, $item_where);
+                    }
+
                     break;
-                case "10": //devolução
+                case "10": //resgate
                     $tipo = 3;
                     $valor_aplicado = ($_POST["valor"] * -1); //veio positivo, pois resgate é entrada de dinheiro da conta corrente, mas é saída em aplicações.
                     break;

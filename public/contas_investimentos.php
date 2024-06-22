@@ -24,6 +24,16 @@
             ];
 
             $crud->update("conta_investimento", $item, $item_where);
+
+            $objetivos = $crud->selectAll('obj', [['idContaInvest', '=', $_POST['idContaInvest']]], [], []);
+
+            foreach ($objetivos as $value) {
+                $item = [
+                    'saldoAtual' => $value['saldoAtual'] + ($_POST['valorRendimento'] * ($value['percentObjContaInvest'] / 100))
+                ];
+                $item_where = ['idObj' => $value['idObj']];
+                $crud->update('obj', $item, $item_where);
+            }
         }
     }
 
