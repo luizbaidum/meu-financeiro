@@ -1,13 +1,16 @@
-var elemento_select = "";
+var select_mes_filtro = '';
 var url_action = document.forms[0].baseURI;
+var select_categoria = '';
+const APLICACAO = 12;
+const RESGATE = 10;
 
 if (document.getElementById("idMesFiltro")) {
 
-    elemento_select = document.getElementById("idMesFiltro");
+    select_mes_filtro = document.getElementById("idMesFiltro");
 
-    elemento_select.addEventListener("change", () => {
+    select_mes_filtro.addEventListener("change", () => {
         let post_data = new FormData();
-        post_data.append("mesFiltro", elemento_select.value)
+        post_data.append("mesFiltro", select_mes_filtro.value)
     
         var req = new XMLHttpRequest();
     
@@ -38,3 +41,28 @@ function getScript(source) {
     script.src = source;
     prior.parentNode.insertBefore(script, prior);
 }
+
+if (document.getElementsByClassName('validar-obrigatorios')) {
+    select_categoria = document.getElementsByClassName('validar-obrigatorios')[0];
+
+    select_categoria.addEventListener('change', function(event) {
+        let value = event.target.value;
+        let id_categoria = Number(value.split('-')[0]);
+        let categorias_required = Array(APLICACAO, RESGATE);
+        let element = '';
+    
+        if (categorias_required.includes(id_categoria)) {
+            element = document.getElementById('idContaInvest');
+            element.setAttribute('required','');
+        } else {
+            element = document.getElementById('idContaInvest');
+            element.removeAttribute('required');
+        }
+
+        if (id_categoria == RESGATE) {
+            //fazer buscar e montar campo select com objetivos da conta invest escolhida
+        }
+    })
+}
+
+//trcar o 10 p/ a? ver a implicancia disso.

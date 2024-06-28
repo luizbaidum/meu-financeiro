@@ -2,6 +2,9 @@
 <?php
     require_once ("header.php");
 
+    const APLICACAO = '12';
+    const RESGATE = '10';
+
     $crud = new CRUD();
 
     if (!empty($_POST)) {
@@ -10,8 +13,12 @@
         $_POST["idCategoria"] = $arr_cat[0];
         $sinal = $arr_cat[1];
 
-        $id_conta_invest = $_POST["idContaInvest"] ?? "";
+        if (($_POST['idCategoria'] == APLICACAO || $_POST['idCategoria'] == RESGATE) && empty($_POST['idContaInvest'])) {
+            echo '<div class="text-danger text-center">É obrigatório escolher uma conta investimento.</div>';
+            exit;
+        }
 
+        $id_conta_invest = $_POST["idContaInvest"] ?? "";
         unset($_POST["idContaInvest"]);
 
         //Inserção de Movimento
@@ -21,7 +28,7 @@
         //Inserção de Rendimento (invest ou retirada)
         if (!empty($id_conta_invest)) {
             switch ($_POST["idCategoria"]) {
-                case "12": //aplicação
+                case APLICACAO:
                     $tipo = 4;
                     $valor_aplicado = ($_POST["valor"] * -1); //veio negativo, pois aplicação é saída de dinheiro da conta corrente, mas é entrada em aplicações.
 
@@ -36,7 +43,7 @@
                     }
 
                     break;
-                case "10": //resgate
+                case RESGATE:
                     $tipo = 3;
                     $valor_aplicado = ($_POST["valor"] * -1); //veio positivo, pois resgate é entrada de dinheiro da conta corrente, mas é saída em aplicações.
                     break;
@@ -80,7 +87,7 @@
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="idCategoria">Categoria</label>
-                            <select class="form-select" id="idCategoria" name="idCategoria" required>
+                            <select class="form-select validar-obrigatorios" id="idCategoria" name="idCategoria" required>
                                 <option value="">Selecione</option>
                                 <?php 
                                     $categorias = $crud->selectAll("categoria", [], [], ["tipo" => "ASC", "categoria" => "ASC"]);
