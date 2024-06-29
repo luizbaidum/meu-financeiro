@@ -6,6 +6,14 @@
     const RESGATE = '10';
 
     $crud = new CRUD();
+    
+    $options_list = json_encode($crud->selectAll('obj', [], [], []));
+
+    echo '<pre>';
+    print_r($options_list);
+    echo '</pre>';
+
+    echo '<script>var options_obj = ' . $options_list . '</script>';
 
     if (!empty($_POST)) {
 
@@ -108,14 +116,15 @@
                                 <label for="idContaInvest">Conta Invest (se houver)</label>
                                 <select class="form-select" id="idContaInvest" name="idContaInvest">
                                     <option value="">Selecione</option>
-                                <?php 
-                                    $invests = $crud->selectAll("conta_investimento", [], [], ["nomeBanco" => "ASC"]);
-                                    foreach ($invests as $value):
-                                ?>
-                                    <option value="<?= $value["idContaInvest"]; ?>"><?= $value["nomeBanco"] . " - " . $value["tituloInvest"]; ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                                    <?php 
+                                        $invests = $crud->selectAll("conta_investimento", [], [], ["nomeBanco" => "ASC"]);
+                                        foreach ($invests as $value):
+                                    ?>
+                                        <option value="<?= $value["idContaInvest"]; ?>"><?= $value["nomeBanco"] . " - " . $value["tituloInvest"]; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
+                            <div id="content-obj" class="col-3"></div>
                            <!-- <div class="col-6 mt-4">
                                 <label for="tipo">No Cartão?</label>
                                 <input type="checkbox" id="idCartao" name="cartao" value="1">

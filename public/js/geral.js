@@ -44,12 +44,14 @@ function getScript(source) {
 
 if (document.getElementsByClassName('validar-obrigatorios')) {
     select_categoria = document.getElementsByClassName('validar-obrigatorios')[0];
+    let div_content = '';
 
     select_categoria.addEventListener('change', function(event) {
         let value = event.target.value;
         let id_categoria = Number(value.split('-')[0]);
         let categorias_required = Array(APLICACAO, RESGATE);
         let element = '';
+        let id_conta_invest = document.getElementById('idContaInvest').value;
     
         if (categorias_required.includes(id_categoria)) {
             element = document.getElementById('idContaInvest');
@@ -60,7 +62,25 @@ if (document.getElementsByClassName('validar-obrigatorios')) {
         }
 
         if (id_categoria == RESGATE) {
-            //fazer buscar e montar campo select com objetivos da conta invest escolhida
+            div_content = document.getElementById('content-obj');
+            let new_select = document.createElement('select');
+
+            options_obj.forEach(function(item, value) {
+                if (item.idContaInvest == id_conta_invest) {
+                    let value = item.idObj;
+                    let text = item.nomeOb;
+
+                    console.log(text);
+                    console.log(value);
+                }
+            })
+
+            new_select.add();
+
+            div_content.append(new_select);
+
+            //trazer var com objetivos ja listado.
+            //construir select e botar objetivos de acordo com a conta inves vinculada
         }
     })
 }
