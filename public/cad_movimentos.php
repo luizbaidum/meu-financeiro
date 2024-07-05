@@ -8,11 +8,6 @@
     $crud = new CRUD();
     
     $options_list = json_encode($crud->selectAll('obj', [], [], []));
-
-    echo '<pre>';
-    print_r($options_list);
-    echo '</pre>';
-
     echo '<script>var options_obj = ' . $options_list . '</script>';
 
     if (!empty($_POST)) {
@@ -35,10 +30,10 @@
 
         //Inserção de Rendimento (invest ou retirada)
         if (!empty($id_conta_invest)) {
-            switch ($_POST["idCategoria"]) {
+            switch ($_POST['idCategoria']) {
                 case APLICACAO:
                     $tipo = 4;
-                    $valor_aplicado = ($_POST["valor"] * -1); //veio negativo, pois aplicação é saída de dinheiro da conta corrente, mas é entrada em aplicações.
+                    $valor_aplicado = ($_POST['valor'] * -1); //veio negativo, pois aplicação é saída de dinheiro da conta corrente, mas é entrada em aplicações.
 
                     $objetivos = $crud->selectAll('obj', [['idContaInvest', '=', $id_conta_invest]], [], []);
 
@@ -53,29 +48,29 @@
                     break;
                 case RESGATE:
                     $tipo = 3;
-                    $valor_aplicado = ($_POST["valor"] * -1); //veio positivo, pois resgate é entrada de dinheiro da conta corrente, mas é saída em aplicações.
+                    $valor_aplicado = ($_POST['valor'] * -1); //veio positivo, pois resgate é entrada de dinheiro da conta corrente, mas é saída em aplicações.
                     break;
                 default:
-                    $tipo = "";
+                    $tipo = '';
             }
 
             $item = [
-                "idContaInvest"   => $id_conta_invest,
-                "valorRendimento" => $valor_aplicado,
-                "dataRendimento"  => $_POST["dataMovimento"],
-                "tipo"            => $tipo
+                'idContaInvest'   => $id_conta_invest,
+                'valorRendimento' => $valor_aplicado,
+                'dataRendimento'  => $_POST['dataMovimento'],
+                'tipo'            => $tipo
             ];
 
-            $crud->insert("rendimento", $item);
+            $crud->insert('rendimento', $item);
 
             $saldo_atual = $crud->getSaldoAtual($id_conta_invest);
             $item = [
-                "saldoAtual" => ($saldo_atual + $valor_aplicado)
+                'saldoAtual' => ($saldo_atual + $valor_aplicado)
             ];
             $item_where = [
-                "idContaInvest" => $id_conta_invest
+                'idContaInvest' => $id_conta_invest
             ];
-            $crud->update("conta_investimento", $item, $item_where);
+            $crud->update('conta_investimento', $item, $item_where);
         }
     }
 ?>
