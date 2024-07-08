@@ -12,21 +12,34 @@
 
     if (!empty($_POST)) {
 
-        $arr_cat = explode(" - sinal: " , $_POST["idCategoria"]);
-        $_POST["idCategoria"] = $arr_cat[0];
+        $arr_cat = explode(' - sinal: ' , $_POST['idCategoria']);
+        $_POST['idCategoria'] = $arr_cat[0];
         $sinal = $arr_cat[1];
 
         if (($_POST['idCategoria'] == APLICACAO || $_POST['idCategoria'] == RESGATE) && empty($_POST['idContaInvest'])) {
             echo '<div class="text-danger text-center">É obrigatório escolher uma conta investimento.</div>';
             exit;
+
+            if ($_POST['idCategoria'] == RESGATE && empty($_POST['idObjetivo'])) {
+                echo '<div class="text-danger text-center">É obrigatório escolher um objetivo.</div>';
+                exit;
+            }
+
+            if ($_POST['idCategoria'] == RESGATE) {
+                $validador = $crud->validarObjetivoComConta($_POST['idObjetivo'], $_POST['idContaInvest']);
+                if (!$validador) {
+                    echo '<div class="text-danger text-center">O objetivo escolhido não percente a conta investimento.</div>';
+                    exit;
+                }
+            }
         }
 
-        $id_conta_invest = $_POST["idContaInvest"] ?? "";
-        unset($_POST["idContaInvest"]);
+        $id_conta_invest = $_POST['idContaInvest'] ?? '';
+        unset($_POST['idContaInvest']);
 
         //Inserção de Movimento
-        $_POST["valor"] = $sinal . $_POST["valor"];
-        $crud->insert("movimento", $_POST);
+        $_POST['valor'] = $sinal . $_POST['valor'];
+        $crud->insert('movimento', $_POST);
 
         //Inserção de Rendimento (invest ou retirada)
         if (!empty($id_conta_invest)) {
@@ -90,7 +103,7 @@
                         </div>
                         <div class="col-12 col-sm-3">
                             <label for="idCategoria">Categoria</label>
-                            <select class="form-select validar-obrigatorios" id="idCategoria" name="idCategoria" required>
+                            <select class="form-select select-categoria" id="idCategoria" name="idCategoria" required>
                                 <option value="">Selecione</option>
                                 <?php 
                                     $categorias = $crud->selectAll("categoria", [], [], ["tipo" => "ASC", "categoria" => "ASC"]);

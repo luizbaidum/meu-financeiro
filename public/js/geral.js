@@ -43,71 +43,66 @@ function getScript(source) {
     prior.parentNode.insertBefore(script, prior);
 }
 
-if (document.getElementsByClassName('validar-obrigatorios').length > 0) {
-    select_categoria = document.getElementsByClassName('validar-obrigatorios')[0];
-    let div_content = '';
+if (document.getElementsByClassName('select-categoria').length > 0) {
+    select_categoria = document.getElementsByClassName('select-categoria')[0];
+    let div_content = document.getElementById('content-obj');
     let id_categoria = '';
 
     select_categoria.addEventListener('change', function(event) {
         let this_value = event.target.value;
         id_categoria = Number(this_value.split('-')[0]);
-        let element = '';
-    
-        if (CATEGORIAS_INVESTS.includes(id_categoria)) {
-            element = document.getElementById('idContaInvest');
-            element.setAttribute('required','');
-        } else {
-            element = document.getElementById('idContaInvest');
-            element.removeAttribute('required');
+        let select_conta_invest = '';
 
-            if (id_categoria != RESGATE && document.getElementById('idObjetivo')) {
-                //funciona mas talvez seja melhor só fazer esconder
-                //validar se obj pertence a conta invest
-                document.getElementById('content-obj').innerHTML = '';
-                return;
-            }
-        }
-    })
+        if (id_categoria == RESGATE && !document.getElementById('idObjetivo')) {
+            let new_select = document.createElement('select');
+            let new_label = criarLabel('Objetivo');
 
-    if (document.getElementById('idContaInvest')) {
-        let select_conta_invest = document.getElementById('idContaInvest');
+            new_select.classList.add('form-select');
+            new_select.id = 'idObjetivo';
+            new_select.name = 'idObjetivo';
+            new_select.setAttribute('required','');
 
-        select_conta_invest.addEventListener('change', function() {
-            let id_conta_invest = document.getElementById('idContaInvest').value;
+            div_content.append(new_label);
+            div_content.append(new_select);
 
-            if (id_categoria == '') {
-                alert('Por favor, selecione uma Categoria.');
-            } else if (id_categoria == RESGATE) {
-                div_content = document.getElementById('content-obj');
-
-                if (document.getElementById('idObjetivo')) {
-                    removeOptions(document.getElementById('idObjetivo'));
-                    insertOptions(document.getElementById('idObjetivo'), options_obj, id_conta_invest);
-
-                    return;
-                }
-
-                let new_select = document.createElement('select');
-                let new_label = createElement('Objetivo');
-
-                new_select.classList.add('form-select');
-                new_select.id = 'idObjetivo';
-                new_select.name = 'idObjetivo';
-    
-                if (id_conta_invest == '' || id_conta_invest == null || id_conta_invest == undefined) {
-                    alert('Por favor, selecione uma Conta Invest.');
-                }
+            if (document.getElementById('idContaInvest').value != '') {
+                let id_conta_invest = document.getElementById('idContaInvest').value;
+                select_conta_invest = document.getElementById('idContaInvest');
 
                 insertOptions(document.getElementById('idObjetivo'), options_obj, id_conta_invest);
-    
-                div_content.append(new_label);
-                div_content.append(new_select);
             }
-        })
-    }
+        } else {
+            document.getElementById('content-obj').innerHTML = '';
+        }
+    
+        if (CATEGORIAS_INVESTS.includes(id_categoria)) {
+            select_conta_invest = document.getElementById('idContaInvest');
+            select_conta_invest.setAttribute('required','');
+        } else {
+            select_conta_invest = document.getElementById('idContaInvest');
+            select_conta_invest.removeAttribute('required');
+        }
+    })
 }
 
-function createElement(str) {
+if (document.getElementById('idContaInvest')) {
+    let select_conta_invest = document.getElementById('idContaInvest');
+
+    select_conta_invest.addEventListener('change', function() {
+        let id_conta_invest = document.getElementById('idContaInvest').value;
+        let id_categoria = document.getElementsByClassName('select-categoria')[0].value;
+        id_categoria = Number(id_categoria.split('-')[0]);
+    
+        if (document.getElementById('idObjetivo')) {
+            removeOptions(document.getElementById('idObjetivo'));
+            insertOptions(document.getElementById('idObjetivo'), options_obj, id_conta_invest);
+
+            return;
+        }
+    })
+}
+
+function criarLabel(str) {
     var frag = document.createDocumentFragment();
     var elem = document.createElement('label');
     elem.innerHTML = str;
@@ -138,5 +133,3 @@ function removeOptions(select) {
         select.remove(select.options[i]);
     }
 }
-
-//trcar o 10 p/ a? ver a implicancia disso.
