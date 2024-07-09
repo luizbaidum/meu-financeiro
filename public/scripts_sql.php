@@ -227,13 +227,23 @@ class CRUD {
         return $this->executarQuery($query);
     }
 
-    public function getSaldoAtual($id_conta_invest)
+    public function getSaldoAtual($action, $id_where)
     {
+        $table = TableNames::getTableName($action);
+        switch ($table) {
+            case 'contas_investimentos':
+                $column = 'idContaInvest';
+                break;
+            case 'objetivos_invest':
+                $column = 'idObj';
+                break;
+        }
+
         $arr_values = array();
 
-        $query = "SELECT contas_investimentos.saldoAtual FROM contas_investimentos WHERE contas_investimentos.idContaInvest = ?";
+        $query = "SELECT $table.saldoAtual FROM $table WHERE $table.$column = ?";
 
-        $arr_values[] = $id_conta_invest;
+        $arr_values[] = $id_where;
 
         $result = $this->executarQuery($query, $arr_values);
 
@@ -278,10 +288,27 @@ class CRUD {
         $query = 'SELECT contas_investimentos.saldoAtual FROM contas_investimentos WHERE contas_investimentos.idContaInvest = ?';
         $arr_values[0] = $id_conta_invest;
 
-        $atual =  $this->executarQuery($query, $arr_values)[0]['saldoAtual'];
+        $atual = $this->executarQuery($query, $arr_values)[0]['saldoAtual'];
 
         $vlr_obj = $atual * ($percentual_obj / 100);
 
         $this->update('obj', ['saldoAtual' => $vlr_obj], ['idObj' => $id_obj]); 
+    }
+
+    public function validarObjetivoComConta($id_obj, $id_conta_invest) 
+    {
+        $arr_values = array();
+
+        $query = 'SELECT objetivos_invest.idObj FROM objetivos_invest WHERE objetivos_invest.idObj = ? AND objetivos_invest.idContaInvest = ?';
+        $arr_values[] = $id_obj;
+        $arr_values[] = $id_conta_invest;
+
+        $result = $this->executarQuery($query, $arr_values);
+
+        if (empty($result)) {
+            return false;
+        }
+
+        return true;
     }
 }
