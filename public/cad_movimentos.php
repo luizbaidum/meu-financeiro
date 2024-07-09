@@ -35,7 +35,9 @@
         }
 
         $id_conta_invest = $_POST['idContaInvest'] ?? '';
+        $id_objetivo = $_POST['idObjetivo'] ?? '';
         unset($_POST['idContaInvest']);
+        unset($_POST['idObjetivo']);
 
         //Inserção de Movimento
         $_POST['valor'] = $sinal . $_POST['valor'];
@@ -62,6 +64,16 @@
                 case RESGATE:
                     $tipo = 3;
                     $valor_aplicado = ($_POST['valor'] * -1); //veio positivo, pois resgate é entrada de dinheiro da conta corrente, mas é saída em aplicações.
+
+                    $saldo_atual = $crud->getSaldoAtual('obj', $id_objetivo);
+                    $item = [
+                        'saldoAtual' => ($saldo_atual + $valor_aplicado)
+                    ];
+                    $item_where = [
+                        'idObj' => $id_objetivo
+                    ];
+                    $crud->update('obj', $item, $item_where);
+
                     break;
                 default:
                     $tipo = '';
@@ -76,7 +88,7 @@
 
             $crud->insert('rendimento', $item);
 
-            $saldo_atual = $crud->getSaldoAtual($id_conta_invest);
+            $saldo_atual = $crud->getSaldoAtual('conta_investimento', $id_conta_invest);
             $item = [
                 'saldoAtual' => ($saldo_atual + $valor_aplicado)
             ];

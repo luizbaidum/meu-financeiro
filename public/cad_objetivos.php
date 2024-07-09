@@ -32,7 +32,7 @@
                             <input type="text" class="form-control" id="idNomeObj" name="nomeObj" required>
                         </div>
                         <div class="col-6">
-                            <label for="idVlrObj">Valor (decimal com ponto)</label>
+                            <label for="idVlrObj">Valor Final Juntar (decimal com ponto)</label>
                             <input type="number" class="form-control" id="idVlrObj" name="vlrObj" step=".01" required>
                         </div>
                     </div>

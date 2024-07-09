@@ -227,13 +227,23 @@ class CRUD {
         return $this->executarQuery($query);
     }
 
-    public function getSaldoAtual($id_conta_invest)
+    public function getSaldoAtual($action, $id_where)
     {
+        $table = TableNames::getTableName($action);
+        switch ($table) {
+            case 'contas_investimentos':
+                $column = 'idContaInvest';
+                break;
+            case 'objetivos_invest':
+                $column = 'idObj';
+                break;
+        }
+
         $arr_values = array();
 
-        $query = "SELECT contas_investimentos.saldoAtual FROM contas_investimentos WHERE contas_investimentos.idContaInvest = ?";
+        $query = "SELECT $table.saldoAtual FROM $table WHERE $table.$column = ?";
 
-        $arr_values[] = $id_conta_invest;
+        $arr_values[] = $id_where;
 
         $result = $this->executarQuery($query, $arr_values);
 
