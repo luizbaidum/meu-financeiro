@@ -1,12 +1,11 @@
 var select_mes_filtro = '';
 var url_action = document.forms[0].baseURI;
 var select_categoria = '';
-const APLICACAO = 12;
-const RESGATE = 10;
-const CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
+var APLICACAO = 12;
+var RESGATE = 10;
+var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
 
 if (document.getElementById("idMesFiltro")) {
-
     select_mes_filtro = document.getElementById("idMesFiltro");
 
     select_mes_filtro.addEventListener("change", () => {
@@ -18,9 +17,10 @@ if (document.getElementById("idMesFiltro")) {
         req.open("POST", url_action, true);
         req.send(post_data);
         req.onreadystatechange = function () {
-            if (req.readyState != 4 || (req.status != 200 && req.status != 304)) 
+            if (req.readyState != 4 || (req.status != 200 && req.status != 304)) {
                 return;
-    
+            }
+
             document.body.innerHTML = req.responseText;
             getScript('js/geral.js');
         }
