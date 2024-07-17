@@ -3,12 +3,16 @@
 
     $crud = new CRUD();
 
-    if (isset($_POST["mesFiltro"]) && !empty($_POST["mesFiltro"]))
+    $saldos_anteriores = array();
+    if (isset($_POST["mesFiltro"]) && !empty($_POST["mesFiltro"])) {
         $movimentos = $crud->indexTable($_POST["mesFiltro"]);
-    else
+    } else {
         $movimentos = $crud->indexTable();
+        $saldos_anteriores = $crud->getSaldoPassado();
+    }
 
     $resultado = 0;
+    $acumulado = 0;
 ?>
      
     <main class="container">
@@ -43,6 +47,24 @@
                     <td colspan="3" style="text-align: right">Resultado (Rec. - Des. - Apli.)</td>
                     <td>$ <?= $resultado; ?></td>
                 </tr>
+                <?php 
+                    if (!empty($saldos_anteriores)): 
+                        $acumulado = $resultado;
+                ?>
+                    <?php 
+                        foreach ($saldos_anteriores as $value): 
+                            $acumulado += + $value['valor'];
+                    ?>
+                        <tr class="table-dark">
+                            <td colspan="3" style="text-align: right">Resultado mês <?= $value['MES']; ?>:</td>
+                            <td>$ <?= $value['valor']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr class="table-dark">
+                        <td colspan="3" style="text-align: right">Acumulado</td>
+                        <td>$ <?= $acumulado; ?></td>
+                    </tr>
+                <?php endif; ?>
             </tfoot>
         </table>
     </main>

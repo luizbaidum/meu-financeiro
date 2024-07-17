@@ -169,6 +169,19 @@ class CRUD {
         return $this->executarQuery($query);
     }
 
+    public function getSaldoPassado(int $times = 2)
+    {
+        $mes_atual = date('m');
+        $where = 'MONTH(movimentos.dataMovimento) BETWEEN "'. ($mes_atual - $times).'" AND "'. ($mes_atual - 1).'"';
+
+        $query = "SELECT SUM(movimentos.valor) AS valor, MONTH(movimentos.dataMovimento) AS MES
+                    FROM movimentos 
+                    WHERE $where
+                    GROUP BY MES";
+
+        return $this->executarQuery($query);
+    }
+
     public function fazerLogin($dados)
     {
         $arr_values = array();
