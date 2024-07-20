@@ -85,7 +85,14 @@
                     <div>
                         <?php foreach ($lembretes as $value): ?>
                             <hr>
-                            <?= $value["lembrete"]; ?>
+                            <div class="row">
+                                <div class="col-11">
+                                    <?= $value["lembrete"]; ?> 
+                                </div>
+                                <div class="col-1">
+                                    <h5>X</h5>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 </div>
