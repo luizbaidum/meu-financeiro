@@ -5,6 +5,10 @@ var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
 
+document.getElementsByClassName('disparar-alert').addEventListener('click', function() {
+    console.log('teste')
+})
+
 if (document.getElementById("idMesFiltro")) {
     select_mes_filtro = document.getElementById("idMesFiltro");
 
