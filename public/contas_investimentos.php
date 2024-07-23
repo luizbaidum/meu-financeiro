@@ -13,7 +13,7 @@
 
             $crud->insert("rendimento", $_POST);
 
-            $saldo_atual = $crud->getSaldoAtual($_POST["idContaInvest"]);
+            $saldo_atual = $crud->getSaldoAtual('conta_investimento', $_POST["idContaInvest"]);
             $item = [
                 "saldoAtual"    => ($saldo_atual + $_POST["valorRendimento"]),
                 "saldoAnterior" => $saldo_atual,
