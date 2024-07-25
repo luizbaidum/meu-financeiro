@@ -71,10 +71,12 @@ class CRUD {
        return $this->executarQuery($query, $arr_values);
     }
 
-    public function delete(string $action, array $get)
+    public function delete(array $get)
     {
         $arr_values = array();
-        $table = TableNames::getTableName($action);
+        $table = TableNames::getTableName($get['action']);
+
+        unset($get['action']);
 
         foreach ($get as $k => $v) {
             $campo = $k;

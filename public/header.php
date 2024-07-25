@@ -89,7 +89,12 @@
                                 <div class="col-11">
                                     <?= $value["lembrete"]; ?> 
                                 </div>
-                                <div class="col-1">
+                                <div class="col-1 acao-deletar" 
+                                    style="width: 40px; cursor: pointer" 
+                                    data-chave="<?= $value['idLembrete']; ?>" 
+                                    data-table="lembrete"
+                                    data-campo="idLembrete"
+                                >
                                     <h5>X</h5>
                                 </div>
                             </div>
