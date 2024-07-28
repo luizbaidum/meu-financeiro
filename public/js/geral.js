@@ -5,11 +5,15 @@ var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
 
-document.getElementsByClassName('consultar-objetivos').addEventListener('click', function() {
-    alert('teste');
-    //no crud.js tem um jeito de como isso funciona
-    //pretendo fazer o conteudo ser exibido em um alert
-})
+let consulta_obj = document.getElementsByClassName('consultar-objetivos');
+
+for (let element of consulta_obj) {
+    element.addEventListener('click', consultarObjetivo);
+}
+
+function consultarObjetivo() {
+    console.log('teste ok');
+}
 
 if (document.getElementById("idMesFiltro")) {
     select_mes_filtro = document.getElementById("idMesFiltro");

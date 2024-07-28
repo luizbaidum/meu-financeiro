@@ -1,6 +1,6 @@
-let elementos = document.getElementsByClassName('acao-deletar');
+let acao_deletar = document.getElementsByClassName('acao-deletar');
 
-for (let element of elementos) {
+for (let element of acao_deletar) {
     element.addEventListener('click', deletar);
 }
 
