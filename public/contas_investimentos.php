@@ -116,7 +116,7 @@
                                 <td><?= $value["nomeBanco"]; ?></td>
                                 <td>
                                     <?= $value["tituloInvest"]; ?>
-                                    <i class="bi bi-eye disparar-alert"></i>
+                                    <i class="bi bi-eye consultar-objetivos"></i>
                                 </td>
                                 <td>$ <?= $value["saldoAtual"]; ?></td>
                                 <td>$ <?= $value["saldoAnterior"]; ?></td>

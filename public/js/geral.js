@@ -5,8 +5,10 @@ var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
 
-document.getElementsByClassName('disparar-alert').addEventListener('click', function() {
-    console.log('teste')
+document.getElementsByClassName('consultar-objetivos').addEventListener('click', function() {
+    alert('teste');
+    //no crud.js tem um jeito de como isso funciona
+    //pretendo fazer o conteudo ser exibido em um alert
 })
 
 if (document.getElementById("idMesFiltro")) {
