@@ -13,7 +13,6 @@ function deletar() {
     url_action = url_action.concat('?action=').concat(tabela).concat(`&${campo_procurar}=${id_deletar}`);
 
     let req = new XMLHttpRequest();
-
     req.open('GET', url_action, true);
     req.send();
     req.onreadystatechange = function () {

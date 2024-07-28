@@ -16,6 +16,16 @@
             $crud->atualizarSaldoObj($id_obj, $percentual, $id_conta_invest);
         }        
     }
+
+    print_r($_POST);
+    print_r($_GET);
+
+    if (isset($_GET['idContaConsultar'])) {
+        $id_conta_invest = $_GET['idContaConsultar'];
+        $objetivos = $crud->selectAll('obj', ['idContaInvest', '=', $id_conta_invest], [], []);
+
+        print_r($objetivos);
+    }
 ?>
 
 <main class="container">

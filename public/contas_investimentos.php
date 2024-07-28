@@ -116,7 +116,10 @@
                                 <td><?= $value["nomeBanco"]; ?></td>
                                 <td>
                                     <?= $value["tituloInvest"]; ?>
-                                    <button class="consultar-objetivos btn btn-light btn-sm">&#9432;</button>
+                                    <button 
+                                        class="consultar-objetivos btn btn-light btn-sm"
+                                        data-chave="<?= $value['idContaInvest']; ?>"
+                                    >&#9432;</button>
                                 </td>
                                 <td>$ <?= $value["saldoAtual"]; ?></td>
                                 <td>$ <?= $value["saldoAnterior"]; ?></td>
