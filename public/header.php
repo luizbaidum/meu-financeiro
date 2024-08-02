@@ -68,9 +68,11 @@
                                 <li><a class="dropdown-item" href="movimentos_mensais.php">Movimentos Mensais</a>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <button class="btn btn-light btn-sm nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLembretes" aria-expanded="false" aria-controls="collapseLembretes">Lembretes</button>
-                        </li>
+                        <?php if ($_SERVER['REQUEST_URI'] != '/erros_do_bog.php'): ?>
+                            <li class="nav-item">
+                                <button class="btn btn-light btn-sm nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLembretes" aria-expanded="false" aria-controls="collapseLembretes">Lembretes</button>
+                            </li>
+                        <?php endif; ?>
                         <li class="nav-item">
                             <a href="login.php">
                                 <button type="button" class="btn btn-danger">Sair</button>
