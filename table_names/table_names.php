@@ -27,6 +27,7 @@ class TablesList {
         'conta_investimento' => 'contas_investimentos',
         'rendimento'         => 'rendimentos',
         'mensais'            => 'movimentos_mensais',
-        'obj'                => 'objetivos_invest'
+        'obj'                => 'objetivos_invest',
+        'erros'              => 'erros_bog'
     ];
 }

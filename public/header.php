@@ -7,8 +7,13 @@
 
     session_start();
 
-    if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true)
-        header ("location: login.php");
+    if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
+        if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] === '/erros_do_bog.php') {
+            
+        } else {
+            header ("location: login.php");
+        }
+    }
 
     $lembretes = (new CRUD())->selectAll("lembrete", [], [], []);
 ?>
@@ -70,7 +75,12 @@
                             <a href="login.php">
                                 <button type="button" class="btn btn-danger">Sair</button>
                             </a>
-                        </li>                  
+                        </li>
+                        <li class="nav-item">
+                            <a href="erros_do_bog.php">
+                                <button type="button" class="btn btn-light">Erros do bog</button>
+                            </a>
+                        </li>      
                     </ul>
                 </div>
             </div>

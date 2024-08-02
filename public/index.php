@@ -35,7 +35,7 @@
                         $resultado += $mov["valor"];
                 ?>
                     <tr>
-                        <td class="data-movimento"><?= $mov["dataMovimento"]; ?></td>
+                        <td><?= $mov["dataMovimento"]; ?></td>
                         <td><?= $mov["nomeMovimento"]; ?></td>
                         <td><?= $mov["categoria"]; ?></td>
                         <td>$ <?= $mov["valor"]; ?></td>
