@@ -5,36 +5,10 @@ var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
 
-function executarAjax() {
-
-}
-
-let consulta_obj = document.getElementsByClassName('consultar-objetivos');
-
-for (let element of consulta_obj) {
-    element.addEventListener('click', consultarObjetivo);
-}
-
-function consultarObjetivo() {
-    let url_action = 'cad_objetivos.php';
-    let id_conta = this.dataset.chave;
-
-    url_action = url_action.concat('?idContaConsultar=').concat(id_conta);
-
-    let req = new XMLHttpRequest();
-    req.open('GET', url_action, true);
-    req.send();
-    req.onreadystatechange = function () {
-
-        console.log('ooo')
-        if (this.readyState == 4 && this.status == 200) {
-            if (window.confirm('Exclusão realizada. Atualizar página?')) {
-                
-            }
-        } else {
-            alert('Os objetivos não puderam ser consultados.');
-        }
-    }
+for (let btn of btn_objetivos) {
+    btn.addEventListener('click', function () {
+        requireAjax(btn, dispararAlert);
+    })
 }
 
 if (document.getElementById("idMesFiltro")) {

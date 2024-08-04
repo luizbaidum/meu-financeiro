@@ -4,9 +4,10 @@
     if (!empty($_GET)) {
         $crud = new Crud();
 
-        $action = $_GET['action'];
-        $ret = $crud->selectAll($action, [[$_GET['campo'], '=', $_GET['id']]], [], []);
+        $ret = $crud->selectAll($_GET['table'], [[$_GET['fieldId'], '=', $_GET['id']]], [], []);
 
-        echo json_encode($ret);
+        echo json_encode($ret[0]);
+
+        exit;
     }
 ?>

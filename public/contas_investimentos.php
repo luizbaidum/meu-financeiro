@@ -117,8 +117,9 @@
                                 <td>
                                     <?= $value["tituloInvest"]; ?>
                                     <button class="consultar-objetivo" 
-                                            data-chave="<?=$value['idContaInvest']; ?>"
-                                            data-campo="idContaInvest"
+                                            data-url-action="consultas.php"
+                                            data-id="<?=$value['idContaInvest']; ?>"
+                                            data-field-id="idContaInvest"
                                             data-table="obj"
                                     >&#128065;</button>
                                 </td>
