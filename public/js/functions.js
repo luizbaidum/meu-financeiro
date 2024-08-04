@@ -1,6 +1,6 @@
 async function requireAjax(elemento, callback) {
     let url = elemento.dataset.urlAction;
-    let method = 'GET';
+    let method = elemento.dataset.method;
     let post_data = Array();
 
     if (method == 'POST') {
@@ -29,8 +29,11 @@ function responseTreatment(resposta) {
     str_resposta = 'Forbidden || Not Found';
   }
 
-  return JSON.stringify(str_resposta, null, 4);
-  return typeof(str_resposta);
+  if (typeof(str_resposta) == 'string') {
+    return str_resposta
+  } else {
+    return JSON.stringify(str_resposta, null, 4);
+  }  
 }
 
 function createPostData() {
@@ -57,4 +60,26 @@ function incrementUrl(elemento) {
 
 function dispararAlert(conteudo) {
     alert(conteudo);
+}
+
+function inserirHtml(conteudo) {
+    document.body.innerHTML = conteudo;
+
+    getScript('js/geral.js');
+}
+
+function getScript(source) {
+    var script = document.createElement('script');
+    var prior = document.getElementsByTagName('script')[0];
+    script.async = 1;
+
+    script.onload = script.onreadystatechange = function(_, isAbort) {
+        if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
+            script.onload = script.onreadystatechange = null;
+            script = undefined;
+        }
+    };
+
+    script.src = source;
+    prior.parentNode.insertBefore(script, prior);
 }

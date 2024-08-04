@@ -4,6 +4,7 @@ var select_categoria = '';
 var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
+var btn_objetivos = document.getElementsByClassName('consultar-objetivo');
 
 for (let btn of btn_objetivos) {
     btn.addEventListener('click', function () {
@@ -11,42 +12,12 @@ for (let btn of btn_objetivos) {
     })
 }
 
-if (document.getElementById("idMesFiltro")) {
-    select_mes_filtro = document.getElementById("idMesFiltro");
+if (document.getElementById('idMesFiltro')) {
+    select_mes_filtro = document.getElementById('idMesFiltro');
 
-    select_mes_filtro.addEventListener("change", () => {
-        let post_data = new FormData();
-        post_data.append("mesFiltro", select_mes_filtro.value)
-    
-        var req = new XMLHttpRequest();
-    
-        req.open("POST", url_action, true);
-        req.send(post_data);
-        req.onreadystatechange = function () {
-            if (req.readyState != 4 || (req.status != 200 && req.status != 304)) {
-                return;
-            }
-
-            document.body.innerHTML = req.responseText;
-            getScript('js/geral.js');
-        }
+    select_mes_filtro.addEventListener('change', (element) => {
+        requireAjax(element.target, inserirHtml);
     });
-}
-
-function getScript(source) {
-    var script = document.createElement('script');
-    var prior = document.getElementsByTagName('script')[0];
-    script.async = 1;
-
-    script.onload = script.onreadystatechange = function(_, isAbort) {
-        if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
-            script.onload = script.onreadystatechange = null;
-            script = undefined;
-        }
-    };
-
-    script.src = source;
-    prior.parentNode.insertBefore(script, prior);
 }
 
 if (document.getElementsByClassName('select-categoria').length > 0) {
