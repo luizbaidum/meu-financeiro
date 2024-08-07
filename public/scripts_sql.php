@@ -31,7 +31,7 @@ class CRUD {
                     break;
                 case "SELECT":
                 case "SHOW":
-                    $retornar_select = $stmt->fetchAll();
+                    $retornar_select = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $result = $retornar_select;
                     break;
             }

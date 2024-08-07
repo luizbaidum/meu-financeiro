@@ -121,6 +121,7 @@
                                             data-id="<?=$value['idContaInvest']; ?>"
                                             data-field-id="idContaInvest"
                                             data-table="obj"
+                                            data-method="GET"
                                     >&#128065;</button>
                                 </td>
                                 <td>$ <?= $value["saldoAtual"]; ?></td>

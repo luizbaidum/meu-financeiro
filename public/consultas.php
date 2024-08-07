@@ -6,7 +6,7 @@
 
         $ret = $crud->selectAll($_GET['table'], [[$_GET['fieldId'], '=', $_GET['id']]], [], []);
 
-        echo json_encode($ret[0]);
+        echo json_encode($ret);
 
         exit;
     }

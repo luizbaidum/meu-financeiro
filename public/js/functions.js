@@ -4,7 +4,7 @@ async function requireAjax(elemento, callback) {
     let post_data = Array();
 
     if (method == 'POST') {
-        post_data = await createPostData();
+        post_data = await createPostDataMesFiltro();
     } else if (method == 'GET') {
         url = url.concat(await incrementUrl(elemento));
     }
@@ -19,24 +19,40 @@ async function requireAjax(elemento, callback) {
     }
 }
 
-function responseTreatment(resposta) {
+function responseTreatment(response) {
 
-  let str_resposta = '';
+    let resposta = '';
+    let str_resposta = '';
 
-  if (resposta.status === 200) {
-    str_resposta = resposta.responseText;
-  } else {
-    str_resposta = 'Forbidden || Not Found';
-  }
+    if (response.status === 200) {
+        resposta = response.responseText;
 
-  if (typeof(str_resposta) == 'string') {
-    return str_resposta
-  } else {
-    return JSON.stringify(str_resposta, null, 4);
-  }  
+        try {
+            if (typeof(JSON.parse(resposta)) == 'object') {
+                resposta = JSON.parse(resposta);
+            }
+        } catch (error) {
+            str_resposta = resposta;
+        }
+        
+    } else {
+        resposta = 'Forbidden || Not Found';
+    }
+
+    if (typeof(resposta) == 'object' && str_resposta == '') {
+        return JSON.stringify(resposta, null, '\t');
+    } else {
+        return str_resposta;
+    }  
 }
 
 function createPostData() {
+    let post_data = new FormData();
+ 
+    return post_data;
+}
+
+function createPostDataMesFiltro() {
     let post_data = new FormData();
     post_data.append("mesFiltro", select_mes_filtro.value)
 
@@ -82,4 +98,37 @@ function getScript(source) {
 
     script.src = source;
     prior.parentNode.insertBefore(script, prior);
+}
+
+function insertOptions(select, options, comparator) {
+    options.forEach(function(item, value) {
+
+        if (item.idContaInvest == comparator) {
+            let value = item.idObj;
+            let text = item.nomeObj;
+            let opt = document.createElement('option');
+
+            opt.value = value;
+            opt.innerHTML = text;
+            select.appendChild(opt);
+        }
+    })
+}
+
+function removeOptions(select) {
+    for (let i = 0; i <= select.options.length; i++) {
+        select.remove(select.options[i]);
+    }
+}
+
+function criarLabel(str) {
+    var frag = document.createDocumentFragment();
+    var elem = document.createElement('label');
+    elem.innerHTML = str;
+
+    while (elem.childNodes[0]) {
+        frag.appendChild(elem.childNodes[0]);
+    }
+
+    return frag;
 }

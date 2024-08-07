@@ -1,19 +1,19 @@
-var select_mes_filtro = '';
-var url_action = document.forms[0].baseURI;
-var select_categoria = '';
 var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
-var btn_objetivos = document.getElementsByClassName('consultar-objetivo');
 
-for (let btn of btn_objetivos) {
-    btn.addEventListener('click', function () {
-        requireAjax(btn, dispararAlert);
-    })
+if (document.getElementsByClassName('consultar-objetivo')) {
+    var btn_objetivos = document.getElementsByClassName('consultar-objetivo');
+    
+    for (let btn of btn_objetivos) {
+        btn.addEventListener('click', function () {
+            requireAjax(btn, dispararAlert);
+        })
+    }    
 }
 
 if (document.getElementById('idMesFiltro')) {
-    select_mes_filtro = document.getElementById('idMesFiltro');
+    var select_mes_filtro = document.getElementById('idMesFiltro');
 
     select_mes_filtro.addEventListener('change', (element) => {
         requireAjax(element.target, inserirHtml);
@@ -21,7 +21,7 @@ if (document.getElementById('idMesFiltro')) {
 }
 
 if (document.getElementsByClassName('select-categoria').length > 0) {
-    select_categoria = document.getElementsByClassName('select-categoria')[0];
+    let select_categoria = document.getElementsByClassName('select-categoria')[0];
     let div_content = document.getElementById('content-obj');
     let id_categoria = '';
 
@@ -77,36 +77,4 @@ if (document.getElementById('idContaInvest')) {
             return;
         }
     })
-}
-
-function criarLabel(str) {
-    var frag = document.createDocumentFragment();
-    var elem = document.createElement('label');
-    elem.innerHTML = str;
-
-    while (elem.childNodes[0]) {
-        frag.appendChild(elem.childNodes[0]);
-    }
-
-    return frag;
-}
-
-function insertOptions(select, options, comparator) {
-    options.forEach(function(item, value) {
-        if (item.idContaInvest == comparator) {
-            let value = item.idObj;
-            let text = item.nomeObj;
-            let opt = document.createElement('option');
-
-            opt.value = value;
-            opt.innerHTML = text;
-            select.appendChild(opt);
-        }
-    })
-}
-
-function removeOptions(select) {
-    for (let i = 0; i <= select.options.length; i++) {
-        select.remove(select.options[i]);
-    }
 }
