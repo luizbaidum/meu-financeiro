@@ -114,7 +114,16 @@
                         ?>
                             <tr>
                                 <td><?= $value["nomeBanco"]; ?></td>
-                                <td><?= $value["tituloInvest"]; ?></td>
+                                <td>
+                                    <?= $value["tituloInvest"]; ?>
+                                    <button class="consultar-objetivo" 
+                                            data-url-action="consultas.php"
+                                            data-id="<?=$value['idContaInvest']; ?>"
+                                            data-field-id="idContaInvest"
+                                            data-table="obj"
+                                            data-method="GET"
+                                    >&#128065;</button>
+                                </td>
                                 <td>$ <?= $value["saldoAtual"]; ?></td>
                                 <td>$ <?= $value["saldoAnterior"]; ?></td>
                                 <td><?= $value["dataAnterior"]; ?></td>

@@ -1,6 +1,6 @@
-let elementos = document.getElementsByClassName('acao-deletar');
+let acao_deletar = document.getElementsByClassName('acao-deletar');
 
-for (let element of elementos) {
+for (let element of acao_deletar) {
     element.addEventListener('click', deletar);
 }
 
@@ -13,7 +13,6 @@ function deletar() {
     url_action = url_action.concat('?action=').concat(tabela).concat(`&${campo_procurar}=${id_deletar}`);
 
     let req = new XMLHttpRequest();
-
     req.open('GET', url_action, true);
     req.send();
     req.onreadystatechange = function () {
