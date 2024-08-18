@@ -3,15 +3,19 @@ async function requireAjax(elemento, callback) {
     let method = elemento.dataset.method;
     let post_data = Array();
 
-    if (elemento.id = 'idMesFiltro') {
-        url = 
-        post_data = await executarMesFiltro(elemento);
-    }
-
     if (method == 'POST') {
         post_data = [];
     } else if (method == 'GET') {
         url = url.concat(await incrementUrl(elemento));
+    }
+
+    //Caso específico
+    if (elemento.id = 'idMesFiltro' && method == undefined) {
+        let ret = await executarMesFiltro();
+
+        method = 'POST';
+        url = ret[0];
+        post_data = ret[1];
     }
 
     let req = new XMLHttpRequest();
@@ -138,12 +142,9 @@ function criarLabel(str) {
     return frag;
 }
 
-function executarMesFiltro(elemento) {
-    console.log(elemento);
+async function executarMesFiltro() {
+    let current_url = window.location.href;
+    let data = await createPostDataMesFiltro();
 
-    const currentUrl = window.location.href;
-console.log(currentUrl);
-
+    return Array(current_url, data);
 }
-
-console.log('o')
