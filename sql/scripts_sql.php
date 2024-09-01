@@ -1,6 +1,6 @@
 <?php
 
-require_once "diretorio.php";
+require_once '../public/diretorio.php';
 require_once Diretorio::diretorio . "\\table_names\\table_names.php";
 require_once Diretorio::diretorio ."\\connection\\conexao.php";
 
