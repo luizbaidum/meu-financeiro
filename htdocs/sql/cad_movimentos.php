@@ -1,7 +1,9 @@
 <?php 
-    require '../sql/scripts_sql.php';
+    require 'scripts_sql.php';
 
     if (!empty($_POST)) {
+
+        $crud = new CRUD();
 
         $APLICACAO = '12';
         $RESGATE = '10';
@@ -92,4 +94,6 @@
             $crud->update('conta_investimento', $item, $item_where);
         }
     }
+
+    header('location: ../public/movimentos.php');
 ?>

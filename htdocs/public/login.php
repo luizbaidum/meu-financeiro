@@ -1,5 +1,5 @@
 <?php 
-    require_once 'sql/scripts_sql.php';
+    require_once '../sql/scripts_sql.php';
 
     $logado = false;
 

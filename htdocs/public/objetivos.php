@@ -1,4 +1,8 @@
-<?php require_once 'header.php'; ?>
+<?php 
+    require_once 'header.php'; 
+
+    $crud = new CRUD();
+?>
 
 <main class="container">
     <div class="card mt-2">

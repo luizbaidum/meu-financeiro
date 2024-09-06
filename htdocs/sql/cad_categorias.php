@@ -1,4 +1,6 @@
 <?php
+    require 'scripts_sql.php';
+
     if (!empty($_POST)) {
         $_POST['tipo'] = strtoupper($_POST['tipo']);
 
@@ -15,4 +17,6 @@
             $crud->insert("categoria", $_POST);
         endif;
     }
+
+    header('location: ../public/categorias.php');
 ?>

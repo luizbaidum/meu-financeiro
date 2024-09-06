@@ -30,8 +30,8 @@
 
     <title>Financas</title>
 
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/bootstrap.css.map">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.css.map">
 
     <style>
         body {
@@ -44,7 +44,7 @@
     <header class="container mb-2">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../index.php">Home</a>
+                <a class="navbar-brand" href="index.php">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -57,7 +57,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownCadastros">
                                 <li><a class="dropdown-item" href="categorias.php">Categorias</a></li>
                                 <li><a class="dropdown-item" href="movimentos.php">Movimentos</a></li>
-                                <li><a class="dropdown-item" href="cad_contas_investimentos.php">Contas Invest</a>
+                                <li><a class="dropdown-item" href="contas_investimentos.php">Contas Invest</a>
                                 <li><a class="dropdown-item" href="cad_movimentos_mensais.php">Movimentos Mensais</a>
                                 <li><a class="dropdown-item" href="objetivos.php">Objetivos</a>
                             </ul>
@@ -69,7 +69,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownConsultas">
                                 <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
                                 <li><a class="dropdown-item" href="orcamento.php">Orçamento</a></li>
-                                <li><a class="dropdown-item" href="contas_investimentos.php">Contas Invest</a>
+                                <li><a class="dropdown-item" href="contas_investimentos_index.php">Index Contas Invest</a>
                                 <li><a class="dropdown-item" href="movimentos_mensais.php">Movimentos Mensais</a>
                             </ul>
                         </li>

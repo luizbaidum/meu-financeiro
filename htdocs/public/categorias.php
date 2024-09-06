@@ -28,4 +28,4 @@
     </div>
 </main>
 
-<?php require_once ('bottom.php'); ?>
+<?php require_once 'bottom.php'; ?>

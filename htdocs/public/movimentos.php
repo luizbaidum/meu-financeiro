@@ -10,7 +10,7 @@
 
     <main class="container">
         <div class="card p-1">
-            <form action="sql/cad_movimentos.php" method="post">
+            <form action="../sql/cad_movimentos.php" method="post">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-12 col-sm-6">

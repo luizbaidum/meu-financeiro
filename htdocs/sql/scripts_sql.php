@@ -1,8 +1,8 @@
 <?php
 
 require_once '../public/diretorio.php';
-require_once Diretorio::diretorio . "\\table_names\\table_names.php";
-require_once Diretorio::diretorio ."\\connection\\conexao.php";
+require_once Diretorio::diretorio . "\\htdocs\\table_names\\table_names.php";
+require_once Diretorio::diretorio ."\\htdocs\\connection\\conexao.php";
 
 class CRUD {
     private function executarQuery($query, $arr_values = [])
@@ -22,15 +22,15 @@ class CRUD {
             //$stmt->debugDumpParams();
             //exit;
             switch ($operacao) {
-                case "INSERT":
+                case 'INSERT':
                     $result = $bd->lastInsertId();
                     break;
-                case "UPDATE":
-                case "DELETE":
+                case 'UPDATE':
+                case 'DELETE':
                     $result = $stmt->rowCount();
                     break;
-                case "SELECT":
-                case "SHOW":
+                case 'SELECT':
+                case 'SHOW':
                     $retornar_select = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $result = $retornar_select;
                     break;
@@ -41,7 +41,7 @@ class CRUD {
             return $result;
         } catch (PDOException $e) {
             $bd->rollBack();
-            echo "Failed: " . $e->getMessage();
+            echo 'Failed: ' . $e->getMessage();
         }
 
         $bd = NULL;
@@ -57,16 +57,16 @@ class CRUD {
         foreach ($post as $k => $v)
             $query .= "$k, ";
 
-        $query = rtrim($query, ", ") . ")";
+        $query = rtrim($query, ', ') . ')';
 
-        $query .= "VALUES (";
+        $query .= 'VALUES (';
 
         foreach ($post as $k => $v) {
-            $query .= "?, ";
+            $query .= '?, ';
             $arr_values[] = $v;
         }
 
-        $query = rtrim($query, ", ") . ")";
+        $query = rtrim($query, ', ') . ')';
 
        return $this->executarQuery($query, $arr_values);
     }

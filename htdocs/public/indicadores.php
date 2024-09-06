@@ -1,5 +1,5 @@
 <?php 
-    require_once ("header.php"); 
+    require_once 'header.php'; 
 
     $crud = new CRUD();
 
@@ -49,4 +49,4 @@
 	</div>
 </main>
 
-<?php include_once ("bottom.php"); ?>
+<?php require_once 'bottom.php'; ?>
