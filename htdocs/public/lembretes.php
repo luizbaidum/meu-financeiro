@@ -1,15 +1,10 @@
 
 <?php
-    require_once ("header.php"); 
-
-    if (!empty($_POST)) {
-        $crud = new CRUD();
-        $crud->insert("lembrete", $_POST);
-    }
+    require 'header.php'; 
 ?>
     <main class="container">
         <div class="card p-1">
-            <form action="lembretes.php" method="post">
+            <form action="../sql/cad_lembretes.php" method="post">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-12">
@@ -24,4 +19,4 @@
         </div>
     </main>
 
-<?php include_once ("bottom.php"); ?>
+<?php require 'bottom.php'; ?>

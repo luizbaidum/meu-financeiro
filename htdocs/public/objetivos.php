@@ -10,7 +10,7 @@
             Cadastrar Objetivo
         </div>
         <div class="card-body p-1">
-            <form action="sql/cad_objetivos.php" method="post">
+            <form action="../sql/cad_objetivos.php" method="post">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-6">

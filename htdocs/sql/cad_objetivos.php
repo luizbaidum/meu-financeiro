@@ -1,4 +1,6 @@
 <?php 
+    require 'scripts_sql.php';
+
     $crud = new CRUD();
 
     if (!empty($_POST)) {
@@ -19,3 +21,5 @@
         $id_conta_invest = $_GET['idContaConsultar'];
         $objetivos = $crud->selectAll('obj', ['idContaInvest', '=', $id_conta_invest], [], []);
     }
+
+    header('location: ../public/objetivos.php');

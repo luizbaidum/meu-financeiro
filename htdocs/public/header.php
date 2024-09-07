@@ -58,7 +58,7 @@
                                 <li><a class="dropdown-item" href="categorias.php">Categorias</a></li>
                                 <li><a class="dropdown-item" href="movimentos.php">Movimentos</a></li>
                                 <li><a class="dropdown-item" href="contas_investimentos.php">Contas Invest</a>
-                                <li><a class="dropdown-item" href="cad_movimentos_mensais.php">Movimentos Mensais</a>
+                                <li><a class="dropdown-item" href="movimentos_mensais.php">Movimentos Mensais</a>
                                 <li><a class="dropdown-item" href="objetivos.php">Objetivos</a>
                             </ul>
                         </li>
@@ -70,7 +70,7 @@
                                 <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
                                 <li><a class="dropdown-item" href="orcamento.php">Orçamento</a></li>
                                 <li><a class="dropdown-item" href="contas_investimentos_index.php">Index Contas Invest</a>
-                                <li><a class="dropdown-item" href="movimentos_mensais.php">Movimentos Mensais</a>
+                                <li><a class="dropdown-item" href="movimentos_mensais_index.php">Movimentos Mensais</a>
                             </ul>
                         </li>
                         <?php if ($_SERVER['REQUEST_URI'] != '/erros_do_bog.php'): ?>

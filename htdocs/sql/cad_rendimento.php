@@ -1,5 +1,9 @@
 <?php
+    require 'scripts_sql.php';
+
     if (!empty($_POST)) {
+        $crud = new CRUD();
+
         if (isset($_POST["cadRendimento"])) {
             unset($_POST["cadRendimento"]);
 
@@ -31,3 +35,5 @@
             }
         }
     }
+
+    header('location: ../public/contas_investimentos_index.php');

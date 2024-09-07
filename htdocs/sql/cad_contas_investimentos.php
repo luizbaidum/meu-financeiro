@@ -1,4 +1,6 @@
 <?php 
+    require 'scripts_sql.php';
+
     if (!empty($_POST)) {
         $crud = new CRUD();
 
@@ -9,3 +11,5 @@
             $crud->insert("conta_investimento", $_POST);
         }
     }
+
+    header('location: ../public/contas_investimentos.php');

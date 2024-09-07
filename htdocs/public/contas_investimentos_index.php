@@ -83,7 +83,7 @@
                                 <td>
                                     <?= $value["tituloInvest"]; ?>
                                     <button class="consultar-objetivo" 
-                                            data-url-action="consultas.php"
+                                            data-url-action="../sql/consultas.php"
                                             data-id="<?=$value['idContaInvest']; ?>"
                                             data-field-id="idContaInvest"
                                             data-table="obj"
