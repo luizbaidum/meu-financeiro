@@ -1,5 +1,5 @@
 <?php 
-    require_once ("header.php"); 
+    require_once 'header.php'; 
 
     $crud = new CRUD();
 
@@ -21,7 +21,7 @@
 
 <main class="container">
 	<form action="indicadores.php" method="post">
-		<?php require_once "select_month.php"; ?>
+		<?php require 'select_month.php'; ?>
 	</form>
 	<div class="card p-1">
 		<div class="row card-body">
@@ -49,4 +49,4 @@
 	</div>
 </main>
 
-<?php include_once ("bottom.php"); ?>
+<?php require 'bottom.php'; ?>

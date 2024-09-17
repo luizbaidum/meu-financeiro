@@ -3,19 +3,24 @@
     setlocale(LC_ALL, NULL);
     setlocale(LC_ALL, 'pt_BR.utf-8');
 
-    require_once "scripts_sql.php";
+    require_once '../sql/scripts_sql.php';
+
+    $pagina_atual = $_SERVER['REQUEST_URI'];
+    $lista_paginas = [
+        'categorias.php' => 'Categorias',
+    ];
 
     session_start();
 
-    if (!isset($_SESSION["logado"]) || $_SESSION["logado"] !== true) {
+    if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
         if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] === '/erros_do_bog.php') {
             
         } else {
-            header ("location: login.php");
+            header ('location: login.php');
         }
     }
 
-    $lembretes = (new CRUD())->selectAll("lembrete", [], [], []);
+    $lembretes = (new CRUD())->selectAll('lembrete', [], [], []);
 ?>
 
 <html lang="pt-br">
@@ -50,11 +55,11 @@
                                 Cadastros
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownCadastros">
-                                <li><a class="dropdown-item" href="cad_categorias.php">Categorias</a></li>
-                                <li><a class="dropdown-item" href="cad_movimentos.php">Movimentos</a></li>
-                                <li><a class="dropdown-item" href="cad_contas_investimentos.php">Contas Invest</a>
-                                <li><a class="dropdown-item" href="cad_movimentos_mensais.php">Movimentos Mensais</a>
-                                <li><a class="dropdown-item" href="cad_objetivos.php">Objetivos</a>
+                                <li><a class="dropdown-item" href="categorias.php">Categorias</a></li>
+                                <li><a class="dropdown-item" href="movimentos.php">Movimentos</a></li>
+                                <li><a class="dropdown-item" href="contas_investimentos.php">Contas Invest</a>
+                                <li><a class="dropdown-item" href="movimentos_mensais.php">Movimentos Mensais</a>
+                                <li><a class="dropdown-item" href="objetivos.php">Objetivos</a>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -64,8 +69,8 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownConsultas">
                                 <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
                                 <li><a class="dropdown-item" href="orcamento.php">Orçamento</a></li>
-                                <li><a class="dropdown-item" href="contas_investimentos.php">Contas Invest</a>
-                                <li><a class="dropdown-item" href="movimentos_mensais.php">Movimentos Mensais</a>
+                                <li><a class="dropdown-item" href="contas_investimentos_index.php">Index Contas Invest</a>
+                                <li><a class="dropdown-item" href="movimentos_mensais_index.php">Movimentos Mensais</a>
                             </ul>
                         </li>
                         <?php if ($_SERVER['REQUEST_URI'] != '/erros_do_bog.php'): ?>

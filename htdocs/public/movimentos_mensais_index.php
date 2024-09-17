@@ -1,32 +1,14 @@
 <?php
-    require_once ("header.php"); 
+    require 'header.php'; 
 
     $crud = new CRUD();
-
-    if (!empty($_POST)) { 
-        if (isset($_POST['registro']) && $_POST['registro'] === 'T') {
-            $item = array();
-
-            foreach ($_POST['idMovMensal'] as $id) {
-                $arr_cat = explode(' - sinal: ', $_POST['idCategoria'][$id]);
-                $sinal = $arr_cat[1];
-
-                $item['nomeMovimento'] = $_POST['nomeMovimento'][$id];
-                $item['dataMovimento'] = $_POST['dataMovimento'][$id];
-                $item['idCategoria'] = $arr_cat[0];
-                $item['valor'] = $sinal . $_POST['valor'][$id];
-
-                $crud->insert('movimento', $item);
-            }
-        }
-    }
 
     $arr_mensais = $crud->getMensais();
 ?>
 
 <main class="container">
     <div class="card mt-2 p-1">
-        <form action="movimentos_mensais.php" method="post">
+        <form action="../sql/cad_movimentos_mensais.php" method="post">
             <input type="hidden" value="T" name="registro">
             <table class="table">
                 <thead>
@@ -81,4 +63,4 @@
     </div>
 </main>
 
-<?php include_once ("bottom.php"); ?>
+<?php require 'bottom.php'; ?>

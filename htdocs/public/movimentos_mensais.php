@@ -1,14 +1,7 @@
 <?php
-    require_once ("header.php");
+    require 'header.php';
 
     $crud = new CRUD();
-
-    if (!empty($_POST)) { 
-        if (isset($_POST['cadastro']) && $_POST['cadastro'] === 'T') {
-            unset($_POST['cadastro']);
-            $crud->insert('mensais', $_POST);
-        }
-    }
 ?>
 
 <main class="container">
@@ -17,7 +10,7 @@
             Cadastrar Movimento Mensal
         </div>
         <div class="card-body p-1">
-            <form action="cad_movimentos_mensais.php" method="post">
+            <form action="../sql/cad_movimentos_mensais.php" method="post">
                 <input type="hidden" name="cadastro" value="T">
                 <div class="form-group">
                     <div class="row">
@@ -57,4 +50,4 @@
     </div>
 </main>
 
-<?php include_once ("bottom.php"); ?>
+<?php require 'bottom.php'; ?>

@@ -3,10 +3,11 @@
     {
         global $con;
 
-        $host = "localhost";
-        $db = "meu_financeiro";
-        $user = "root";
-        $pw = "";
+        $host = 'localhost';
+        //$db = 'meu_financeiro';
+        $db = 'meu_financeiro_este';
+        $user = 'root';
+        $pw = '';
 
         $con = new PDO("mysql:host=$host; dbname=$db", $user, $pw, array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, 

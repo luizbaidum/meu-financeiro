@@ -5,7 +5,7 @@ for (let element of acao_deletar) {
 }
 
 function deletar() {
-    let url_action = 'delecoes.php';
+    let url_action = '../../sql/delecoes.php';
     let campo_procurar = this.dataset.campo;
     let id_deletar = this.dataset.chave;
     let tabela = this.dataset.table;

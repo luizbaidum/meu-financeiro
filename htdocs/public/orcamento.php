@@ -1,25 +1,21 @@
 <?php 
-    require_once ("header.php");
+    require 'header.php';
 
     $crud = new CRUD();
-
-    if (!empty($_POST) && isset($_POST["dataOrcamento"]))
-        $crud->insert("orcamento", $_POST);
+    $orcamentos = $crud->orcamentos($_POST["mesFiltro"] ?? "");
 
     $total_orcado = 0;
-
-    $orcamentos = $crud->orcamentos($_POST["mesFiltro"] ?? "");
 ?>
 
 <main class="container">
 	<form action="orcamento.php" method="post">
-        <?php require_once "select_month.php"; ?>
+        <?php require_once 'select_month.php'; ?>
 	</form>
 	<div class="card p-1">
         <div class="card">
             <div class="card-header">Cadastro</div>
             <div class="card-body">
-                <form action="orcamento.php" method="post">
+                <form action="../sql/cad_orcamento.php" method="post">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-12 col-sm-4">
@@ -88,4 +84,4 @@
 	</div>
 </main>
 
-<?php include_once ("bottom.php"); ?>
+<?php require 'bottom.php'; ?>

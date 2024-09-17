@@ -1,31 +1,7 @@
-<?php
-    require_once ("header.php");
+<?php 
+    require_once 'header.php'; 
 
     $crud = new CRUD();
-
-    if (!empty($_POST)) {
-        $id_conta_invest = $_POST['idContaInvest'];
-        $percentual = $_POST['percentObjContaInvest'];
-
-        $utilizado = $crud->validarPercentualDisponivel($id_conta_invest, $percentual);
-
-        if ($utilizado) {
-            echo '<div class="text-center"><span class="text-danger">Atenção!</span> A Conta Invest informada já está ' . $utilizado . '% comprometida.</div>';
-        } else {
-            $id_obj = $crud->insert('obj', $_POST);
-            $crud->atualizarSaldoObj($id_obj, $percentual, $id_conta_invest);
-        }        
-    }
-
-    print_r($_POST);
-    print_r($_GET);
-
-    if (isset($_GET['idContaConsultar'])) {
-        $id_conta_invest = $_GET['idContaConsultar'];
-        $objetivos = $crud->selectAll('obj', ['idContaInvest', '=', $id_conta_invest], [], []);
-
-        print_r($objetivos);
-    }
 ?>
 
 <main class="container">
@@ -34,7 +10,7 @@
             Cadastrar Objetivo
         </div>
         <div class="card-body p-1">
-            <form action="cad_objetivos.php" method="post">
+            <form action="../sql/cad_objetivos.php" method="post">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-6">
@@ -74,4 +50,4 @@
     </div>
 </main>
 
-<?php include_once ("bottom.php"); ?>
+<?php require_once 'bottom.php'; ?>
