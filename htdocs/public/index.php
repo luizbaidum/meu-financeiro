@@ -20,6 +20,19 @@
             <?php require_once "select_month.php"; ?>
         </form>
 
+        <section class="d-flex justify-content-center align-items-center flex-column">
+            <form>
+                <div class="input-group">
+                    <div class="mb-1 p-1">
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="ml-2 p-1">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
         <table class="table">
             <theader>
                 <tr>
