@@ -1,5 +1,5 @@
 <?php 
-    require 'header.php';
+    require 'scripts_sql.php';
 
     $crud = new CRUD();
 
