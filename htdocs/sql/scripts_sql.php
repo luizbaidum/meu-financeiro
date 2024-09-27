@@ -330,4 +330,13 @@ class CRUD {
 
         return true;
     }
+
+    public function consultarExtrato()
+    {
+        $query = "SELECT `rendimentos`.*, CONCAT(`contas_investimentos`.`nomeBanco`, ' - ', `contas_investimentos`.`tituloInvest`) AS conta FROM `rendimentos` INNER JOIN `contas_investimentos` ON `rendimentos`.`idContaInvest` = `contas_investimentos`.`idContaInvest` WHERE `rendimentos`.`idRendimento` > 0 AND `rendimentos`.`dataRendimento` >= '2024-08-01' ORDER BY `rendimentos`.`dataRendimento` DESC";
+
+        $result = $this->executarQuery($query);
+
+        return $result;
+    }
 }
