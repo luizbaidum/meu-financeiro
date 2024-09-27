@@ -9,14 +9,15 @@ if (document.getElementsByClassName('consultar-objetivo')) {
         btn.addEventListener('click', function () {
             requireAjax(btn, dispararAlert);
         })
-    }    
+    }
 }
 
 if (document.getElementById('idMesFiltro')) {
     var select_mes_filtro = document.getElementById('idMesFiltro');
 
-    select_mes_filtro.addEventListener('change', (element) => {
-        requireAjax(element.target, inserirHtml);
+    select_mes_filtro.addEventListener('change', () => {
+        let formulario = document.getElementById('idFormMesFiltro');
+        requireAjax(formulario, inserirHtml);
     });
 }
 
@@ -76,5 +77,13 @@ if (document.getElementById('idContaInvest')) {
 
             return;
         }
+    })
+}
+
+if (document.querySelector('.form-ajax')) {
+    document.querySelector('.form-ajax').addEventListener('submit', function(e) {
+        e.preventDefault();
+        let formulario = e.target;
+        requireAjax(formulario, inserirHtml);
     })
 }

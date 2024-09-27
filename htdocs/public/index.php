@@ -3,12 +3,17 @@
 
     $crud = new CRUD();
 
+    $pesquisa = $_POST['pesquisa'] ?? '';
     $saldos_anteriores = array();
-    if (isset($_POST["mesFiltro"]) && !empty($_POST["mesFiltro"])) {
-        $movimentos = $crud->indexTable($_POST["mesFiltro"]);
+    if (isset($_POST['mesFiltro']) && !empty($_POST['mesFiltro'])) {
+        $movimentos = $crud->indexTable($pesquisa, $_POST['mesFiltro']);
     } else {
-        $movimentos = $crud->indexTable();
+        $movimentos = $crud->indexTable($pesquisa);
         $saldos_anteriores = $crud->getSaldoPassado();
+    }
+
+    if ($pesquisa != '') {
+        $saldos_anteriores = array();
     }
 
     $resultado = 0;
@@ -16,18 +21,18 @@
 ?>
      
     <main class="container">
-        <form action="index.php" method="post">
+        <form action="index.php" data-method="post" id="idFormMesFiltro">
             <?php require_once "select_month.php"; ?>
         </form>
 
         <section class="d-flex justify-content-center align-items-center flex-column">
-            <form>
+            <form class="form-ajax" data-url-action="index.php" data-method="POST">
                 <div class="input-group">
                     <div class="mb-1 p-1">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="text" class="form-control" id="idPesquisa" name="pesquisa">
                     </div>
                     <div class="ml-2 p-1">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Pesquisar</button>
                     </div>
                 </div>
             </form>

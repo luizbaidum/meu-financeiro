@@ -20,8 +20,8 @@
 ?>
 
 <main class="container">
-	<form action="indicadores.php" method="post">
-		<?php require 'select_month.php'; ?>
+	<form action="indicadores.php" data-method="post" id="idFormMesFiltro">
+		<?php require_once 'select_month.php'; ?>
 	</form>
 	<div class="card p-1">
 		<div class="row card-body">

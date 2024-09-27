@@ -4,14 +4,14 @@ async function requireAjax(elemento, callback) {
     let post_data = Array();
 
     if (method == 'POST') {
-        post_data = [];
+        post_data = await createPostData(elemento);
     } else if (method == 'GET') {
         url = url.concat(await incrementUrl(elemento));
     }
 
     //Caso específico
-    if (elemento.id = 'idMesFiltro' && method == undefined) {
-        let ret = await executarMesFiltro();
+    if (elemento.id = 'idFormMesFiltro') {
+        let ret = await executarMesFiltro(elemento);
 
         method = 'POST';
         url = ret[0];
@@ -55,16 +55,13 @@ function responseTreatment(response) {
     }  
 }
 
-function createPostData() {
+function createPostData(formulario) {
     let post_data = new FormData();
+
+    new FormData(formulario).forEach((value, key) => {
+        post_data.append(key, value);
+    });
  
-    return post_data;
-}
-
-function createPostDataMesFiltro() {
-    let post_data = new FormData();
-    post_data.append("mesFiltro", select_mes_filtro.value)
-
     return post_data;
 }
 
@@ -142,9 +139,9 @@ function criarLabel(str) {
     return frag;
 }
 
-async function executarMesFiltro() {
+async function executarMesFiltro(elemento) {
     let current_url = window.location.href;
-    let data = await createPostDataMesFiltro();
+    let data = createPostData(elemento);
 
     return Array(current_url, data);
 }
