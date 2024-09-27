@@ -3,8 +3,15 @@
 
     $crud = new CRUD();
 
-    $pesquisa = $_POST['pesquisa'] ?? '';
+    $pesquisa = '';
     $saldos_anteriores = array();
+    $resultado = 0;
+    $acumulado = 0;
+
+    if (!empty($_POST['pesquisa']) && trim($_POST['pesquisa'], ' ') != '') {
+        $pesquisa = trim($_POST['pesquisa'], ' ');
+    }
+
     if (isset($_POST['mesFiltro']) && !empty($_POST['mesFiltro'])) {
         $movimentos = $crud->indexTable($pesquisa, $_POST['mesFiltro']);
     } else {
@@ -15,9 +22,6 @@
     if ($pesquisa != '') {
         $saldos_anteriores = array();
     }
-
-    $resultado = 0;
-    $acumulado = 0;
 ?>
      
     <main class="container">
@@ -29,7 +33,7 @@
             <form class="form-ajax" data-url-action="index.php" data-method="POST">
                 <div class="input-group">
                     <div class="mb-1 p-1">
-                        <input type="text" class="form-control" id="idPesquisa" name="pesquisa">
+                        <input type="text" class="form-control" id="idPesquisa" name="pesquisa" value="<?= $pesquisa; ?>">
                     </div>
                     <div class="ml-2 p-1">
                         <button type="submit" class="btn btn-primary">Pesquisar</button>
