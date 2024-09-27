@@ -8,7 +8,7 @@
 ?>
 
 <main class="container">
-	<form action="orcamento.php" method="post">
+	<form action="orcamento.php" data-method="post" id="idFormMesFiltro">
         <?php require_once 'select_month.php'; ?>
 	</form>
 	<div class="card p-1">

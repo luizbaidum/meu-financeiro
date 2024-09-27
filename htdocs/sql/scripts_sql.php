@@ -1,6 +1,6 @@
 <?php
 
-require_once '../public/diretorio.php';
+require_once 'diretorio.php';
 require_once Diretorio::diretorio . "\\htdocs\\table_names\\table_names.php";
 require_once Diretorio::diretorio ."\\htdocs\\connection\\conexao.php";
 
@@ -153,7 +153,7 @@ class CRUD {
         return $this->executarQuery($query);
     }
 
-    public function indexTable($month = "")
+    public function indexTable($pesquisa, $month = "")
     {
         $where = " AND (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
         if (!empty($month))
@@ -161,6 +161,10 @@ class CRUD {
 
         if ($month == "13")
             $where = "";
+
+        if ($pesquisa != '') {
+            $where = ' AND (categoria_movimentos.categoria LIKE "%' . $pesquisa . '%" OR movimentos.nomeMovimento LIKE "%' . $pesquisa . '%")';
+        }
 
         $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
