@@ -5,7 +5,7 @@
 
         $host = 'localhost';
         //$db = 'meu_financeiro';
-        $db = 'meu_financeiro_este';
+        $db = 'meu_financeiro_2';
         $user = 'root';
         $pw = '';
 

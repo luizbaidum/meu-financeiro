@@ -1,7 +1,7 @@
 let acao_deletar = document.getElementsByClassName('acao-deletar');
 
-for (let element of acao_deletar) {
-    element.addEventListener('click', deletar);
+for (let btn of acao_deletar) {
+    btn.addEventListener('click', deletar);
 }
 
 function deletar() {
@@ -16,12 +16,14 @@ function deletar() {
     req.open('GET', url_action, true);
     req.send();
     req.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            if (window.confirm('Exclusão realizada. Atualizar página?')) {
-                window.location.reload();
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                if (window.confirm('Exclusão realizada. Atualizar página?')) {
+                    window.location.reload();
+                }
+            } else {
+                alert('A exclusão não pôde ser realizada');
             }
-        } else {
-            alert('A exclusão não pôde ser realizada');
         }
     }
 }

@@ -10,7 +10,7 @@ async function requireAjax(elemento, callback) {
     }
 
     //Caso específico
-    if (elemento.id = 'idFormMesFiltro') {
+    if (elemento.id == 'idFormMesFiltro') {
         let ret = await executarMesFiltro(elemento);
 
         method = 'POST';
