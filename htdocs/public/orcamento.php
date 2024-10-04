@@ -2,7 +2,7 @@
     require 'header.php';
 
     $crud = new CRUD();
-    $orcamentos = $crud->orcamentos($_POST["mesFiltro"] ?? "");
+    $orcamentos = $crud->orcamentos($_POST['mesFiltro'] ?? '');
 
     $total_orcado = 0;
 ?>

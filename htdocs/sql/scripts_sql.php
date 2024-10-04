@@ -153,14 +153,16 @@ class CRUD {
         return $this->executarQuery($query);
     }
 
-    public function indexTable($pesquisa, $month = "")
+    public function indexTable($pesquisa, $month = '')
     {
         $where = " AND (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
-        if (!empty($month))
-            $where = " AND (MONTH(movimentos.dataMovimento) = '$month')";
-
-        if ($month == "13")
-            $where = "";
+        if (!empty($month)) {
+            if ($month == 'Todos') {
+                $where = '';
+            } else {
+                $where = " AND DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
+            }
+        }
 
         if ($pesquisa != '') {
             $where = ' AND (categoria_movimentos.categoria LIKE "%' . $pesquisa . '%" OR movimentos.nomeMovimento LIKE "%' . $pesquisa . '%")';
@@ -207,11 +209,13 @@ class CRUD {
     public function indicadores($month = "")
     {
         $where = " AND (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
-        if (!empty($month))
-            $where = " AND (MONTH(movimentos.dataMovimento) = '$month')";
-
-        if ($month == "13")
-            $where = "";
+        if (!empty($month)) {
+            if ($month == 'Todos') {
+                $where = '';
+            } else {
+                $where = " AND DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
+            }
+        }
 
         $query = "SELECT SUM(movimentos.valor) AS total, categoria_movimentos.idCategoria, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
@@ -223,14 +227,16 @@ class CRUD {
         return $this->executarQuery($query);
     }
 
-    public function orcamentos($month = "")
+    public function orcamentos($month = '')
     {
         $where = " AND (MONTH(orcamentos.dataOrcamento) = MONTH(CURRENT_DATE()))";
-        if (!empty($month))
-            $where = " AND (MONTH(orcamentos.dataOrcamento) = '$month')";
-
-        if ($month == "13")
-            $where = "";
+        if (!empty($month)) {
+            if ($month == 'Todos') {
+                $where = '';
+            } else {
+                $where = " AND DATE_FORMAT(orcamentos.dataOrcamento, '%b') = '$month'";
+            }
+        }
 
         $query = "SELECT SUM(orcamentos.valor) AS totalOrcado, 
                             categoria_movimentos.idCategoria, 
@@ -329,5 +335,43 @@ class CRUD {
         }
 
         return true;
+    }
+
+    public function consultarExtrato($filtro)
+    {
+        $mes = $filtro['extratoMes'] ?? '';
+        $invest = $filtro['extratoInvest'] ?? '';
+        $acao = $filtro['acaoInvest'] ?? '';
+
+        if ($mes == '') {
+            $hoje = date('Y-m-d');
+            $data_create = date_create($hoje);
+            date_sub($data_create, date_interval_create_from_date_string('90 days'));
+    
+            $where = "AND `rendimentos`.`dataRendimento` BETWEEN '" . date_format($data_create, 'Y-m-01') . "' AND '$hoje'";
+        } elseif ($mes == 'Todos') {
+            $where = '';
+        } else {
+            $where = "AND DATE_FORMAT(`rendimentos`.`dataRendimento`, '%b') = '$mes'";
+        }
+
+        if ($invest != '') {
+            $where .= "AND `rendimentos`.`idContaInvest` = '$invest'";
+        }
+
+        if ($acao != '') {
+            $where .= "AND `rendimentos`.`tipo` = '$acao'";
+        }
+
+        $query = "SELECT `rendimentos`.*, 
+            CONCAT(`contas_investimentos`.`nomeBanco`, ' - ', `contas_investimentos`.`tituloInvest`) AS conta 
+            FROM `rendimentos` 
+            INNER JOIN `contas_investimentos` ON `rendimentos`.`idContaInvest` = `contas_investimentos`.`idContaInvest` 
+            WHERE `rendimentos`.`idRendimento` > 0 $where
+            ORDER BY `rendimentos`.`dataRendimento` DESC";
+
+        $result = $this->executarQuery($query);
+
+        return $result;
     }
 }

@@ -6,6 +6,7 @@
     $contas = $crud->selectAll("conta_investimento", [], [], []);
 
     $total = 0;
+    $resultado_ext = 0;
 ?>
 
     <main class="container">

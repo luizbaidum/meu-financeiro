@@ -69,7 +69,8 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownConsultas">
                                 <li><a class="dropdown-item" href="indicadores.php">Indicadores</a></li>
                                 <li><a class="dropdown-item" href="orcamento.php">Orçamento</a></li>
-                                <li><a class="dropdown-item" href="contas_investimentos_index.php">Index Contas Invest</a>
+                                <li><a class="dropdown-item" href="contas_investimentos_index.php">Lista Contas Invest</a>
+                                <li><a class="dropdown-item" href="contas_investimentos_extrato.php">Extrato Contas Invest</a>
                                 <li><a class="dropdown-item" href="movimentos_mensais_index.php">Movimentos Mensais</a>
                             </ul>
                         </li>
