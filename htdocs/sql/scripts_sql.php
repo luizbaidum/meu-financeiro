@@ -153,14 +153,16 @@ class CRUD {
         return $this->executarQuery($query);
     }
 
-    public function indexTable($pesquisa, $month = "")
+    public function indexTable($pesquisa, $month = '')
     {
         $where = " AND (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
-        if (!empty($month))
-            $where = " AND (MONTH(movimentos.dataMovimento) = '$month')";
-
-        if ($month == "13")
-            $where = "";
+        if (!empty($month)) {
+            if ($month == 'Todos') {
+                $where = '';
+            } else {
+                $where = " AND DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
+            }
+        }
 
         if ($pesquisa != '') {
             $where = ' AND (categoria_movimentos.categoria LIKE "%' . $pesquisa . '%" OR movimentos.nomeMovimento LIKE "%' . $pesquisa . '%")';
@@ -207,11 +209,13 @@ class CRUD {
     public function indicadores($month = "")
     {
         $where = " AND (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
-        if (!empty($month))
-            $where = " AND (MONTH(movimentos.dataMovimento) = '$month')";
-
-        if ($month == "13")
-            $where = "";
+        if (!empty($month)) {
+            if ($month == 'Todos') {
+                $where = '';
+            } else {
+                $where = " AND DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
+            }
+        }
 
         $query = "SELECT SUM(movimentos.valor) AS total, categoria_movimentos.idCategoria, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
@@ -223,14 +227,16 @@ class CRUD {
         return $this->executarQuery($query);
     }
 
-    public function orcamentos($month = "")
+    public function orcamentos($month = '')
     {
         $where = " AND (MONTH(orcamentos.dataOrcamento) = MONTH(CURRENT_DATE()))";
-        if (!empty($month))
-            $where = " AND (MONTH(orcamentos.dataOrcamento) = '$month')";
-
-        if ($month == "13")
-            $where = "";
+        if (!empty($month)) {
+            if ($month == 'Todos') {
+                $where = '';
+            } else {
+                $where = " AND DATE_FORMAT(orcamentos.dataOrcamento, '%b') = '$month'";
+            }
+        }
 
         $query = "SELECT SUM(orcamentos.valor) AS totalOrcado, 
                             categoria_movimentos.idCategoria, 

@@ -4,7 +4,6 @@
 
     $crud = new CRUD();
     $contas = $crud->selectAll("conta_investimento", [], [], []);
-    $extrato = $crud->consultarExtrato();
 
     $total = 0;
     $resultado_ext = 0;

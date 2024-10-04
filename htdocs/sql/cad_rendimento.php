@@ -4,25 +4,25 @@
     if (!empty($_POST)) {
         $crud = new CRUD();
 
-        if (isset($_POST["cadRendimento"])) {
-            unset($_POST["cadRendimento"]);
+        if (isset($_POST['cadRendimento'])) {
+            unset($_POST['cadRendimento']);
 
-            if ($_POST["tipo"] == "1")
-                $_POST["valorRendimento"] = ($_POST["valorRendimento"] * -1);
+            if ($_POST['tipo'] == '1')
+                $_POST['valorRendimento'] = ($_POST['valorRendimento'] * -1);
 
-            $crud->insert("rendimento", $_POST);
+            $crud->insert('rendimento', $_POST);
 
-            $saldo_atual = $crud->getSaldoAtual('conta_investimento', $_POST["idContaInvest"]);
+            $saldo_atual = $crud->getSaldoAtual('conta_investimento', $_POST['idContaInvest']);
             $item = [
-                "saldoAtual"    => ($saldo_atual + $_POST["valorRendimento"]),
-                "saldoAnterior" => $saldo_atual,
-                "dataAnterior"  => date("Y-m-d")
+                'saldoAtual'    => ($saldo_atual + $_POST['valorRendimento']),
+                'saldoAnterior' => $saldo_atual,
+                'dataAnterior'  => date('Y-m-d')
             ];
             $item_where = [
-                "idContaInvest" => $_POST["idContaInvest"]
+                'idContaInvest' => $_POST['idContaInvest']
             ];
 
-            $crud->update("conta_investimento", $item, $item_where);
+            $crud->update('conta_investimento', $item, $item_where);
 
             $objetivos = $crud->selectAll('obj', [['idContaInvest', '=', $_POST['idContaInvest']]], [], []);
 

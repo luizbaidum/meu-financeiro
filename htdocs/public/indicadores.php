@@ -3,8 +3,8 @@
 
     $crud = new CRUD();
 
-    if (isset($_POST["mesFiltro"]) && !empty($_POST["mesFiltro"]))
-        $indicadores = $crud->indicadores($_POST["mesFiltro"]);
+    if (isset($_POST['mesFiltro']) && !empty($_POST['mesFiltro']))
+        $indicadores = $crud->indicadores($_POST['mesFiltro']);
     else
         $indicadores = $crud->indicadores();
 
