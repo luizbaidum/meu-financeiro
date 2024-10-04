@@ -331,9 +331,38 @@ class CRUD {
         return true;
     }
 
-    public function consultarExtrato()
+    public function consultarExtrato($filtro)
     {
-        $query = "SELECT `rendimentos`.*, CONCAT(`contas_investimentos`.`nomeBanco`, ' - ', `contas_investimentos`.`tituloInvest`) AS conta FROM `rendimentos` INNER JOIN `contas_investimentos` ON `rendimentos`.`idContaInvest` = `contas_investimentos`.`idContaInvest` WHERE `rendimentos`.`idRendimento` > 0 AND `rendimentos`.`dataRendimento` >= '2024-08-01' ORDER BY `rendimentos`.`dataRendimento` DESC";
+        $mes = $filtro['extratoMes'] ?? '';
+        $invest = $filtro['extratoInvest'] ?? '';
+        $acao = $filtro['acaoInvest'] ?? '';
+
+        if ($mes == '') {
+            $hoje = date('Y-m-d');
+            $data_create = date_create($hoje);
+            date_sub($data_create, date_interval_create_from_date_string('90 days'));
+    
+            $where = "AND `rendimentos`.`dataRendimento` BETWEEN '" . date_format($data_create, 'Y-m-01') . "' AND '$hoje'";
+        } elseif ($mes == 'Todos') {
+            $where = '';
+        } else {
+            $where = "AND DATE_FORMAT(`rendimentos`.`dataRendimento`, '%b') = '$mes'";
+        }
+
+        if ($invest != '') {
+            $where .= "AND `rendimentos`.`idContaInvest` = '$invest'";
+        }
+
+        if ($acao != '') {
+            $where .= "AND `rendimentos`.`tipo` = '$acao'";
+        }
+
+        $query = "SELECT `rendimentos`.*, 
+            CONCAT(`contas_investimentos`.`nomeBanco`, ' - ', `contas_investimentos`.`tituloInvest`) AS conta 
+            FROM `rendimentos` 
+            INNER JOIN `contas_investimentos` ON `rendimentos`.`idContaInvest` = `contas_investimentos`.`idContaInvest` 
+            WHERE `rendimentos`.`idRendimento` > 0 $where
+            ORDER BY `rendimentos`.`dataRendimento` DESC";
 
         $result = $this->executarQuery($query);
 

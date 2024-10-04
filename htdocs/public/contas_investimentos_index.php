@@ -108,50 +108,6 @@
                 </table>
             </div>
         </div>
-
-        <div class="card mt-1">
-            <div class="card-header p-2">
-                Extrato últimos 6 meses
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <theader>
-                        <tr>
-                            <th>Conta</th>
-                            <th>Data</th>
-                            <th>Ação</th>
-                            <th>Valor</th>
-                        </tr>
-                    </theader>
-                    <tbody>
-                        <?php 
-                            foreach ($extrato as $value): 
-                                $acao = match ($value['tipo']) {
-                                    '1' => 'Prejuízo',
-                                    '2' => 'Lucro',
-                                    '3' => 'Resgate',
-                                    '4' => 'Aplicação'
-                                };
-
-                                $resultado_ext += $value['valorRendimento'];
-                        ?>
-                            <tr>
-                                <td><?= $value['conta']; ?></td>
-                                <td><?= $value['dataRendimento']; ?></td>
-                                <td><?= $acao; ?></td>
-                                <td>$ <?= $value['valorRendimento']; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                    <tfoot>
-                        <tr class="table-dark">
-                            <td colspan="3" style="text-align: right">Resultado</td>
-                            <td>$ <?= $resultado_ext; ?>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
     </main>
 
 <?php require 'bottom.php'; ?>
