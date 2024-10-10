@@ -49,6 +49,7 @@
                     <th>Movimento</th>
                     <th>Categoria</th>
                     <th>Valor</th>
+                    <th style="width: 25px">Edit</th>
                 </tr>
             </theader>
             <tbody>
@@ -57,10 +58,15 @@
                         $resultado += $mov["valor"];
                 ?>
                     <tr>
-                        <td><?= $mov["dataMovimento"]; ?></td>
-                        <td><?= $mov["nomeMovimento"]; ?></td>
-                        <td><?= $mov["categoria"]; ?></td>
-                        <td>$ <?= $mov["valor"]; ?></td>
+                        <td class="teste"><?= $mov['dataMovimento']; ?></td>
+                        <td class="teste"><?= $mov['nomeMovimento']; ?></td>
+                        <td class="teste-select"><?= $mov['categoria']; ?></td>
+                        <td class="teste">$ <?= $mov['valor']; ?></td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="<?= $mov['idMovimento']; ?>">
+                                &#9998;
+                            </button>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -68,6 +74,7 @@
                 <tr class="table-dark">
                     <td colspan="3" style="text-align: right">Resultado (Rec. - Des. - Apli.)</td>
                     <td>$ <?= $resultado; ?></td>
+                    <td></td>
                 </tr>
                 <?php 
                     if (!empty($saldos_anteriores)): 
@@ -80,11 +87,13 @@
                         <tr class="table-dark">
                             <td colspan="3" style="text-align: right">Resultado mês <?= $value['MES']; ?>:</td>
                             <td>$ <?= $value['valor']; ?></td>
+                            <td></td>
                         </tr>
                     <?php endforeach; ?>
                     <tr class="table-dark">
                         <td colspan="3" style="text-align: right">Acumulado</td>
                         <td>$ <?= $acumulado; ?></td>
+                        <td></td>
                     </tr>
                 <?php endif; ?>
             </tfoot>

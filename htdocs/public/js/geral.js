@@ -87,3 +87,27 @@ if (document.querySelector('.form-ajax')) {
         requireAjax(formulario, inserirHtml);
     })
 }
+
+let teste = document.querySelectorAll('.teste');
+
+teste.forEach(function (i, v) {
+    i.addEventListener('dblclick', function(e) {
+       let texto = e.target.innerText;
+
+        i.innerHTML = `<input type="text" value="${texto}"></input>`;
+    })
+})
+
+let teste_select = document.querySelectorAll('.teste-select');
+
+teste_select.forEach(function (i, v) {
+    i.addEventListener('dblclick', function(e) {
+       let texto = e.target.innerText;
+
+        i.innerHTML = `<select><option value="teste">teste</option></select>`;
+    })
+})
+
+//esc fecha a edição onde está o mouse
+//apertar btn editar fará com que todos input e/ou select abertos na linha sejam atualizados
+//reload index
