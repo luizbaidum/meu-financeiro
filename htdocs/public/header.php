@@ -72,6 +72,7 @@
                                 <li><a class="dropdown-item" href="contas_investimentos_index.php">Lista Contas Invest</a>
                                 <li><a class="dropdown-item" href="contas_investimentos_extrato.php">Extrato Contas Invest</a>
                                 <li><a class="dropdown-item" href="movimentos_mensais_index.php">Movimentos Mensais</a>
+                                <li><a class="dropdown-item" href="cryptos.php">Cryptos</a>
                             </ul>
                         </li>
                         <?php if ($_SERVER['REQUEST_URI'] != '/erros_do_bog.php'): ?>
