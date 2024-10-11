@@ -106,7 +106,7 @@ function getScript(source) {
     prior.parentNode.insertBefore(script, prior);
 }
 
-function insertOptions(select, options, comparator) {
+function insertOptions(select_element, options, comparator) {
     options.forEach(function(item, value) {
 
         if (item.idContaInvest == comparator) {
@@ -116,14 +116,14 @@ function insertOptions(select, options, comparator) {
 
             opt.value = value;
             opt.innerHTML = text;
-            select.appendChild(opt);
+            select_element.appendChild(opt);
         }
     })
 }
 
-function removeOptions(select) {
-    for (let i = 0; i <= select.options.length; i++) {
-        select.remove(select.options[i]);
+function removeOptions(select_element) {
+    for (let i = 0; i <= select_element.options.length; i++) {
+        select_element.remove(select_element.options[i]);
     }
 }
 
@@ -144,4 +144,28 @@ async function executarMesFiltro(elemento) {
     let data = createPostData(elemento);
 
     return Array(current_url, data);
+}
+
+function cancelarEdicao(element) {
+    let linha = element.closest('tr');
+
+    let elementos_cancelar = linha.getElementsByClassName('set-edit-movimento');
+
+    Array.from(elementos_cancelar).forEach(function (v, i) {
+        let td = v.closest('td');
+        let texto = v.value;
+
+        td.innerHTML = texto;
+        td.classList.add('input-edit-movimento');
+    })
+}
+
+function criarInputText(nome, valor) {
+    return `<input type="text" class="set-edit-movimento" name="${nome}" value="${valor}"></input>`
+}
+
+function criarSelect(options_list, name) {
+    return `<select class="set-edit-movimento" name="${name}">
+                ${options_list}
+            </select>`;
 }
