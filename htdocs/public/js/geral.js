@@ -137,5 +137,14 @@ if (document.getElementsByClassName('cancelar-edicao').length > 0) {
     })
 }
 
+if (document.getElementsByClassName('salvar-edicao').length > 0) {
+    Array.from(document.getElementsByClassName('salvar-edicao')).forEach(function (v, i) {
+        v.addEventListener('click', function() {
+            salvarEdicao(v);
+        })
+    })
+}
+
+
 //apertar btn editar fará com que todos input e/ou select abertos na linha sejam atualizados
 //reload index

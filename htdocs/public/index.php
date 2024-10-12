@@ -70,12 +70,12 @@
                             <button type="button" class="btn btn-sm btn-outline-success salvar-edicao" id="<?= $mov['idMovimento']; ?>" title="Salvar">
                                 &check;
                             </button>
-                            <button type="button" class="btn btn-sm btn-outline-danger cancelar-edicao" id="<?= $mov['idMovimento']; ?>" title="Cancelar">
+                            <button type="button" class="btn btn-sm btn-outline-danger cancelar-edicao" id="<?= $mov['idMovimento']; ?>" data-table="movimento" title="Cancelar">
                                 &#10005;
                             </button>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-outline-warning" id="<?= $mov['idMovimento']; ?>" title="Cancelar">
+                            <button type="button" class="btn btn-sm btn-outline-warning" id="<?= $mov['idMovimento']; ?>" title="Excluir">
                                 &#9904;
                             </button>
                         </td>
