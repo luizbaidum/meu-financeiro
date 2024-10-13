@@ -4,8 +4,7 @@
         global $con;
 
         $host = 'localhost';
-        //$db = 'meu_financeiro';
-        $db = 'meu_financeiro_2';
+        $db = 'meu_financeiro';
         $user = 'root';
         $pw = '';
 

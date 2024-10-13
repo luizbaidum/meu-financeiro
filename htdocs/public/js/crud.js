@@ -27,3 +27,38 @@ function deletar() {
         }
     }
 }
+
+function salvarEdicao(element) {
+    let url_action = '../../sql/updates.php';
+    let id_atualizar = element.id;
+    let tabela = element.dataset.table;
+    let linha = element.closest('tr');
+    let elementos_atualizar = linha.getElementsByClassName('set-edit-movimento');
+
+    let form_data = new FormData();
+
+    form_data.append('action', tabela);
+    form_data.append('idMovimento', id_atualizar);
+
+    Array.from(elementos_atualizar).forEach(el => {
+        let campo_atualizar = el.name;
+
+        form_data.append(campo_atualizar, el.value);
+    });
+
+    let req = new XMLHttpRequest();
+
+    req.open('POST', url_action, true);
+    req.send(form_data);
+    req.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                if (window.confirm('Atualização realizada. Atualizar página?')) {
+                    window.location.reload();
+                }
+            } else {
+                alert('A atualização não pôde ser realizada.');
+            }
+        }
+    }
+}
