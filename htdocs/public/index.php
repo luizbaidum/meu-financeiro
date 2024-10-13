@@ -7,6 +7,8 @@
     $saldos_anteriores = array();
     $resultado = 0;
     $acumulado = 0;
+    $result_lb = 0;
+    $result_uepa = 0;
 
     if (!empty($_POST['pesquisa']) && trim($_POST['pesquisa'], ' ') != '') {
         $pesquisa = trim($_POST['pesquisa'], ' ');
@@ -52,6 +54,7 @@
                     <th>Movimento</th>
                     <th>Categoria</th>
                     <th>Valor</th>
+                    <th>Prop.</th>
                     <th style="width: 90px">Editar</th>
                     <th style="width: 30px">Excluir</th>
                 </tr>
@@ -59,13 +62,29 @@
             <tbody>
                 <?php 
                     foreach ($movimentos as $mov): 
-                        $resultado += $mov["valor"];
+                        $resultado += $mov['valor'];
+
+                        switch ($mov['proprietario']) {
+                                case '1':
+                                    $prop = 'Luiz';
+                                    $result_lb += $mov['valor'];
+                                    break;
+                                case '2':
+                                    $prop = 'Uepa';
+                                    $result_uepa += $mov['valor'];
+                                    break;
+                                default:
+                                    $prop = '';
+                        }
                 ?>
                     <tr>
                         <td class="input-edit-movimento dataMovimento" data-element-type="input"><?= $mov['dataMovimento']; ?></td>
                         <td class="input-edit-movimento nomeMovimento" data-element-type="input"><?= $mov['nomeMovimento']; ?></td>
                         <td class="input-edit-movimento idCategoria <?= $mov['idCategoria']; ?>" data-element-type="select"><?= $mov['categoria']; ?></td>
                         <td class="input-edit-movimento valor" data-element-type="input">$ <?= $mov['valor']; ?></td>
+                        <td>
+                            <?= $prop; ?>
+                        </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-outline-success salvar-edicao" id="<?= $mov['idMovimento']; ?>" title="Salvar" data-table="movimento">
                                 &check;
@@ -86,6 +105,9 @@
                 <tr class="table-dark">
                     <td colspan="3" style="text-align: right">Resultado (Rec. - Des. - Apli.)</td>
                     <td>$ <?= $resultado; ?></td>
+                    <td>
+                        <small>Luiz: <?= $result_lb; ?> <br> Uepa: <?= $result_uepa; ?></small>
+                    </td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -102,11 +124,13 @@
                             <td>$ <?= $value['valor']; ?></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                     <?php endforeach; ?>
                     <tr class="table-dark">
                         <td colspan="3" style="text-align: right">Acumulado</td>
                         <td>$ <?= $acumulado; ?></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>
