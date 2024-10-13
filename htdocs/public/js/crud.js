@@ -38,7 +38,7 @@ function salvarEdicao(element) {
     let form_data = new FormData();
 
     form_data.append('action', tabela);
-    form_data.append('id', id_atualizar);
+    form_data.append('idMovimento', id_atualizar);
 
     Array.from(elementos_atualizar).forEach(el => {
         let campo_atualizar = el.name;
@@ -46,21 +46,18 @@ function salvarEdicao(element) {
         form_data.append(campo_atualizar, el.value);
     });
 
-    console.log(form_data);
-    return;
-
     let req = new XMLHttpRequest();
 
     req.open('POST', url_action, true);
-    req.send();
+    req.send(form_data);
     req.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                if (window.confirm('Exclusão realizada. Atualizar página?')) {
+                if (window.confirm('Atualização realizada. Atualizar página?')) {
                     window.location.reload();
                 }
             } else {
-                alert('A exclusão não pôde ser realizada');
+                alert('A atualização não pôde ser realizada.');
             }
         }
     }

@@ -64,10 +64,10 @@
                     <tr>
                         <td class="input-edit-movimento dataMovimento" data-element-type="input"><?= $mov['dataMovimento']; ?></td>
                         <td class="input-edit-movimento nomeMovimento" data-element-type="input"><?= $mov['nomeMovimento']; ?></td>
-                        <td class="input-edit-movimento categoria <?= $mov['idCategoria']; ?>" data-element-type="select"><?= $mov['categoria']; ?></td>
+                        <td class="input-edit-movimento idCategoria <?= $mov['idCategoria']; ?>" data-element-type="select"><?= $mov['categoria']; ?></td>
                         <td class="input-edit-movimento valor" data-element-type="input">$ <?= $mov['valor']; ?></td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-outline-success salvar-edicao" id="<?= $mov['idMovimento']; ?>" title="Salvar">
+                            <button type="button" class="btn btn-sm btn-outline-success salvar-edicao" id="<?= $mov['idMovimento']; ?>" title="Salvar" data-table="movimento">
                                 &check;
                             </button>
                             <button type="button" class="btn btn-sm btn-outline-danger cancelar-edicao" id="<?= $mov['idMovimento']; ?>" data-table="movimento" title="Cancelar">

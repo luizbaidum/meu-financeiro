@@ -102,6 +102,7 @@ arr_input.forEach(function (i, v) {
             switch (type) {
                 case 'input':
                     let texto = e.target.innerText;
+                    texto = texto.replace('$', '');
 
                     conteudo = criarInputText(name, texto);
                     break;
