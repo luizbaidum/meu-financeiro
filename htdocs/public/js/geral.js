@@ -1,6 +1,7 @@
 var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
+var arr_input = document.querySelectorAll('.input-edit-movimento');
 
 if (document.getElementsByClassName('consultar-objetivo')) {
     var btn_objetivos = document.getElementsByClassName('consultar-objetivo');
@@ -88,8 +89,6 @@ if (document.querySelector('.form-ajax')) {
     })
 }
 
-let arr_input = document.querySelectorAll('.input-edit-movimento');
-
 arr_input.forEach(function (i, v) {
     i.addEventListener('dblclick', function(e) {
         let td = e.target.closest('td');
@@ -109,8 +108,9 @@ arr_input.forEach(function (i, v) {
                 case 'select':
                     let valor = e.target.classList[2];
                     let options_list = '';
+                    let options_inside = e.target.dataset.elementOpts;
 
-                    options_obj.forEach(function(v, i) {
+                    window[options_inside].forEach(function(v, i) {
                         options_list = options_list + `<option value="${v.idCategoria}"`;
                         if (valor == v.idCategoria) {
                             options_list = options_list.concat(`selected>${v.categoria}</option>`)
@@ -145,7 +145,3 @@ if (document.getElementsByClassName('salvar-edicao').length > 0) {
         })
     })
 }
-
-
-//apertar btn editar fará com que todos input e/ou select abertos na linha sejam atualizados
-//reload index

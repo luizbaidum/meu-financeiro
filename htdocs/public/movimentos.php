@@ -36,9 +36,16 @@
                     </div>
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-3">
                                 <label for="tipo">Valor (EUA e apenas inteiro)</label>
                                 <input type="number" class="form-control" id="idValor" name="valor" required>
+                            </div>
+                            <div class="col-3">
+                                <label for="idProprietario">Proprietário</label>
+                                <select class="form-select" id="idProprietario" name="proprietario">
+                                    <option value="1">Luiz</option>
+                                    <option value="2">Uepa</option>
+                                </select>
                             </div>
                             <div class="col-3">
                                 <label for="idContaInvest">Conta Invest (se houver)</label>
