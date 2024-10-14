@@ -27,6 +27,15 @@
 
     $options_list = json_encode($crud->selectAll('categoria', [], [], []));
     echo '<script>var options_obj = ' . $options_list . '</script>';
+    echo '<script>var proprietario_obj = [
+            {
+                "idCategoria": "1", "categoria": "Luiz"
+            },
+            {
+                "idCategoria": "2", "categoria": "Uepa"
+            }
+                ]
+        </script>';
 ?>
      
     <main class="container">
@@ -80,9 +89,9 @@
                     <tr>
                         <td class="input-edit-movimento dataMovimento" data-element-type="input"><?= $mov['dataMovimento']; ?></td>
                         <td class="input-edit-movimento nomeMovimento" data-element-type="input"><?= $mov['nomeMovimento']; ?></td>
-                        <td class="input-edit-movimento idCategoria <?= $mov['idCategoria']; ?>" data-element-type="select"><?= $mov['categoria']; ?></td>
+                        <td class="input-edit-movimento idCategoria <?= $mov['idCategoria']; ?>" data-element-type="select" data-element-opts="options_obj"><?= $mov['categoria']; ?></td>
                         <td class="input-edit-movimento valor" data-element-type="input">$ <?= $mov['valor']; ?></td>
-                        <td>
+                        <td class="input-edit-movimento proprietario <?= $mov['proprietario']; ?>" data-element-type="select" data-element-opts="proprietario_obj">
                             <?= $prop; ?>
                         </td>
                         <td>

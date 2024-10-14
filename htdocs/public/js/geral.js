@@ -109,8 +109,9 @@ arr_input.forEach(function (i, v) {
                 case 'select':
                     let valor = e.target.classList[2];
                     let options_list = '';
+                    let options_inside = e.target.dataset.elementOpts;
 
-                    options_obj.forEach(function(v, i) {
+                    window[options_inside].forEach(function(v, i) {
                         options_list = options_list + `<option value="${v.idCategoria}"`;
                         if (valor == v.idCategoria) {
                             options_list = options_list.concat(`selected>${v.categoria}</option>`)
@@ -145,7 +146,3 @@ if (document.getElementsByClassName('salvar-edicao').length > 0) {
         })
     })
 }
-
-
-//apertar btn editar fará com que todos input e/ou select abertos na linha sejam atualizados
-//reload index
