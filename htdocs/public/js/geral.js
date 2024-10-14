@@ -1,6 +1,7 @@
 var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
+var arr_input = document.querySelectorAll('.input-edit-movimento');
 
 if (document.getElementsByClassName('consultar-objetivo')) {
     var btn_objetivos = document.getElementsByClassName('consultar-objetivo');
@@ -87,8 +88,6 @@ if (document.querySelector('.form-ajax')) {
         requireAjax(formulario, inserirHtml);
     })
 }
-
-let arr_input = document.querySelectorAll('.input-edit-movimento');
 
 arr_input.forEach(function (i, v) {
     i.addEventListener('dblclick', function(e) {
