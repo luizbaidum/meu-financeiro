@@ -3,10 +3,12 @@
     require 'header.php';
 
     $crud = new CRUD();
-    $contas = $crud->selectAll("conta_investimento", [], [], []);
+    $contas = $crud->selectAll('conta_investimento', [], [], []);
 
     $total = 0;
     $resultado_ext = 0;
+    $total_uepa = 0;
+    $total_lb = 0;
 ?>
 
     <main class="container">
@@ -77,12 +79,18 @@
                     <tbody>
                         <?php 
                             foreach ($contas as $value): 
-                                $total += $value["saldoAtual"];
+                                $total += $value['saldoAtual'];
+
+                                if ($value['proprietario'] == '1') {
+                                    $total_lb += $value['saldoAtual'];
+                                } elseif ($value['proprietario'] == '2') {
+                                    $total_uepa += $value['saldoAtual'];
+                                }
                         ?>
                             <tr>
-                                <td><?= $value["nomeBanco"]; ?></td>
+                                <td><?= $value['nomeBanco']; ?></td>
                                 <td>
-                                    <?= $value["tituloInvest"]; ?>
+                                    <?= $value['tituloInvest']; ?>
                                     <button class="consultar-objetivo" 
                                             data-url-action="../sql/consultas.php"
                                             data-id="<?=$value['idContaInvest']; ?>"
@@ -91,9 +99,9 @@
                                             data-method="GET"
                                     >&#128065;</button>
                                 </td>
-                                <td>$ <?= $value["saldoAtual"]; ?></td>
-                                <td>$ <?= $value["saldoAnterior"]; ?></td>
-                                <td><?= $value["dataAnterior"]; ?></td>
+                                <td>$ <?= $value['saldoAtual']; ?></td>
+                                <td>$ <?= $value['saldoAnterior']; ?></td>
+                                <td><?= $value['dataAnterior']; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -101,7 +109,10 @@
                         <tr class="table-dark">
                             <td colspan="2" style="text-align: right">Total</td>
                             <td>$ <?= $total; ?>
-                            <td colspan="2"></td>
+                            <td>
+                                <small>Luiz: <?= $total_lb; ?> <br> Uepa: <?= $total_uepa; ?></small>
+                            </td>
+                            <td></td>
                         </tr>
                     </tfoot>
                 </table>
