@@ -38,9 +38,16 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <label for="idNomeMovimento">Nome Movimento</label>
                             <input type="text" class="form-control" id="idNomeMovimento" name="nomeMovimento" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="idProprietario">Proprietário</label>
+                            <select class="form-select" id="idProprietario" name="proprietario">
+                                <option value="1">Luiz</option>
+                                <option value="2">Uepa</option>
+                            </select>
                         </div>
                     </div>
                 </div>
