@@ -11,15 +11,19 @@
         <div class="card">
             <div class="card-header">Importar</div>
             <div class="card-body">
-                <form data-url-action="../sql/cad_orcamento.php" data-method="POST" class="form-ajax">
+                <form data-url-action="funcoes.php?function=buscarOrcamento" data-method="POST" class="form-ajax" data-div-append="id-content-importar">
                     <div class="form-group">
                         <input type="hidden" name="buscarImportacao" value="1">
                         <div class="row">
-                            <div class="col-6">
-                                <label for="idOrigem">Mês origem</label>
-                                <input type="month" id="idOrigem" name="origem" placeholder="yyyy-mm">
+                            <div class="col-3">
+                                <label for="idAnoOrigem">Ano origem</label>
+                                <input type="text" id="idAnoOrigem" name="anoOrigem" value="<?= date('Y'); ?>">
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
+                                <label for="idMesOrigem">Mês origem</label>
+                                <input type="month" id="idMesOrigem" name="mesOrigem" placeholder="yyyy-mm">
+                            </div>
+                            <div class="col-3">
                                 <label for="idDestino">Mês destino</label>
                                 <input type="month" id="idDestino" name="destino" placeholder="yyyy-mm">
                             </div>
@@ -30,7 +34,7 @@
             </div>
         </div>
 
-        <div class="content-importar"></div>
+        <div id="id-content-importar"></div>
 
         <div class="card mt-2">
             <div class="card-header">Cadastro</div>

@@ -374,4 +374,26 @@ class CRUD {
 
         return $result;
     }
+
+    public function buscarMediasDespesas($year, $month)
+    {
+        $where = "DATE_FORMAT(movimentos.dataMovimento, '%Y') = '$year'";
+        $media = "(SUM(movimentos.valor) / MONTH(NOW())) AS valorOrcamento";
+        if (!is_null($month) && $month != '') {
+            $where = "DATE_FORMAT(movimentos.dataMovimento, '%Y-%m') = '$month'";
+            $media = "SUM(movimentos.valor) AS valorOrcamento";
+        }
+
+        $query = "SELECT movimentos.idCategoria,
+                    $media,
+                    categoria_movimentos.categoria
+                    FROM movimentos
+                    INNER JOIN categoria_movimentos ON movimentos.idCategoria = categoria_movimentos.idCategoria
+                    WHERE $where
+                    GROUP BY movimentos.idCategoria";
+
+        $result = $this->executarQuery($query);
+
+        return $result;
+    }
 }

@@ -1,6 +1,7 @@
 async function requireAjax(elemento, callback) {
     let url = elemento.dataset.urlAction;
     let method = elemento.dataset.method;
+    let div_append = elemento.dataset.divAppend ?? null;
     let post_data = Array();
 
     if (method == 'POST') {
@@ -24,7 +25,7 @@ async function requireAjax(elemento, callback) {
     req.send(post_data);
     req.onload = function () {
         let resposta = responseTreatment(this);
-        callback(resposta);
+        callback(div_append, resposta);
     }
 }
 
@@ -84,8 +85,12 @@ function dispararAlert(conteudo) {
     alert(conteudo);
 }
 
-function inserirHtml(conteudo) {
-    document.body.innerHTML = conteudo;
+function inserirHtml(div, conteudo) {
+    if (div != '' && div != null) {
+        document.getElementById(div).innerHTML = conteudo;
+    } else {
+        document.body.innerHTML = conteudo;
+    }
 
     getScript('js/geral.js');
 }
