@@ -13,9 +13,10 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>select</th>
+                        <th>selecione</th>
                         <th>Data</th>
                         <th>Descrição</th>
+                        <th>Prop.</th>
                         <th>Valor</th>
                         <th>Categoria</th>
                     </tr>
@@ -41,6 +42,12 @@
                             <td>
                                 <?= $value['nomeMovimento']; ?>
                                 <input type="hidden" name="nomeMovimento[<?= $value['idMovMensal']; ?>]" value="<?= $value['nomeMovimento']; ?>">
+                            </td>
+                            <td>
+                                <select class="form-select" id="idProprietario" name="proprietario[<?= $value['idMovMensal']; ?>]">
+                                    <option value="1">Luiz</option>
+                                    <option value="2" <?= $value['proprietario'] == '2' ? ' selected ' : ''; ?>>Uepa</option>
+                                </select>
                             </td>
                             <td>
                                 <input type="number" class="form-control"  name="valor[<?= $value['idMovMensal']; ?>]" step=".01" value="<?= $value['valorDespesa']; ?>">

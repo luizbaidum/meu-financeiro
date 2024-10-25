@@ -2,17 +2,41 @@
     require 'header.php';
 
     $crud = new CRUD();
-    $orcamentos = $crud->orcamentos($_POST['mesFiltro'] ?? '');
 
-    $total_orcado = 0;
+    $months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'); 
 ?>
 
 <main class="container">
-	<form action="orcamento.php" data-method="post" id="idFormMesFiltro">
-        <?php require_once 'select_month.php'; ?>
-	</form>
 	<div class="card p-1">
         <div class="card">
+            <div class="card-header">Importar</div>
+            <div class="card-body">
+                <form data-url-action="funcoes.php?function=buscarOrcamento" data-method="POST" class="form-ajax" data-div-append="id-content-importar">
+                    <div class="form-group">
+                        <input type="hidden" name="buscarImportacao" value="1">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="idAnoOrigem">Ano origem</label>
+                                <input type="text" id="idAnoOrigem" name="anoOrigem" value="<?= date('Y'); ?>">
+                            </div>
+                            <div class="col-3">
+                                <label for="idMesOrigem">Mês origem</label>
+                                <input type="month" id="idMesOrigem" name="mesOrigem" placeholder="yyyy-mm">
+                            </div>
+                            <div class="col-3">
+                                <label for="idDestino">Mês destino</label>
+                                <input type="month" id="idDestino" name="destino" placeholder="yyyy-mm">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-1">Buscar</button>
+                </form>  
+            </div>
+        </div>
+
+        <div id="id-content-importar"></div>
+
+        <div class="card mt-2">
             <div class="card-header">Cadastro</div>
             <div class="card-body">
                 <form action="../sql/cad_orcamento.php" method="post">
@@ -31,10 +55,10 @@
                                 <select class="form-select" id="idCategoria" name="idCategoria" required>
                                     <option value="">Selecione</option>
                                     <?php 
-                                        $categorias = $crud->selectAll("categoria", [], [], ["categoria" => "ASC"]);
+                                        $categorias = $crud->selectAll('categoria', [], [], ['categoria' => 'ASC']);
                                         foreach ($categorias as $cat):
                                     ?>
-                                        <option value="<?= $cat["idCategoria"]; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
+                                        <option value="<?= $cat['idCategoria'] . ' - sinal: ' . $cat['sinal']; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -46,39 +70,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary mt-1">Submit</button>
                 </form>  
-            </div>
-        </div>
-        <div class="card mt-2">
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Mês</th>
-                            <th scope="col">Categoria</th>
-                            <th scope="col">Valor Orçado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($orcamentos as $value): 
-                            if ($value["tipo"] == "R")
-                                $total_orcado += $value["totalOrcado"];
-                            else
-                                $total_orcado -= $value["totalOrcado"];
-                        ?>
-                            <tr>
-                                <td><?= $value["mesOrcado"]; ?></td>
-                                <td><?= $value["categoria"]; ?></td>
-                                <td><?= ($value["tipo"] == "R" ? "+ " : "- ") . $value["totalOrcado"]; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2">Total</td>
-                            <td><?= $total_orcado; ?></td>
-                        </tr>
-                    </tfoot>
-                </table>
             </div>
         </div>
 	</div>
