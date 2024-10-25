@@ -55,10 +55,10 @@
                                 <select class="form-select" id="idCategoria" name="idCategoria" required>
                                     <option value="">Selecione</option>
                                     <?php 
-                                        $categorias = $crud->selectAll("categoria", [], [], ["categoria" => "ASC"]);
+                                        $categorias = $crud->selectAll('categoria', [], [], ['categoria' => 'ASC']);
                                         foreach ($categorias as $cat):
                                     ?>
-                                        <option value="<?= $cat["idCategoria"]; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
+                                        <option value="<?= $cat['idCategoria'] . ' - sinal: ' . $cat['sinal']; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

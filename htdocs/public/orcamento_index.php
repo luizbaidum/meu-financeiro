@@ -24,15 +24,11 @@
                 </thead>
                 <tbody>
                     <?php foreach ($orcamentos as $value): 
-                        if ($value["tipo"] == "R")
-                            $total_orcado += $value["totalOrcado"];
-                        else
-                            $total_orcado -= $value["totalOrcado"];
-                    ?>
+                            $total_orcado += $value["totalOrcado"]; ?>
                         <tr>
                             <td><?= $value["mesOrcado"]; ?></td>
                             <td><?= $value["categoria"]; ?></td>
-                            <td><?= ($value["tipo"] == "R" ? "+ " : "- ") . $value["totalOrcado"]; ?></td>
+                            <td><?= $value["totalOrcado"]; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

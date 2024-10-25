@@ -13,10 +13,15 @@
                 $crud->insert('orcamento', $data);
             }
         } else {
+            $arr_cat = explode(' - sinal: ' , $_POST['idCategoria']);
+            $_POST['idCategoria'] = $arr_cat[0];
+            $sinal = $arr_cat[1];
+
+            if ($sinal == '-' && !strpos($_POST['valor'], '-'))
+                $_POST['valor'] = $sinal . $_POST['valor'];
+
             $crud->insert('orcamento', $_POST);
         }
     }
-        
 
     header('location: ../public/orcamento.php');
-
