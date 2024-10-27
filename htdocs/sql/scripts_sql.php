@@ -20,6 +20,19 @@ class retornoAjax
 }
 
 class CRUD extends retornoAjax {
+
+    private static $user = null;
+
+    private function setUser($user)
+    {
+        self::$user = $user;
+    }
+
+    private function getUser()
+    {
+        return self::$user;
+    }
+
     private function executarQuery($query, $arr_values = [])
     {
         $operacao = strtoupper(strtok($query, " "));
@@ -208,13 +221,15 @@ class CRUD extends retornoAjax {
     {
         $arr_values = array();
 
-        $query = "SELECT idUsuario FROM usuarios WHERE usuarios.login = ? AND usuarios.senha = ?";
-        $arr_values[] = $dados["login"];
-        $arr_values[] = $dados["senha"];
+        $query = 'SELECT idUsuario FROM usuarios WHERE usuarios.login = ? AND usuarios.senha = ?';
+        $arr_values[] = $dados['login'];
+        $arr_values[] = $dados['senha'];
 
         $result = $this->executarQuery($query, $arr_values);
 
-        if (count($result) == 1 && isset($result[0]["idUsuario"]) && !empty($result[0]["idUsuario"]))
+        $this->setUser($result['idUsuario']);
+
+        if (count($result) == 1 && isset($result[0]['idUsuario']) && !empty($result[0]['idUsuario']))
             return true;
 
         return false;
