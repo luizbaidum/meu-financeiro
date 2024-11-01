@@ -25,12 +25,15 @@ async function requireAjax(elemento, callback) {
     req.send(post_data);
     req.onload = function () {
         let resposta = responseTreatment(this);
-        callback(div_append, resposta);
+        if (div_append) {
+            callback(div_append, resposta);
+        } else {
+            callback(resposta);
+        }
     }
 }
 
 function responseTreatment(response) {
-
     let resposta = '';
     let str_resposta = '';
 
