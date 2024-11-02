@@ -25,6 +25,7 @@ async function requireAjax(elemento, callback) {
     req.send(post_data);
     req.onload = function () {
         let resposta = responseTreatment(this);
+        console.log(resposta);
         if (div_append) {
             callback(div_append, resposta);
         } else {
@@ -88,13 +89,13 @@ function dispararAlert(conteudo) {
     alert(conteudo);
 }
 
-function inserirHtml(div, conteudo) {
-    if (div != '' && div != null) {
-        document.getElementById(div).innerHTML = conteudo;
-    } else {
-        document.body.innerHTML = conteudo;
-    }
+function insertIntoDiv(div, conteudo) {
+    document.getElementById(div).innerHTML = conteudo;
+    getScript('js/geral.js');
+}
 
+function insertIntoBody(conteudo) {
+    document.body.innerHTML = conteudo;
     getScript('js/geral.js');
 }
 
