@@ -18,7 +18,7 @@ if (document.getElementById('idMesFiltro')) {
 
     select_mes_filtro.addEventListener('change', () => {
         let formulario = document.getElementById('idFormMesFiltro');
-        requireAjax(formulario, insertIntoBody);
+        requireAjax(formulario);
     });
 }
 
@@ -85,7 +85,7 @@ if (document.querySelector('.form-ajax')) {
     document.querySelector('.form-ajax').addEventListener('submit', function(e) {
         e.preventDefault();
         let formulario = e.target;
-        requireAjax(formulario, insertIntoDiv);
+        requireAjax(formulario);
     })
 }
 
