@@ -1,4 +1,4 @@
-async function requireAjax(elemento, callback) {
+async function requireAjax(elemento, callback = null) {
     let url = elemento.dataset.urlAction;
     let method = elemento.dataset.method;
     let div_append = elemento.dataset.divAppend ?? null;
@@ -25,11 +25,14 @@ async function requireAjax(elemento, callback) {
     req.send(post_data);
     req.onload = function () {
         let resposta = responseTreatment(this);
-        console.log(resposta);
-        if (div_append) {
-            callback(div_append, resposta);
+        if (callback != null) {
+            callback();
         } else {
-            callback(resposta);
+            if (div_append) {
+                insertIntoDiv(div_append, resposta);
+            } else {
+                insertIntoBody(resposta);
+            }
         }
     }
 }
