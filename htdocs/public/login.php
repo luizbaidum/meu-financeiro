@@ -7,14 +7,15 @@
         $crud = new CRUD();
         $logado = $crud->fazerLogin($_POST);
 
-        if ($logado) {
+        if ($logado != false) {
             session_start();
-            $_SESSION["logado"] = true;
+            $_SESSION['logado'] = true;
+            $_SESSION['user'] = $logado;
 
-            unset($_POST["login"]);
-            unset($_POST["senha"]);
+            unset($_POST['login']);
+            unset($_POST['senha']);
 
-            header ("location: index.php");
+            header ('location: index.php');
         }
     } else {
         session_start();

@@ -21,20 +21,44 @@ class retornoAjax
 
 class CRUD extends retornoAjax {
 
-    private static $user = null;
+    private static $family_user = null;
 
-    private function setUser($user)
+    private static function getFamilyUser()
     {
-        self::$user = $user;
+        if (self::$family_user) {
+            return self::$family_user;
+        }
+
+        $query = 'SELECT familia_usuarios.idFamilia FROM familia_usuarios INNER JOIN usuarios ON familia_usuarios.idUsuario = usuarios.idUsuario WHERE familia_usuarios.idUsuario = ?';
+        $ret = (new CRUD())->executarQuery($query, [$_SESSION['user']], false);
+
+        self::$family_user = $ret[0]['idFamilia'];
+
+        return self::$family_user;
     }
 
-    private function getUser()
+    private function executarQuery($query, $arr_values = [], $apply_security = true)
     {
-        return self::$user;
-    }
+        if ($apply_security) {
+            $id_family = self::getFamilyUser();
 
-    private function executarQuery($query, $arr_values = [])
-    {
+            $arr_query = explode(' ', $query);
+
+            $from_k = array_search('FROM', $arr_query);
+            $table = $arr_query[$from_k + 1];
+
+            $position = strpos($query, 'WHERE ');
+            if ($position != false) {
+                $security_str = " ($table.idFamilia = '$id_family') AND ";
+                $query = substr_replace($query, $security_str, ($position + 5), 0);
+            } else {
+                $security_str = " WHERE ($table.idFamilia = '$id_family') ";
+                $arr_query[$from_k + 1] = $arr_query[$from_k + 1] . $security_str;
+
+                $query = implode(' ' , $arr_query);
+            }
+        }
+
         $operacao = strtoupper(strtok($query, " "));
         $bd = gerarConexao();
         $stmt = $bd->prepare($query);
@@ -140,16 +164,16 @@ class CRUD extends retornoAjax {
     }
 
     //selectAll(action: "movimento", where_conditions: [['valor', '>', '15000']], group_conditions: ['tabela', 'coluna', 'tabela2', 'coluna2'], order_conditions: ['dataMovimento' => 'DESC']);
-    public function selectAll($action, array $where_conditions, array $group_conditions, array $order_conditions)
+    public function selectAll($action, array $where_conditions, array $group_conditions, array $order_conditions, bool $apply_security = true)
     {
         $table = TableNames::getTableName($action);
 
-        $where = "";
-        $group = "";
-        $order = "";
+        $where = '';
+        $group = '';
+        $order = '';
 
         if (!empty($where_conditions)) {
-            $where = "WHERE ";
+            $where = 'WHERE ';
             foreach ($where_conditions as $part)
                 $where .= "$part[0] $part[1] $part[2]";
                 //column, condition, value
@@ -157,37 +181,37 @@ class CRUD extends retornoAjax {
         }
 
         if (!empty($group_conditions)) {
-            $group = "GROUP BY ";
+            $group = 'GROUP BY ';
 
             $total = count($group_conditions);
 
             for ($i = 0; $i < $total; $i += 2)
-                $group .= $group_conditions[$i] . "." . $group_conditions[$i + 1] . ", ";                
+                $group .= $group_conditions[$i] . '.' . $group_conditions[$i + 1] . ', ';                
 
-            $group = rtrim($group, ", ");
+            $group = rtrim($group, ', ');
         }
 
         if (!empty($order_conditions)) {
-            $order = "ORDER BY ";
+            $order = 'ORDER BY ';
             foreach ($order_conditions as $column => $cond)
                 $order .= "$column $cond,";
 
-            $order = rtrim($order, ",");
+            $order = rtrim($order, ',');
         }
 
         $query = "SELECT $table.* FROM $table $where $group $order";
 
-        return $this->executarQuery($query);
+        return $this->executarQuery(query: $query, apply_security: $apply_security);
     }
 
     public function indexTable($pesquisa, $month = '')
     {
-        $where = " AND (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
+        $where = "WHERE (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
         if (!empty($month)) {
             if ($month == 'Todos') {
                 $where = '';
             } else {
-                $where = " AND DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
+                $where = "WHERE DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
             }
         }
 
@@ -198,7 +222,7 @@ class CRUD extends retornoAjax {
         $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
                     INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
-                    WHERE 0 = 0 $where
+                    $where
                     ORDER BY dataMovimento DESC";
 
         return $this->executarQuery($query);
@@ -225,31 +249,29 @@ class CRUD extends retornoAjax {
         $arr_values[] = $dados['login'];
         $arr_values[] = $dados['senha'];
 
-        $result = $this->executarQuery($query, $arr_values);
-
-        $this->setUser($result['idUsuario']);
+        $result = $this->executarQuery($query, $arr_values, false);
 
         if (count($result) == 1 && isset($result[0]['idUsuario']) && !empty($result[0]['idUsuario']))
-            return true;
+            return $result[0]['idUsuario'];
 
         return false;
     }
 
     public function indicadores($month = "")
     {
-        $where = " AND (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
+        $where = "WHERE (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
         if (!empty($month)) {
             if ($month == 'Todos') {
                 $where = '';
             } else {
-                $where = " AND DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
+                $where = "WHERE DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
             }
         }
 
         $query = "SELECT SUM(movimentos.valor) AS total, categoria_movimentos.idCategoria, categoria_movimentos.categoria, categoria_movimentos.tipo
                     FROM movimentos 
                     INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
-                    WHERE 0 = 0 $where
+                    $where
                     GROUP BY movimentos.idCategoria
                     ORDER BY total DESC";
 
@@ -258,12 +280,12 @@ class CRUD extends retornoAjax {
 
     public function orcamentos($month = '')
     {
-        $where = " AND (MONTH(orcamentos.dataOrcamento) = MONTH(CURRENT_DATE()))";
+        $where = "WHERE (MONTH(orcamentos.dataOrcamento) = MONTH(CURRENT_DATE()))";
         if (!empty($month)) {
             if ($month == 'Todos') {
                 $where = '';
             } else {
-                $where = " AND DATE_FORMAT(orcamentos.dataOrcamento, '%b') = '$month'";
+                $where = "WHERE DATE_FORMAT(orcamentos.dataOrcamento, '%b') = '$month'";
             }
         }
 
@@ -275,7 +297,7 @@ class CRUD extends retornoAjax {
                             GROUP_CONCAT(orcamentos.idOrcamento SEPARATOR ',') AS idOrcamento
                     FROM orcamentos 
                     INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = orcamentos.idCategoria
-                    WHERE 0 = 0 $where
+                    $where
                     GROUP BY orcamentos.idCategoria
                     ORDER BY totalOrcado DESC";
 
@@ -312,8 +334,7 @@ class CRUD extends retornoAjax {
                  categoria_movimentos.tipo,
                  categoria_movimentos.sinal
             FROM movimentos_mensais 
-            INNER JOIN categoria_movimentos ON movimentos_mensais.idCategoria = categoria_movimentos.idCategoria
-            WHERE 0 = 0;';
+            INNER JOIN categoria_movimentos ON movimentos_mensais.idCategoria = categoria_movimentos.idCategoria';
 
         $result = $this->executarQuery($query, []);
 
