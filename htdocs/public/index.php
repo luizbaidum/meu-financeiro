@@ -43,19 +43,6 @@
             <?php require_once "select_month.php"; ?>
         </form>
 
-        <section class="d-flex justify-content-center align-items-center flex-column">
-            <form class="form-ajax" data-url-action="index.php" data-method="POST">
-                <div class="input-group">
-                    <div class="mb-1 p-1">
-                        <input type="text" class="form-control" id="idPesquisa" name="pesquisa" value="<?= $pesquisa; ?>">
-                    </div>
-                    <div class="ml-2 p-1">
-                        <button type="submit" class="btn btn-primary">Pesquisar</button>
-                    </div>
-                </div>
-            </form>
-        </section>
-
         <table class="table">
             <theader>
                 <tr>

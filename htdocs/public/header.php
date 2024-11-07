@@ -42,14 +42,14 @@
 </head>
 <body>
     <header class="container mb-2">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownCadastros" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Cadastros
@@ -105,6 +105,11 @@
                             </a>
                         </li>      
                     </ul>
+
+                    <form class="form-ajax d-flex" data-url-action="index.php" data-method="POST" role="search">
+                        <input type="text" class="form-control me-2" id="idPesquisa" name="pesquisa" value="<?= $pesquisa ?? ''; ?>">                        
+                        <button type="submit" class="btn btn-outline-primary">Pesquisar</button>
+                    </form>
                 </div>
             </div>
         </nav>
