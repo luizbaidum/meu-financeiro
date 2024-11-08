@@ -7,11 +7,16 @@
 
         $action = $_POST['action'];
         $where = array(
-            'idMovimento' => $_POST['idMovimento']
+            $_POST['nameIdPrincipal'] => $_POST['valueIdPrincipal']
         );
 
+        if ($_POST['nameIdPrincipal'] == 'idMovimento') {
+            $_POST['idCategoria'] = explode(' - sinal', $_POST['idCategoria'])[0];
+        }
+
         unset($_POST['action']);
-        unset($_POST['idMovimento']);
+        unset($_POST['nameIdPrincipal']);
+        unset($_POST['valueIdPrincipal']);
 
         $values = $_POST;
 

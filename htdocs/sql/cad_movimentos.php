@@ -3,12 +3,7 @@
 
     if (!empty($_POST)) {
         $obj = new Movimento();
-
-        if ($_POST['action'] == 'insert') {
-            $obj->insert();
-        } elseif ($_POST['action'] == 'edit') {
-            $obj->edit();
-        }
+        $obj->insert();
 
         header('location: ../public/movimentos.php');
     }
@@ -107,11 +102,6 @@
                 ];
                 $crud->update('conta_investimento', $item, $item_where);
             }
-        }
-
-        public function edit()
-        {
-
         }
     }
 ?>
