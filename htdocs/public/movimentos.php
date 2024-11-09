@@ -21,8 +21,7 @@
 
             <?php if (isset($_GET['idMovimento'])) { ?>
                 <input type="hidden" name="action" value="movimento">
-                <input type="hidden" name="nameIdPrincipal" value="idMovimento">
-                <input type="hidden" name="valueIdPrincipal" value="<?= $_GET['idMovimento']; ?>">
+                <input type="hidden" name="idMovimento" value="<?= $_GET['idMovimento']; ?>">
             <?php } ?>
 
                 <div class="form-group">
@@ -70,7 +69,7 @@
                                 <select class="form-select" id="idContaInvest" name="idContaInvest">
                                     <option value="">Selecione</option>
                                     <?php 
-                                        $invests = $crud->selectAll("conta_investimento", [], [], ["nomeBanco" => "ASC"]);
+                                        $invests = $crud->selectAll('conta_investimento', [], [], ['nomeBanco' => 'ASC']);
                                         foreach ($invests as $value):
                                     ?>
                                         <?php if (!empty($movimento) && $movimento['idContaInvest'] == $value['idContaInvest']): ?>

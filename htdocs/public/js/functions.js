@@ -26,7 +26,7 @@ async function requireAjax(elemento, callback = null) {
     req.onload = function () {
         let resposta = responseTreatment(this);
         if (callback != null) {
-            callback();
+            callback(resposta);
         } else {
             if (div_append) {
                 insertIntoDiv(div_append, resposta);
