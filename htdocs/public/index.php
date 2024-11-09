@@ -82,11 +82,11 @@
                         </td>
                         <td>
                             <a href="movimentos.php?idMovimento=<?= $mov['idMovimento']; ?>" class="link-offset-2 link-underline link-underline-opacity-0">
-                                <button type="button" class="btn btn-sm btn-outline-primary" title="Editar" data-table="movimento">
-                                    &#63;
+                                <button title="Editar" data-table="movimento">
+                                    &#9998;
                                 </button>
                             </a>
-                            <button type="button" class="btn btn-sm btn-outline-danger" id="<?= $mov['idMovimento']; ?>" data-table="movimento" title="Excluir">
+                            <button id="<?= $mov['idMovimento']; ?>" data-table="movimento" title="Excluir">
                                 &#10005;
                             </button>
                         </td>

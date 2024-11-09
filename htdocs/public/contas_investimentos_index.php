@@ -71,6 +71,7 @@
                         <tr>
                             <th>Banco</th>
                             <th>Título</th>
+                            <th>Objetivos</th>
                             <th>Saldo atual</th>
                             <th class="bg-secondary">Saldo anterior</th>
                             <th class="bg-secondary">Data anterior</th>
@@ -89,15 +90,21 @@
                         ?>
                             <tr>
                                 <td><?= $value['nomeBanco']; ?></td>
-                                <td>
-                                    <?= $value['tituloInvest']; ?>
-                                    <button class="consultar-objetivo" 
+                                <td><?= $value['tituloInvest']; ?></td>
+                                <td><button class="consultar-objetivo" 
                                             data-url-action="../sql/consultas.php"
                                             data-id="<?=$value['idContaInvest']; ?>"
                                             data-field-id="idContaInvest"
                                             data-table="obj"
                                             data-method="GET"
-                                    >&#128065;</button>
+                                    >&#8505;</button>
+                                    <button class="editar-objetivo" 
+                                            data-url-action="../sql/consultas.php"
+                                            data-id="<?=$value['idContaInvest']; ?>"
+                                            data-field-id="idContaInvest"
+                                            data-table="obj"
+                                            data-method="GET"
+                                    >&#9998;</button>
                                 </td>
                                 <td>$ <?= $value['saldoAtual']; ?></td>
                                 <td>$ <?= $value['saldoAnterior']; ?></td>
@@ -107,7 +114,7 @@
                     </tbody>
                     <tfoot>
                         <tr class="table-dark">
-                            <td colspan="2" style="text-align: right">Total</td>
+                            <td colspan="3" style="text-align: right">Total</td>
                             <td>$ <?= $total; ?>
                             <td>
                                 <small>Luiz: <?= $total_lb; ?> <br> Uepa: <?= $total_uepa; ?></small>
