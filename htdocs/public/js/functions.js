@@ -26,7 +26,7 @@ async function requireAjax(elemento, callback = null) {
     req.onload = function () {
         let resposta = responseTreatment(this);
         if (callback != null) {
-            callback();
+            callback(resposta);
         } else {
             if (div_append) {
                 insertIntoDiv(div_append, resposta);
@@ -156,20 +156,6 @@ async function executarMesFiltro(elemento) {
     let data = createPostData(elemento);
 
     return Array(current_url, data);
-}
-
-function cancelarEdicao(element) {
-    let linha = element.closest('tr');
-
-    let elementos_cancelar = linha.getElementsByClassName('set-edit-movimento');
-
-    Array.from(elementos_cancelar).forEach(function (v, i) {
-        let td = v.closest('td');
-        let texto = v.value;
-
-        td.innerHTML = texto;
-        td.classList.add('input-edit-movimento');
-    })
 }
 
 function criarInputText(nome, valor) {

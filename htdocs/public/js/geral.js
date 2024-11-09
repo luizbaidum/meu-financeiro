@@ -1,7 +1,6 @@
 var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
-var arr_input = document.querySelectorAll('.input-edit-movimento');
 
 if (document.getElementsByClassName('consultar-objetivo')) {
     var btn_objetivos = document.getElementsByClassName('consultar-objetivo');
@@ -86,62 +85,5 @@ if (document.querySelector('.form-ajax')) {
         e.preventDefault();
         let formulario = e.target;
         requireAjax(formulario);
-    })
-}
-
-arr_input.forEach(function (i, v) {
-    i.addEventListener('dblclick', function(e) {
-        let td = e.target.closest('td');
-
-        if (td.classList.contains('input-edit-movimento')) {
-            let type = e.target.dataset.elementType;
-            let name = e.target.classList[1];
-            let conteudo = '';
-
-            switch (type) {
-                case 'input':
-                    let texto = e.target.innerText;
-                    texto = texto.replace('$', '');
-
-                    conteudo = criarInputText(name, texto);
-                    break;
-                case 'select':
-                    let valor = e.target.classList[2];
-                    let options_list = '';
-                    let options_inside = e.target.dataset.elementOpts;
-
-                    window[options_inside].forEach(function(v, i) {
-                        options_list = options_list + `<option value="${v.idCategoria}"`;
-                        if (valor == v.idCategoria) {
-                            options_list = options_list.concat(`selected>${v.categoria}</option>`)
-                        } else {
-                            options_list = options_list.concat(`>${v.categoria}</option>`)
-                        }
-                    })
-
-                    conteudo = criarSelect(options_list, name);
-                    break;
-            }
-
-            i.innerHTML = conteudo;
-
-            td.classList.remove('input-edit-movimento');
-        }
-    })
-})
-
-if (document.getElementsByClassName('cancelar-edicao').length > 0) {
-    Array.from(document.getElementsByClassName('cancelar-edicao')).forEach(function (v, i) {
-        v.addEventListener('click', function() {
-            cancelarEdicao(v);
-        })
-    })
-}
-
-if (document.getElementsByClassName('salvar-edicao').length > 0) {
-    Array.from(document.getElementsByClassName('salvar-edicao')).forEach(function (v, i) {
-        v.addEventListener('click', function() {
-            salvarEdicao(v);
-        })
     })
 }

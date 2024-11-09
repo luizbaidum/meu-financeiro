@@ -102,7 +102,7 @@ class CRUD {
             $arr_values[] = $v;
         }
 
-        $query = rtrim($query, ", ");
+        $query = rtrim($query, ', ');
 
         $where_column = array_key_first($where_condition);
         $where_value = $where_condition[$where_column];
