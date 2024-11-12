@@ -98,13 +98,9 @@
                                             data-table="obj"
                                             data-method="GET"
                                     >&#8505;</button>
-                                    <button class="editar-objetivo" 
-                                            data-url-action="../sql/consultas.php"
-                                            data-id="<?=$value['idContaInvest']; ?>"
-                                            data-field-id="idContaInvest"
-                                            data-table="obj"
-                                            data-method="GET"
-                                    >&#9998;</button>
+                                    <a href="edit_objetivos.php/idContaInvest=<?=$value['idContaInvest']; ?>">
+                                        <button>&#9998;</button>
+                                    </a>
                                 </td>
                                 <td>$ <?= $value['saldoAtual']; ?></td>
                                 <td>$ <?= $value['saldoAnterior']; ?></td>
