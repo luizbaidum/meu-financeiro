@@ -2,7 +2,7 @@
 
 require_once 'diretorio.php';
 require_once Diretorio::diretorio . "\\htdocs\\table_names\\table_names.php";
-require_once Diretorio::diretorio ."\\htdocs\\connection\\conexao.php";
+require_once Diretorio::diretorio . "\\htdocs\\connection\\conexao.php";
 
 class CRUD {
     private function executarQuery($query, $arr_values = [])

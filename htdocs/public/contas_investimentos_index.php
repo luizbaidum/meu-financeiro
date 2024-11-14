@@ -98,7 +98,7 @@
                                             data-table="obj"
                                             data-method="GET"
                                     >&#8505;</button>
-                                    <a href="edit_objetivos.php/idContaInvest=<?=$value['idContaInvest']; ?>">
+                                    <a href="edit_objetivos.php?idContaInvest=<?=$value['idContaInvest']; ?>">
                                         <button>&#9998;</button>
                                     </a>
                                 </td>
