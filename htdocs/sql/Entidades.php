@@ -269,4 +269,47 @@ class ContaInvestimento
     }
 }
 
+class Objetivos
+{
+    public function insert()
+    {
+        $crud = new CRUD();
+
+        $id_conta_invest = $_POST['idContaInvest'];
+        $percentual = $_POST['percentObjContaInvest'];
+
+        $this->validations($crud, $id_conta_invest, $percentual);
+
+        $id_obj = $crud->insert('obj', $_POST);
+        $crud->atualizarSaldoObj($id_obj, $percentual, $id_conta_invest);
+    }
+
+    public function update()
+    {
+        $crud = new CRUD();
+
+        $this->validations();
+
+        $id = $_POST['idObj'];
+        unset($_POST['idObj']);
+
+        $crud->update('obj', $_POST, ['idObjetivo', '=', $id]);
+
+        echo '<pre>';
+        print_r(($_POST));
+        exit;
+    }
+
+    private function validations($crud, $id_conta_invest, $percentual)
+    {
+        $utilizado = $crud->validarPercentualDisponivel($id_conta_invest, $percentual);
+
+        if ($utilizado) {
+            echo '<div class="text-center"><span class="text-danger">Atenção!</span> A Conta Invest informada já está ' . $utilizado . '% comprometida.</div>';
+
+            exit;
+        }
+    }
+}
+
 ?>

@@ -38,7 +38,7 @@ $saldo_obj = 0;
 
                                     <div class="form-group">
                                         <label for="idObj">id</label>
-                                        <input type="text" class="form-control" id="idObj" value="<?= $item['idObj']; ?>" disabled>
+                                        <input type="text" class="form-control" name="idObj" id="idObj" value="<?= $item['idObj']; ?>" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="idNomeObj-<?= $id; ?>">Nome</label>

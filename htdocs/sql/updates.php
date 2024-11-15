@@ -13,7 +13,8 @@
         }
         
         if ($action == 'obj') {
-            print_r($_POST);
+            $obj = new Objetivos();
+            $obj->update();
         }
     }
 ?>
