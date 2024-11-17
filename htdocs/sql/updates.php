@@ -4,6 +4,7 @@
     if (!empty($_POST)) {
 
         $action = $_POST['action'];
+        unset($_POST['action']);
 
         if ($action == 'movimento') {
             $obj = new Movimento();

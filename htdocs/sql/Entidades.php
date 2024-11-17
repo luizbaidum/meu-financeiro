@@ -112,7 +112,6 @@ class Movimento
         $id_objetivo = $_POST['idObjetivo'] ?? '';
         $rendimento = $crud->selectAll('rendimento', [['idMovimento', '=', $_POST['idMovimento']]], [], []);
 
-        $action = $_POST['action'];
         $where = array(
             'idMovimento' => $_POST['idMovimento']
         );
@@ -127,13 +126,12 @@ class Movimento
             $_POST['valor'] = $_POST['valor'] * -1;
         }
 
-        unset($_POST['action']);
         unset($_POST['idMovimento']);
         unset($_POST['idObjetivo']);
 
         $values = $_POST;
 
-        $crud->update($action, $values, $where);
+        $crud->update('movimento', $values, $where);
 
         if (isset($rendimento[0]['idRendimento'])) {
             $old_id = $rendimento[0]['idRendimento'];
@@ -288,16 +286,18 @@ class Objetivos
     {
         $crud = new CRUD();
 
-        $this->validations();
-
         $id = $_POST['idObj'];
+        $conta_invest = $_POST['idContaInvest'];
+        $percentual_old = $_POST['percentObjContaInvestOLD'];
         unset($_POST['idObj']);
+        unset($_POST['idContaInvest']);
+        unset($_POST['percentObjContaInvestOLD']);
 
-        $crud->update('obj', $_POST, ['idObjetivo', '=', $id]);
+        if ($_POST['percentObjContaInvest'] >= $percentual_old) {
+            $this->validations($crud, $conta_invest, $_POST['percentObjContaInvest']);
+        }
 
-        echo '<pre>';
-        print_r(($_POST));
-        exit;
+        $crud->update('obj', $_POST, ['idObj' => $id]);
     }
 
     private function validations($crud, $id_conta_invest, $percentual)

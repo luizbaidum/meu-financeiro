@@ -35,10 +35,12 @@ $saldo_obj = 0;
                                 <form data-url-action="../sql/updates.php" data-method="POST" class="form-ajax">
 
                                     <input type="hidden" name="action" value="obj">
+                                    <input type="hidden" name="idContaInvest" value="<?= $item['idContaInvest']; ?>">
+                                    <input type="hidden" name="percentObjContaInvestOLD" value="<?= $item['percentObjContaInvest']; ?>">
 
                                     <div class="form-group">
                                         <label for="idObj">id</label>
-                                        <input type="text" class="form-control" name="idObj" id="idObj" value="<?= $item['idObj']; ?>" disabled>
+                                        <input type="text" class="form-control" name="idObj" id="idObj" value="<?= $item['idObj']; ?>" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="idNomeObj-<?= $id; ?>">Nome</label>
