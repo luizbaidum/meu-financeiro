@@ -1,9 +1,16 @@
 <?php 
-    include_once 'scripts_sql.php';
+    require 'Entidades.php';
 
     if (!empty($_GET)) {
         $crud = new Crud();
 
-        $crud->delete($_GET);
+        switch ($_GET['action']) {
+            case 'lembrete':
+                $crud->delete($_GET);
+                break;
+            case 'movimento':
+                (new Movimento())->delete();
+                break;
+        }
     }
 ?>

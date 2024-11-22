@@ -226,8 +226,11 @@ class Movimento
             ];
             $crud->update('conta_investimento', $item, $item_where);
         }
-    
-        echo ' FIM ';
+    }
+
+    public function delete()
+    {
+        
     }
 }
 

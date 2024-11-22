@@ -86,7 +86,7 @@
                                     &#9998;
                                 </button>
                             </a>
-                            <button id="<?= $mov['idMovimento']; ?>" data-table="movimento" title="Excluir">
+                            <button id="<?= $mov['idMovimento']; ?>" data-chave="<?= $mov['idMovimento']; ?>" data-table="movimento" data-campo="idMovimento" title="Excluir" class="acao-deletar">
                                 &#10005;
                             </button>
                         </td>
