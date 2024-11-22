@@ -8,7 +8,7 @@ if (document.getElementsByClassName('consultar-objetivo')) {
     
     for (let btn of btn_objetivos) {
         btn.addEventListener('click', function () {
-            requireAjax(btn, dispararAlert);
+            requireAjax(btn);
         })
     }
 }

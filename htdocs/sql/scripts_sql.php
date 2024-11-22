@@ -37,14 +37,13 @@ class CRUD {
             }
 
             $bd->commit();
+            $bd = NULL;
 
             return $result;
         } catch (PDOException $e) {
             $bd->rollBack();
             echo 'Failed: ' . $e->getMessage();
         }
-
-        $bd = NULL;
     }
 
     public function insert(string $action, array $post)
@@ -290,7 +289,7 @@ class CRUD {
         return $result;
     }
 
-    public function validarPercentualDisponivel($id_conta_invest, $percentual_obj)
+    public function consultarPercentualDisponivel($id_conta_invest)
     {
         $arr_values = array();
 
@@ -299,11 +298,7 @@ class CRUD {
 
         $total = $this->executarQuery($query, $arr_values)[0]['totalUtilizado'];
 
-        if ($percentual_obj > (100 - $total)) {
-            return $total;
-        }
-
-        return false;
+        return $total;
     }
 
     public function atualizarSaldoObj($id_obj, $percentual_obj, $id_conta_invest)

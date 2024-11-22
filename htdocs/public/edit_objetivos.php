@@ -22,7 +22,7 @@ $saldo_obj = 0;
             <br>
             <small>Saldo conta: <?= $conta[0]['saldoAtual']; ?></small> <br>
         </div>
-        <div class="card-body">
+    <div class="card-body">
             <div class="row">
                 <?php 
                     foreach ($objetivos as $item): 
@@ -32,7 +32,7 @@ $saldo_obj = 0;
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <form data-url-action="../sql/updates.php" data-method="POST" class="form-ajax">
+                                <form data-url-action="../sql/updates.php" data-method="POST" class="form-ajax" data-callback="dispararAlert">
 
                                     <input type="hidden" name="action" value="obj">
                                     <input type="hidden" name="idContaInvest" value="<?= $item['idContaInvest']; ?>">

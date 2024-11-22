@@ -97,6 +97,7 @@
                                             data-field-id="idContaInvest"
                                             data-table="obj"
                                             data-method="GET"
+                                            data-callback="dispararAlert"
                                     >&#8505;</button>
                                     <a href="edit_objetivos.php?idContaInvest=<?= $value['idContaInvest']; ?>">
                                         <button>&#9998;</button>

@@ -73,11 +73,11 @@
                         }
                 ?>
                     <tr>
-                        <td class="dataMovimento" data-element-type="input"><?= $mov['dataMovimento']; ?></td>
-                        <td class="nomeMovimento" data-element-type="input"><?= $mov['nomeMovimento']; ?></td>
-                        <td class="idCategoria <?= $mov['idCategoria']; ?>" data-element-type="select" data-element-opts="options_obj"><?= $mov['categoria']; ?></td>
-                        <td class="valor" data-element-type="input">$ <?= $mov['valor']; ?></td>
-                        <td class="proprietario <?= $mov['proprietario']; ?>" data-element-type="select" data-element-opts="proprietario_obj">
+                        <td class="dataMovimento"><?= $mov['dataMovimento']; ?></td>
+                        <td class="nomeMovimento"><?= $mov['nomeMovimento']; ?></td>
+                        <td class="idCategoria <?= $mov['idCategoria']; ?>"><?= $mov['categoria']; ?></td>
+                        <td class="valor">$ <?= $mov['valor']; ?></td>
+                        <td class="proprietario <?= $mov['proprietario']; ?>">
                             <?= $prop; ?>
                         </td>
                         <td>

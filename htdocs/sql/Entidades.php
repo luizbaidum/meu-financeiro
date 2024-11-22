@@ -293,18 +293,20 @@ class Objetivos
         unset($_POST['idContaInvest']);
         unset($_POST['percentObjContaInvestOLD']);
 
-        if ($_POST['percentObjContaInvest'] >= $percentual_old) {
-            $this->validations($crud, $conta_invest, $_POST['percentObjContaInvest']);
+        if ($_POST['percentObjContaInvest'] > $percentual_old) {
+            $this->validations($crud, $conta_invest, ($_POST['percentObjContaInvest'] - $percentual_old));
         }
 
-        $crud->update('obj', $_POST, ['idObj' => $id]);
+        if ($crud->update('obj', $_POST, ['idObj' => $id]) > 0) {
+            echo 'Atualização realizada.';
+        }
     }
 
     private function validations($crud, $id_conta_invest, $percentual)
     {
-        $utilizado = $crud->validarPercentualDisponivel($id_conta_invest, $percentual);
+        $utilizado = $crud->consultarPercentualDisponivel($id_conta_invest, $percentual);
 
-        if ($utilizado) {
+        if (($percentual + $utilizado) > 100) {
             echo '<div class="text-center"><span class="text-danger">Atenção!</span> A Conta Invest informada já está ' . $utilizado . '% comprometida.</div>';
 
             exit;
