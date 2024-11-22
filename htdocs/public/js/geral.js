@@ -1,13 +1,14 @@
 var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
+var FORMULARIOS_TELA = document.querySelectorAll('.form-ajax');
 
 if (document.getElementsByClassName('consultar-objetivo')) {
     var btn_objetivos = document.getElementsByClassName('consultar-objetivo');
     
     for (let btn of btn_objetivos) {
         btn.addEventListener('click', function () {
-            requireAjax(btn, dispararAlert);
+            requireAjax(btn);
         })
     }
 }
@@ -80,10 +81,9 @@ if (document.getElementById('idContaInvest')) {
     })
 }
 
-if (document.querySelector('.form-ajax')) {
-    document.querySelector('.form-ajax').addEventListener('submit', function(e) {
-        e.preventDefault();
-        let formulario = e.target;
+FORMULARIOS_TELA.forEach(function (formulario, valor) {
+    formulario.addEventListener('submit', function(event) {
+        event.preventDefault();
         requireAjax(formulario);
     })
-}
+})

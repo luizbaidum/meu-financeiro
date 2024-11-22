@@ -73,20 +73,20 @@
                         }
                 ?>
                     <tr>
-                        <td class="dataMovimento" data-element-type="input"><?= $mov['dataMovimento']; ?></td>
-                        <td class="nomeMovimento" data-element-type="input"><?= $mov['nomeMovimento']; ?></td>
-                        <td class="idCategoria <?= $mov['idCategoria']; ?>" data-element-type="select" data-element-opts="options_obj"><?= $mov['categoria']; ?></td>
-                        <td class="valor" data-element-type="input">$ <?= $mov['valor']; ?></td>
-                        <td class="proprietario <?= $mov['proprietario']; ?>" data-element-type="select" data-element-opts="proprietario_obj">
+                        <td class="dataMovimento"><?= $mov['dataMovimento']; ?></td>
+                        <td class="nomeMovimento"><?= $mov['nomeMovimento']; ?></td>
+                        <td class="idCategoria <?= $mov['idCategoria']; ?>"><?= $mov['categoria']; ?></td>
+                        <td class="valor">$ <?= $mov['valor']; ?></td>
+                        <td class="proprietario <?= $mov['proprietario']; ?>">
                             <?= $prop; ?>
                         </td>
                         <td>
                             <a href="movimentos.php?idMovimento=<?= $mov['idMovimento']; ?>" class="link-offset-2 link-underline link-underline-opacity-0">
-                                <button type="button" class="btn btn-sm btn-outline-primary" title="Editar" data-table="movimento">
-                                    &#63;
+                                <button title="Editar" data-table="movimento">
+                                    &#9998;
                                 </button>
                             </a>
-                            <button type="button" class="btn btn-sm btn-outline-danger" id="<?= $mov['idMovimento']; ?>" data-table="movimento" title="Excluir">
+                            <button id="<?= $mov['idMovimento']; ?>" data-table="movimento" title="Excluir">
                                 &#10005;
                             </button>
                         </td>

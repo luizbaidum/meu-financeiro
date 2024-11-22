@@ -112,7 +112,6 @@ class Movimento
         $id_objetivo = $_POST['idObjetivo'] ?? '';
         $rendimento = $crud->selectAll('rendimento', [['idMovimento', '=', $_POST['idMovimento']]], [], []);
 
-        $action = $_POST['action'];
         $where = array(
             'idMovimento' => $_POST['idMovimento']
         );
@@ -127,13 +126,12 @@ class Movimento
             $_POST['valor'] = $_POST['valor'] * -1;
         }
 
-        unset($_POST['action']);
         unset($_POST['idMovimento']);
         unset($_POST['idObjetivo']);
 
         $values = $_POST;
 
-        $crud->update($action, $values, $where);
+        $crud->update('movimento', $values, $where);
 
         if (isset($rendimento[0]['idRendimento'])) {
             $old_id = $rendimento[0]['idRendimento'];
@@ -266,6 +264,53 @@ class ContaInvestimento
     public function delete()
     {
 
+    }
+}
+
+class Objetivos
+{
+    public function insert()
+    {
+        $crud = new CRUD();
+
+        $id_conta_invest = $_POST['idContaInvest'];
+        $percentual = $_POST['percentObjContaInvest'];
+
+        $this->validations($crud, $id_conta_invest, $percentual);
+
+        $id_obj = $crud->insert('obj', $_POST);
+        $crud->atualizarSaldoObj($id_obj, $percentual, $id_conta_invest);
+    }
+
+    public function update()
+    {
+        $crud = new CRUD();
+
+        $id = $_POST['idObj'];
+        $conta_invest = $_POST['idContaInvest'];
+        $percentual_old = $_POST['percentObjContaInvestOLD'];
+        unset($_POST['idObj']);
+        unset($_POST['idContaInvest']);
+        unset($_POST['percentObjContaInvestOLD']);
+
+        if ($_POST['percentObjContaInvest'] > $percentual_old) {
+            $this->validations($crud, $conta_invest, ($_POST['percentObjContaInvest'] - $percentual_old));
+        }
+
+        if ($crud->update('obj', $_POST, ['idObj' => $id]) > 0) {
+            echo 'Atualização realizada.';
+        }
+    }
+
+    private function validations($crud, $id_conta_invest, $percentual)
+    {
+        $utilizado = $crud->consultarPercentualDisponivel($id_conta_invest, $percentual);
+
+        if (($percentual + $utilizado) > 100) {
+            echo '<div class="text-center"><span class="text-danger">Atenção!</span> A Conta Invest informada já está ' . $utilizado . '% comprometida.</div>';
+
+            exit;
+        }
     }
 }
 
