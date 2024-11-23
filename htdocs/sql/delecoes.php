@@ -11,6 +11,9 @@
             case 'movimento':
                 $ret = (new Movimento())->delete();
                 break;
+            case 'orcamento':
+                $ret = (new Orcamento())->delete();
+                break;
             default:
                 $ret = false;
                 $txt = 'Deleção não realizada.';

@@ -256,7 +256,8 @@ class CRUD extends retornoAjax {
                             categoria_movimentos.idCategoria, 
                             categoria_movimentos.categoria, 
                             categoria_movimentos.tipo, 
-                            MONTH(orcamentos.dataOrcamento) AS mesOrcado
+                            MONTH(orcamentos.dataOrcamento) AS mesOrcado,
+                            GROUP_CONCAT(orcamentos.idOrcamento SEPARATOR ',') AS idOrcamento
                     FROM orcamentos 
                     INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = orcamentos.idCategoria
                     WHERE 0 = 0 $where

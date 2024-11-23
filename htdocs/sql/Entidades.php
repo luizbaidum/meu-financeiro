@@ -329,4 +329,31 @@ class Objetivos
     }
 }
 
+class Orcamento
+{
+    public function delete()
+    {
+        if (!empty($_GET['idOrcamento'])) {
+            $crud = new CRUD();
+
+            $arr_ids = explode(',', $_GET['idOrcamento']);
+
+            foreach ($arr_ids as $id) {
+                $ret[] = $crud->delete([
+                    'action'      => 'orcamento',
+                    'idOrcamento' => $id
+                ]);
+            }
+
+            if (array_sum($ret) > 0) {
+                return true;
+            }
+
+            return false;
+        }
+
+        return false;
+    }
+}
+
 ?>
