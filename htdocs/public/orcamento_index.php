@@ -20,15 +20,21 @@
                         <th scope="col">Mês</th>
                         <th scope="col">Categoria</th>
                         <th scope="col">Valor Orçado</th>
+                        <th scope="col">Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($orcamentos as $value): 
-                            $total_orcado += $value["totalOrcado"]; ?>
+                            $total_orcado += $value['totalOrcado']; ?>
                         <tr>
-                            <td><?= $value["mesOrcado"]; ?></td>
-                            <td><?= $value["categoria"]; ?></td>
-                            <td><?= $value["totalOrcado"]; ?></td>
+                            <td><?= $value['mesOrcado']; ?></td>
+                            <td><?= $value['categoria']; ?></td>
+                            <td><?= $value['totalOrcado']; ?></td>
+                            <td>
+                                <button id="<?= $value['idOrcamento']; ?>" data-chave="<?= $value['idOrcamento']; ?>" data-table="orcamento" data-campo="idOrcamento" title="Excluir" class="acao-deletar">
+                                    &#10005;
+                                </button>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -36,6 +42,7 @@
                     <tr>
                         <td colspan="2">Total</td>
                         <td><?= $total_orcado; ?></td>
+                        <td></td>
                     </tr>
                 </tfoot>
             </table>

@@ -1,25 +1,14 @@
 <?php 
 
-abstract class TableNames {
+class TableNames extends TablesList {
     public static function getTableName(string $action)
     {
-        $ret = "";
-
-        $tables = new TablesList();
-
-        $ret = $tables->arr_tables[$action];
-
-        $tables = NULL;
-
-        return $ret;
+        return self::$arr_tables[$action];
     }
 }
 
-class TablesList {
-
-    public $table_names = array();
-
-    public $arr_tables = [
+abstract class TablesList {
+    static $arr_tables = [
         'categoria'          => 'categoria_movimentos',
         'movimento'          => 'movimentos',
         'orcamento'          => 'orcamentos',

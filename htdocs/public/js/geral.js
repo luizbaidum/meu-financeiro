@@ -2,6 +2,7 @@ var APLICACAO = 12;
 var RESGATE = 10;
 var CATEGORIAS_INVESTS = Array(APLICACAO, RESGATE);
 var FORMULARIOS_TELA = document.querySelectorAll('.form-ajax');
+var ACAO_DELETAR = document.getElementsByClassName('acao-deletar');
 
 if (document.getElementsByClassName('consultar-objetivo')) {
     var btn_objetivos = document.getElementsByClassName('consultar-objetivo');
@@ -88,8 +89,6 @@ FORMULARIOS_TELA.forEach(function (formulario, valor) {
     })
 })
 
-let acao_deletar = document.getElementsByClassName('acao-deletar');
-
-for (let btn of acao_deletar) {
+for (let btn of ACAO_DELETAR) {
     btn.addEventListener('click', deletar);
 }
