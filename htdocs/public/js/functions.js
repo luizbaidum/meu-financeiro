@@ -183,8 +183,15 @@ function deletar() {
     req.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                if (window.confirm('Exclusão realizada. Atualizar página?')) {
-                    window.location.reload();
+
+                let ret_json = JSON.parse(this.response);
+
+                if (ret_json.status) {
+                    if (window.confirm('Exclusão realizada. Atualizar página?')) {
+                        window.location.reload();
+                    }
+                } else {
+                    alert('A exclusão não pôde ser realizada');
                 }
             } else {
                 alert('A exclusão não pôde ser realizada');

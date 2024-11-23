@@ -230,7 +230,19 @@ class Movimento
 
     public function delete()
     {
-        
+        $crud = new CRUD();
+
+        $id_mov = $_GET['idMovimento'];
+
+        $rend = $crud->selectAll('rendimento', [['idMovimento', '=', $id_mov]], [], []);
+
+        if (!empty($rend)) {
+            return false;
+        }
+
+        $ret = $crud->delete($_GET);
+
+        return $ret;
     }
 }
 

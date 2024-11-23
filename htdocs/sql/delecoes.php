@@ -6,11 +6,20 @@
 
         switch ($_GET['action']) {
             case 'lembrete':
-                $crud->delete($_GET);
+                $ret = $crud->delete($_GET);
                 break;
             case 'movimento':
-                (new Movimento())->delete();
+                $ret = (new Movimento())->delete();
                 break;
+            default:
+                $ret = false;
+                $txt = 'Deleção não realizada.';
         }
+
+        if ($ret) {
+            $crud->enviarRetorno(true, 'Deleção realizada com sucesso.');
+        }
+
+        $crud->enviarRetorno(false, 'Deleção não realizada.');
     }
 ?>
