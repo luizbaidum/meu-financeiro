@@ -87,3 +87,9 @@ FORMULARIOS_TELA.forEach(function (formulario, valor) {
         requireAjax(formulario);
     })
 })
+
+let acao_deletar = document.getElementsByClassName('acao-deletar');
+
+for (let btn of acao_deletar) {
+    btn.addEventListener('click', deletar);
+}

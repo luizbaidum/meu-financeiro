@@ -4,7 +4,22 @@ require_once 'diretorio.php';
 require_once Diretorio::diretorio . "\\htdocs\\table_names\\table_names.php";
 require_once Diretorio::diretorio . "\\htdocs\\connection\\conexao.php";
 
-class CRUD {
+class retornoAjax
+{
+    public $status;
+    public $txt;
+
+    public function enviarRetorno(bool $status, string $txt)
+    {
+        echo json_encode(
+            array('status' => $status, 'txt' => $txt)
+        );
+
+        exit;
+    }
+}
+
+class CRUD extends retornoAjax {
     private function executarQuery($query, $arr_values = [])
     {
         $operacao = strtoupper(strtok($query, " "));
