@@ -41,13 +41,13 @@ function montarHtmlOrcamento($dados, $data_destino)
                 </thead>';
 
     $conteudo = '<tbody>';
-    foreach ($dados as $v) {
+    foreach ($dados as $k => $v) {
         $conteudo .= '<tr>
                         <td>
-                            <input type="checkbox" value="' . $v['idCategoria'] . '" name="idCategoria[]">
+                            <input type="checkbox" value="' . $v['idCategoria'] . ' - sinal: ' . $v['sinal'] .' " name="idCategoria['. $k . ']">
                         </td>
                         <td>' . $v['idCategoria'] . ' - ' . $v['categoria'] . '</td>
-                        <td><input type="number" name="valor[]" value="' . $v['valorOrcamento'] . '"</td>
+                        <td><input type="number" name="valor['. $k . ']" value="' . $v['valorOrcamento'] . '"</td>
                     </tr>';
     }
     $conteudo .= '</tbody>';

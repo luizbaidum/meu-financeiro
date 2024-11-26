@@ -397,7 +397,8 @@ class CRUD extends retornoAjax {
 
         $query = "SELECT movimentos.idCategoria,
                     $media,
-                    categoria_movimentos.categoria
+                    categoria_movimentos.categoria,
+                    categoria_movimentos.sinal
                     FROM movimentos
                     INNER JOIN categoria_movimentos ON movimentos.idCategoria = categoria_movimentos.idCategoria
                     WHERE $where
