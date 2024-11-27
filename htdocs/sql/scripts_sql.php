@@ -21,28 +21,60 @@ class retornoAjax
 
 class CRUD extends retornoAjax {
 
-    private static $family_user = null;
+    private $family_user = null;
 
-    private static function getFamilyUser()
+    private function getFamilyUser()
     {
-        if (self::$family_user) {
-            return self::$family_user;
+        return $this->family_user;
+    }
+
+    private function setFamilyUser($family)
+    {
+        $this->family_user = $family;
+
+        return $this->family_user;
+    }
+
+    private function defineFamilyUser()
+    {
+        if (isset($_SESSION['id_familia']) && !empty($_SESSION['id_familia'])) {
+            $this->setFamilyUser($_SESSION['id_familia']);
+        } else {
+            $query = 'SELECT idFamilia FROM usuarios WHERE idUsuario = ?';
+            $ret = (new CRUD())->executarQuery($query, [$_SESSION['user']], false);
+
+            $this->setFamilyUser($ret[0]['idFamilia']);
         }
 
-        $query = 'SELECT familia_usuarios.idFamilia FROM familia_usuarios INNER JOIN usuarios ON familia_usuarios.idUsuario = usuarios.idUsuario WHERE familia_usuarios.idUsuario = ?';
-        $ret = (new CRUD())->executarQuery($query, [$_SESSION['user']], false);
-
-        self::$family_user = $ret[0]['idFamilia'];
-
-        return self::$family_user;
+        return $this->getFamilyUser();
     }
 
     private function executarQuery($query, $arr_values = [], $apply_security = true)
     {
-        if ($apply_security) {
-            $id_family = self::getFamilyUser();
+        $operacao = strtoupper(strtok($query, ' '));
 
-            $arr_query = explode(' ', $query);
+        /**
+         * TODO: fazer p/ todos. Insert tem que entrar com o idFamilia;
+         */
+        if ($apply_security && ($operacao == 'SELECT' || $operacao == 'SHOW')) {
+            $id_family = $this->defineFamilyUser();
+
+            $str = strstr(strtoupper($query), 'FROM ');
+            if ($str) {
+                $arr_query = explode(' ', $str);
+                $table = $arr_query[1];
+                $where = $arr_query[2];
+                echo '<pre>';
+                var_dump($arr_query);
+            }
+
+            echo 't: ' . $table;
+            echo '<br>';
+            echo 'w: ' . $where;
+
+            //echo 'id_family: ' . $id_family; -> ok.
+
+            /*$arr_query = explode(' ', $query);
 
             $from_k = array_search('FROM', $arr_query);
             $table = $arr_query[$from_k + 1];
@@ -56,10 +88,10 @@ class CRUD extends retornoAjax {
                 $arr_query[$from_k + 1] = $arr_query[$from_k + 1] . $security_str;
 
                 $query = implode(' ' , $arr_query);
-            }
+            }*/
         }
 
-        $operacao = strtoupper(strtok($query, " "));
+        $operacao = strtoupper(strtok($query, ' '));
         $bd = gerarConexao();
         $stmt = $bd->prepare($query);
 
@@ -245,14 +277,14 @@ class CRUD extends retornoAjax {
     {
         $arr_values = array();
 
-        $query = 'SELECT idUsuario FROM usuarios WHERE usuarios.login = ? AND usuarios.senha = ?';
+        $query = 'SELECT idUsuario, idFamilia FROM usuarios WHERE usuarios.login = ? AND usuarios.senha = ?';
         $arr_values[] = $dados['login'];
         $arr_values[] = $dados['senha'];
 
         $result = $this->executarQuery($query, $arr_values, false);
 
-        if (count($result) == 1 && isset($result[0]['idUsuario']) && !empty($result[0]['idUsuario']))
-            return $result[0]['idUsuario'];
+        if (count($result) == 1 && !empty($result[0]['idUsuario']))
+            return $result[0];
 
         return false;
     }
