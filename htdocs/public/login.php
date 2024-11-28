@@ -10,8 +10,8 @@
         if ($logado != false) {
             session_start();
             $_SESSION['logado'] = true;
-            $_SESSION['user'] = $logado[0]['idUsuario'];
-            $_SESSION['id_familia'] = $logado[0]['idFamilia'];
+            $_SESSION['user'] = $logado['idUsuario'];
+            $_SESSION['id_familia'] = $logado['idFamilia'];
 
             unset($_POST['login']);
             unset($_POST['senha']);
@@ -19,7 +19,6 @@
             header ('location: index.php');
         }
     } else {
-        session_start();
         if (isset($_SESSION['logado']) && $_SESSION['logado'] == true) 
             session_destroy();
     }

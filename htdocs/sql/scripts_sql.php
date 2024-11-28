@@ -41,57 +41,68 @@ class CRUD extends retornoAjax {
             $this->setFamilyUser($_SESSION['id_familia']);
         } else {
             $query = 'SELECT idFamilia FROM usuarios WHERE idUsuario = ?';
-            $ret = (new CRUD())->executarQuery($query, [$_SESSION['user']], false);
+            $ret = $this->executarQuery($query, [$_SESSION['user']], false);
 
+            $_SESSION['id_familia'] = $ret[0]['idFamilia'];
             $this->setFamilyUser($ret[0]['idFamilia']);
         }
 
         return $this->getFamilyUser();
     }
 
+    private function setWhereSecurity($operacao, $query)
+    {
+        /**
+         * TODO: fazer p/ todos. Insert tem que entrar com o idFamilia;
+         */
+        if ($operacao == 'SELECT' || $operacao == 'SHOW') {
+            $id_family = $this->defineFamilyUser();
+
+            try {
+                $arr_query = explode(' ', $query);
+                $from_key = array_search('FROM', $arr_query);
+                $table = $arr_query[$from_key + 1];
+
+                if ($from_key == false) {
+                    throw new Exception('FROM clause not found');
+                }
+    
+                $where_key = array_search('WHERE', $arr_query);
+                if ($where_key !== false) {
+                    $id_into_where = " ($table.idFamilia = $id_family) AND ";
+                    $arr_query[$where_key] .= $id_into_where;
+    
+                    $query = implode(' ', $arr_query);
+                } else {
+                    $id_into_where = " WHERE $table.idFamilia = $id_family ";
+    
+                    if (end($arr_query) == $table) {
+                        $query .= $id_into_where;
+                    } else {
+                        $arr_query[$from_key + 1] .= $id_into_where;
+                        $query = implode(' ', $arr_query);
+                    }
+                }
+            } catch (Exception $e) {
+                echo 'Security fail: ' . $e->getMessage();
+                exit;
+            }
+        }
+
+        return $query;
+    }
+
     private function executarQuery($query, $arr_values = [], $apply_security = true)
     {
-        $operacao = strtoupper(strtok($query, ' '));
+        $operacao = strtok($query, ' ');
 
         /**
          * TODO: fazer p/ todos. Insert tem que entrar com o idFamilia;
          */
-        if ($apply_security && ($operacao == 'SELECT' || $operacao == 'SHOW')) {
-            $id_family = $this->defineFamilyUser();
-
-            $str = strstr(strtoupper($query), 'FROM ');
-            if ($str) {
-                $arr_query = explode(' ', $str);
-                $table = $arr_query[1];
-                $where = $arr_query[2];
-                echo '<pre>';
-                var_dump($arr_query);
-            }
-
-            echo 't: ' . $table;
-            echo '<br>';
-            echo 'w: ' . $where;
-
-            //echo 'id_family: ' . $id_family; -> ok.
-
-            /*$arr_query = explode(' ', $query);
-
-            $from_k = array_search('FROM', $arr_query);
-            $table = $arr_query[$from_k + 1];
-
-            $position = strpos($query, 'WHERE ');
-            if ($position != false) {
-                $security_str = " ($table.idFamilia = '$id_family') AND ";
-                $query = substr_replace($query, $security_str, ($position + 5), 0);
-            } else {
-                $security_str = " WHERE ($table.idFamilia = '$id_family') ";
-                $arr_query[$from_k + 1] = $arr_query[$from_k + 1] . $security_str;
-
-                $query = implode(' ' , $arr_query);
-            }*/
+        if ($apply_security) {
+            $query = $this->setWhereSecurity($operacao, $query);
         }
 
-        $operacao = strtoupper(strtok($query, ' '));
         $bd = gerarConexao();
         $stmt = $bd->prepare($query);
 
@@ -118,6 +129,8 @@ class CRUD extends retornoAjax {
                     $retornar_select = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $result = $retornar_select;
                     break;
+                default:
+                    throw new PDOException('Operação não reconhecida.');
             }
 
             $bd->commit();
