@@ -37,27 +37,40 @@ class CRUD extends retornoAjax {
 
     private function defineFamilyUser()
     {
-        if (isset($_SESSION['id_familia']) && !empty($_SESSION['id_familia'])) {
-            $this->setFamilyUser($_SESSION['id_familia']);
-        } else {
-            $query = 'SELECT idFamilia FROM usuarios WHERE idUsuario = ?';
-            $ret = $this->executarQuery($query, [$_SESSION['user']], false);
+        try {
+            if (!isset($_SESSION)) {
+                session_start();
+            }
+    
+            if (isset($_SESSION['id_familia']) && !empty($_SESSION['id_familia'])) {
+                $this->setFamilyUser($_SESSION['id_familia']);
+            } else {
+                $query = 'SELECT idFamilia FROM usuarios WHERE idUsuario = ?';
+                $ret = $this->executarQuery($query, [$_SESSION['user']], false);
 
-            $_SESSION['id_familia'] = $ret[0]['idFamilia'];
-            $this->setFamilyUser($ret[0]['idFamilia']);
+                if (empty($ret)) {
+                    throw new Exception('idFamilia não encontrado.');
+                }
+    
+                $_SESSION['id_familia'] = $ret[0]['idFamilia'];
+                $this->setFamilyUser($ret[0]['idFamilia']);
+            }
+
+            return $this->getFamilyUser();
+
+        } catch (Exception $e) {
+            echo 'Security fail: ' . $e->getMessage();
+            exit;
         }
-
-        return $this->getFamilyUser();
     }
 
     private function setWhereSecurity($operacao, $query)
     {
+        $id_family = $this->defineFamilyUser();
         /**
-         * TODO: fazer p/ todos. Insert tem que entrar com o idFamilia;
+         * TODO: falta delete e update;
          */
         if ($operacao == 'SELECT' || $operacao == 'SHOW') {
-            $id_family = $this->defineFamilyUser();
-
             try {
                 $arr_query = explode(' ', $query);
                 $from_key = array_search('FROM', $arr_query);
@@ -89,6 +102,15 @@ class CRUD extends retornoAjax {
             }
         }
 
+        if ($operacao == 'INSERT') {
+            $arr_query = explode(')', $query);
+
+            $arr_query[0] .= ', idFamilia)';
+            $arr_query[1] .= ', ' . $id_family . ')';
+
+            $query = $arr_query[0] . $arr_query[1];
+        }
+
         return $query;
     }
 
@@ -97,7 +119,7 @@ class CRUD extends retornoAjax {
         $operacao = strtok($query, ' ');
 
         /**
-         * TODO: fazer p/ todos. Insert tem que entrar com o idFamilia;
+         * TODO: falta delete e update;
          */
         if ($apply_security) {
             $query = $this->setWhereSecurity($operacao, $query);
