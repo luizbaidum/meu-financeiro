@@ -17,6 +17,9 @@ abstract class TablesList {
         'rendimento'         => 'rendimentos',
         'mensais'            => 'movimentos_mensais',
         'obj'                => 'objetivos_invest',
-        'erros'              => 'erros_bog'
+        'erros'              => 'erros_bog',
+        'user'               => 'usuarios',
+        'family'             => 'familias',
+        'user_fam'           => 'familia_usuarios'
     ];
 }

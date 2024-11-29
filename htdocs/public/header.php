@@ -13,9 +13,7 @@
     session_start();
 
     if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
-        if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] === '/erros_do_bog.php') {
-            
-        } else {
+        if (!isset($_SERVER['REQUEST_URI']) || $_SERVER['REQUEST_URI'] != '/erros_do_bog.php') {
             header ('location: login.php');
         }
     }

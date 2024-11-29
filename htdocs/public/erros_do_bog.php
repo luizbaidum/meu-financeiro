@@ -7,7 +7,7 @@
         $crud->insert('erros', $_POST);
     }
 
-    $erros = $crud->selectAll('erros', [], [], ['dataCod' => 'DESC']);
+    $erros = $crud->selectAll('erros', [], [], ['dataCod' => 'DESC'], false);
 ?>
      
     <main class="container">
