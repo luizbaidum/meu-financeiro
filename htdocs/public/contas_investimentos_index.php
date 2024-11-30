@@ -40,10 +40,10 @@
                                         <select class="form-select" id="idContaInvest" name="idContaInvest">
                                             <option value="">Selecione</option>
                                         <?php 
-                                            $invests = $crud->selectAll("conta_investimento", [], [], ["nomeBanco" => "ASC"]);
+                                            $invests = $crud->selectAll('conta_investimento', [], [], ["nomeBanco" => "ASC"]);
                                             foreach ($invests as $value):
                                         ?>
-                                            <option value="<?= $value["idContaInvest"]; ?>"><?= $value["nomeBanco"] . " - " . $value["tituloInvest"]; ?></option>
+                                            <option value="<?= $value['idContaInvest']; ?>"><?= $value['nomeBanco'] . ' - ' . $value['tituloInvest']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                     </div>
@@ -120,6 +120,48 @@
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+
+        <?php $objs = $crud->selectAll('obj', [], [], ['saldoAtual' => 'DESC']);
+                $arr = [];
+                foreach ($objs as $value) {
+                    if (isset($arr[$value['nomeObj']])) {
+                        $arr[$value['nomeObj']] += $value['saldoAtual'];
+                    } else {
+                        $arr[$value['nomeObj']] = $value['saldoAtual'];
+                    }
+                } 
+        ?>
+        <div class="card mt-1">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <table class="table">
+                            <theader>
+                                <tr>
+                                    <th>Objetivo</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </theader>
+                            <tbody>
+                            <?php 
+                                foreach ($arr as $k => $val): ?>
+                                <tr>
+                                    <td><?= $k; ?></td>
+                                    <td><?= $val; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-dark">
+                                    <td>Total:</td>
+                                    <td><?= array_sum($arr); ?></td>
+                                </tr>
+                            </tfoot>
+                        </table>   
+                    </div>
+                </div>       
             </div>
         </div>
     </main>
