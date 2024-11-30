@@ -391,7 +391,7 @@ class CRUD extends retornoAjax {
 
         $result = $this->executarQuery($query, $arr_values);
 
-        return $result[0]["saldoAtual"];
+        return $result[0]['saldoAtual'];
     }
 
     public function getMensais()
