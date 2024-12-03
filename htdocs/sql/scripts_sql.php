@@ -87,14 +87,7 @@ class CRUD extends retornoAjax {
     
                     $query = implode(' ', $arr_query);
                 } else {
-                    $id_into_where = " WHERE $table.idFamilia = $id_family ";
-    
-                    if (end($arr_query) == $table) {
-                        $query .= $id_into_where;
-                    } else {
-                        $arr_query[$from_key + 1] .= $id_into_where;
-                        $query = implode(' ', $arr_query);
-                    }
+                    throw new Exception('WHERE clause not found');
                 }
             } catch (Exception $e) {
                 echo 'Security fail: ' . $e->getMessage();
@@ -116,6 +109,11 @@ class CRUD extends retornoAjax {
 
     private function executarQuery($query, $arr_values = [], $apply_security = true)
     {
+        /**
+         * remove 'enters' dados na string.
+         */
+        $query = trim(preg_replace('/\s\s+/', ' ', $query));
+
         $operacao = strtok($query, ' ');
 
         /**
@@ -235,7 +233,7 @@ class CRUD extends retornoAjax {
     {
         $table = TableNames::getTableName($action);
 
-        $where = '';
+        $where = 'WHERE 0 = 0';
         $group = '';
         $order = '';
 
@@ -273,10 +271,10 @@ class CRUD extends retornoAjax {
 
     public function indexTable($pesquisa, $month = '')
     {
-        $where = "WHERE (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
+        $where = 'WHERE (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))';
         if (!empty($month)) {
             if ($month == 'Todos') {
-                $where = '';
+                $where = 'WHERE movimentos.dataMovimento IS NOT NULL';
             } else {
                 $where = "WHERE DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
             }
@@ -286,11 +284,7 @@ class CRUD extends retornoAjax {
             $where = ' AND (categoria_movimentos.categoria LIKE "%' . $pesquisa . '%" OR movimentos.nomeMovimento LIKE "%' . $pesquisa . '%")';
         }
 
-        $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo
-                    FROM movimentos 
-                    INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria
-                    $where
-                    ORDER BY dataMovimento DESC";
+        $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo FROM movimentos INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria $where ORDER BY dataMovimento DESC";
 
         return $this->executarQuery($query);
     }
@@ -326,10 +320,10 @@ class CRUD extends retornoAjax {
 
     public function indicadores($month = "")
     {
-        $where = "WHERE (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))";
+        $where = 'WHERE (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))';
         if (!empty($month)) {
             if ($month == 'Todos') {
-                $where = '';
+                $where = 'WHERE movimentos.dataMovimento IS NOT NULL';
             } else {
                 $where = "WHERE DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
             }
@@ -347,10 +341,10 @@ class CRUD extends retornoAjax {
 
     public function orcamentos($month = '')
     {
-        $where = "WHERE (MONTH(orcamentos.dataOrcamento) = MONTH(CURRENT_DATE()))";
+        $where = 'WHERE (MONTH(orcamentos.dataOrcamento) = MONTH(CURRENT_DATE()))';
         if (!empty($month)) {
             if ($month == 'Todos') {
-                $where = '';
+                $where = 'WHERE orcamentos.dataOrcamento IS NOT NULL';
             } else {
                 $where = "WHERE DATE_FORMAT(orcamentos.dataOrcamento, '%b') = '$month'";
             }
@@ -396,12 +390,7 @@ class CRUD extends retornoAjax {
 
     public function getMensais()
     {
-        $query = 'SELECT movimentos_mensais.*, 
-                 categoria_movimentos.categoria, 
-                 categoria_movimentos.tipo,
-                 categoria_movimentos.sinal
-            FROM movimentos_mensais 
-            INNER JOIN categoria_movimentos ON movimentos_mensais.idCategoria = categoria_movimentos.idCategoria';
+        $query = 'SELECT movimentos_mensais.*, categoria_movimentos.categoria, categoria_movimentos.tipo, categoria_movimentos.sinal FROM movimentos_mensais INNER JOIN categoria_movimentos ON movimentos_mensais.idCategoria = categoria_movimentos.idCategoria WHERE movimentos_mensais.idMovMensal > 0';
 
         $result = $this->executarQuery($query, []);
 
@@ -477,12 +466,7 @@ class CRUD extends retornoAjax {
             $where .= "AND `rendimentos`.`tipo` = '$acao'";
         }
 
-        $query = "SELECT `rendimentos`.*, 
-            CONCAT(`contas_investimentos`.`nomeBanco`, ' - ', `contas_investimentos`.`tituloInvest`) AS conta 
-            FROM `rendimentos` 
-            INNER JOIN `contas_investimentos` ON `rendimentos`.`idContaInvest` = `contas_investimentos`.`idContaInvest` 
-            WHERE `rendimentos`.`idRendimento` > 0 $where
-            ORDER BY `rendimentos`.`dataRendimento` DESC";
+        $query = "SELECT `rendimentos`.*, CONCAT(`contas_investimentos`.`nomeBanco`, ' - ', `contas_investimentos`.`tituloInvest`) AS conta FROM `rendimentos` INNER JOIN `contas_investimentos` ON `rendimentos`.`idContaInvest` = `contas_investimentos`.`idContaInvest` WHERE `rendimentos`.`idRendimento` > 0 $where ORDER BY `rendimentos`.`dataRendimento` DESC";
 
         $result = $this->executarQuery($query);
 
