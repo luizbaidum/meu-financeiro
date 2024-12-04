@@ -4,9 +4,15 @@
     if (!empty($_GET)) {
         $crud = new Crud();
 
-        $ret = $crud->selectAll($_GET['table'], [[$_GET['fieldId'], '=', $_GET['id']]], [], []);
+        $action = $_GET['action'];
+        unset($_GET['action']);
 
-        echo json_encode($ret);
+        switch ($action) {
+            case 'consultar-objetivos':
+                $ret = $crud->selectAll($_GET['table'], [[$_GET['fieldId'], '=', $_GET['id']]], [], []);
+                echo json_encode($ret);
+                break;
+        }
 
         exit;
     }

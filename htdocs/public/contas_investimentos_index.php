@@ -93,7 +93,8 @@
                                 <td><?= $value['tituloInvest']; ?></td>
                                 <td><button class="consultar-objetivo" 
                                             data-url-action="../sql/consultas.php"
-                                            data-id="<?=$value['idContaInvest']; ?>"
+                                            data-id="<?= $value['idContaInvest']; ?>"
+                                            data-action="consultar-objetivos"
                                             data-field-id="idContaInvest"
                                             data-table="obj"
                                             data-method="GET"
@@ -125,23 +126,30 @@
 
         <?php $objs = $crud->selectAll('obj', [], [], ['saldoAtual' => 'DESC']);
                 $arr = [];
+                $total = 0;
                 foreach ($objs as $value) {
                     if (isset($arr[$value['nomeObj']])) {
-                        $arr[$value['nomeObj']] += $value['saldoAtual'];
+                        $arr[$value['nomeObj']]['saldo'] += $value['saldoAtual'];
+                        $arr[$value['nomeObj']]['meta'] += $value['vlrObj'];
                     } else {
-                        $arr[$value['nomeObj']] = $value['saldoAtual'];
+                        $arr[$value['nomeObj']]['saldo'] = $value['saldoAtual'];
+                        $arr[$value['nomeObj']]['meta'] = $value['vlrObj'];
                     }
+
+                    $total += $value['saldoAtual'];
                 } 
         ?>
         <div class="card mt-1">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-9">
                         <table class="table">
                             <theader>
                                 <tr>
                                     <th>Objetivo</th>
                                     <th>Valor</th>
+                                    <th>Meta</th>
+                                    <th>% ating.</th>
                                 </tr>
                             </theader>
                             <tbody>
@@ -149,14 +157,18 @@
                                 foreach ($arr as $k => $val): ?>
                                 <tr>
                                     <td><?= $k; ?></td>
-                                    <td><?= $val; ?></td>
+                                    <td><?= $val['saldo']; ?></td>
+                                    <td><?= $val['meta']; ?></td>
+                                    <td><?= number_format($val['meta'] / $val['saldo'], 2); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
                             <tfoot>
                                 <tr class="table-dark">
                                     <td>Total:</td>
-                                    <td><?= array_sum($arr); ?></td>
+                                    <td><?= $total; ?></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </tfoot>
                         </table>   
