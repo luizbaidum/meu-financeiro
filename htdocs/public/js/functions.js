@@ -90,7 +90,32 @@ function incrementUrl(elemento) {
 }
 
 function dispararAlert(conteudo) {
-    alert(conteudo);
+    let str = '';
+    let arr = Array();
+
+    try {
+            arr = JSON.parse(conteudo);
+        } catch (e) {
+            if (e instanceof SyntaxError) {
+                console.log('Json SyntaxError');
+            } else {
+                console.log("Json error, but it isn't a SyntaxError.");
+            }
+        }
+
+    if (arr.length > 0) {
+        arr.forEach(function (i, v) {
+            for (var name in i) {
+                str = str + `${name}: ${i[name]} \n`;
+            }
+
+            str = str + '\n';
+        })
+    } else {
+        str = conteudo;
+    }
+
+    alert(str);
 }
 
 function insertIntoDiv(div, conteudo) {
