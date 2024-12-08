@@ -11,11 +11,11 @@
 	$receitas = 0;
 	$aplicado = 0;
 	foreach ($indicadores as $value) {
-		if ($value["tipo"] == "R" && $value["idCategoria"] != 10) //"Devolução de Aplicação"
-			$receitas += $value["total"];
+		if ($value['tipo'] == 'R' && $value['idCategoria'] != 10) //'Devolução de Aplicação'
+			$receitas += $value['total'];
 		
-		if ($value["idCategoria"] == 12 || $value["idCategoria"] == 10) //"Aplicação" //"Devolução de Aplicação"
-			$aplicado += $value["total"];
+		if ($value['idCategoria'] == 12 || $value['idCategoria'] == 10) //'Aplicação' //'Devolução de Aplicação'
+			$aplicado += $value['total'];
 	}	
 ?>
 
@@ -26,10 +26,10 @@
 	<div class="card p-1">
 		<div class="row card-body">
 			<div class="col-12">
-				Total Receitas: <?= $receitas; ?>
+				Total Receitas: <?= NumbersHelper::formatUStoBR($receitas); ?>
 			</div>
 			<div class="col-12">
-				Total Aplicado: <?= $aplicado; ?>
+				Total Aplicado: <?= NumbersHelper::formatUStoBR($aplicado); ?>
 			</div>
 		</div>
 		<div class="row">
@@ -40,7 +40,7 @@
 							<?= $value["categoria"]; ?>
 						</div>
 						<div class="card-body">
-							<?= $value["total"]; ?>
+							<?= NumbersHelper::formatUStoBR($value['total']); ?>
 						</div>
 					</div>
 				</div>

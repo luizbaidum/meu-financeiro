@@ -4,6 +4,7 @@
     setlocale(LC_ALL, 'pt_BR.utf-8');
 
     require_once '../sql/scripts_sql.php';
+    include 'Helpers.php';
 
     $pagina_atual = $_SERVER['REQUEST_URI'];
     $lista_paginas = [

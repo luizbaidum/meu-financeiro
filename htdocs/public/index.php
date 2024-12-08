@@ -73,10 +73,10 @@
                         }
                 ?>
                     <tr>
-                        <td class="dataMovimento"><?= $mov['dataMovimento']; ?></td>
+                        <td class="dataMovimento"><?= DateHelper::convertUStoBR($mov['dataMovimento']); ?></td>
                         <td class="nomeMovimento"><?= $mov['nomeMovimento']; ?></td>
                         <td class="idCategoria <?= $mov['idCategoria']; ?>"><?= $mov['categoria']; ?></td>
-                        <td class="valor">$ <?= $mov['valor']; ?></td>
+                        <td class="valor">R$ <?= NumbersHelper::formatUStoBR($mov['valor']); ?></td>
                         <td class="proprietario <?= $mov['proprietario']; ?>">
                             <?= $prop; ?>
                         </td>
@@ -96,9 +96,9 @@
             <tfoot>
                 <tr class="table-dark">
                     <td colspan="3" style="text-align: right">Resultado (Rec. - Des. - Apli.)</td>
-                    <td>$ <?= $resultado; ?></td>
+                    <td>R$ <?= NumbersHelper::formatUStoBR($resultado); ?></td>
                     <td>
-                        <small>Luiz: <?= $result_lb; ?> <br> Uepa: <?= $result_uepa; ?></small>
+                        <small>Luiz: <?= NumbersHelper::formatUStoBR($result_lb); ?> <br> Uepa: <?= NumbersHelper::formatUStoBR($result_uepa); ?></small>
                     </td>
                     <td></td>
                 </tr>
@@ -108,18 +108,18 @@
                 ?>
                     <?php 
                         foreach ($saldos_anteriores as $value): 
-                            $acumulado += + $value['valor'];
+                            $acumulado += $value['valor'];
                     ?>
                         <tr class="table-dark">
                             <td colspan="3" style="text-align: right">Resultado mês <?= $value['MES']; ?>:</td>
-                            <td>$ <?= $value['valor']; ?></td>
+                            <td>R$ <?= NumbersHelper::formatUStoBR($value['valor']); ?></td>
                             <td></td>
                             <td></td>
                         </tr>
                     <?php endforeach; ?>
                     <tr class="table-dark">
                         <td colspan="3" style="text-align: right">Acumulado</td>
-                        <td>$ <?= $acumulado; ?></td>
+                        <td>R$ <?= NumbersHelper::formatUStoBR($acumulado); ?></td>
                         <td></td>
                         <td></td>
                     </tr>
