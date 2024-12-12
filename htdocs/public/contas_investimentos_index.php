@@ -104,18 +104,18 @@
                                         <button>&#9998;</button>
                                     </a>
                                 </td>
-                                <td>$ <?= $value['saldoAtual']; ?></td>
-                                <td>$ <?= $value['saldoAnterior']; ?></td>
-                                <td><?= $value['dataAnterior']; ?></td>
+                                <td>R$ <?= NumbersHelper::formatUStoBR($value['saldoAtual']); ?></td>
+                                <td>R$ <?= NumbersHelper::formatUStoBR($value['saldoAnterior']); ?></td>
+                                <td><?= DateHelper::convertUStoBR($value['dataAnterior']); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr class="table-dark">
                             <td colspan="3" style="text-align: right">Total</td>
-                            <td>$ <?= $total; ?>
+                            <td>R$ <?= NumbersHelper::formatUStoBR($total); ?>
                             <td>
-                                <small>Luiz: <?= $total_lb; ?> <br> Uepa: <?= $total_uepa; ?></small>
+                                <small>Luiz: <?= NumbersHelper::formatUStoBR($total_lb); ?> <br> Uepa: <?= NumbersHelper::formatUStoBR($total_uepa); ?></small>
                             </td>
                             <td></td>
                         </tr>
@@ -157,16 +157,16 @@
                                 foreach ($arr as $k => $val): ?>
                                 <tr>
                                     <td><?= $k; ?></td>
-                                    <td><?= $val['saldo']; ?></td>
-                                    <td><?= $val['meta']; ?></td>
-                                    <td><?= number_format($val['meta'] / $val['saldo'], 2); ?></td>
+                                    <td><?= NumbersHelper::formatUStoBR($val['saldo']); ?></td>
+                                    <td><?= NumbersHelper::formatUStoBR($val['meta']); ?></td>
+                                    <td><?= NumbersHelper::formatUStoBR(number_format(($val['saldo'] / $val['meta']) * 100, 2)); ?>%</td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
                             <tfoot>
                                 <tr class="table-dark">
                                     <td>Total:</td>
-                                    <td><?= $total; ?></td>
+                                    <td><?= NumbersHelper::formatUStoBR($total); ?></td>
                                     <td></td>
                                     <td></td>
                                 </tr>

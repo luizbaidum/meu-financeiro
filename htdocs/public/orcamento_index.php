@@ -29,7 +29,7 @@
                         <tr>
                             <td><?= $value['mesOrcado']; ?></td>
                             <td><?= $value['categoria']; ?></td>
-                            <td><?= $value['totalOrcado']; ?></td>
+                            <td><?= NumbersHelper::formatUStoBR($value['totalOrcado']); ?></td>
                             <td>
                                 <button id="<?= $value['idOrcamento']; ?>" data-chave="<?= $value['idOrcamento']; ?>" data-table="orcamento" data-campo="idOrcamento" title="Excluir" class="acao-deletar">
                                     &#10005;
@@ -41,7 +41,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="2">Total</td>
-                        <td><?= $total_orcado; ?></td>
+                        <td><?= NumbersHelper::formatUStoBR($total_orcado); ?></td>
                         <td></td>
                     </tr>
                 </tfoot>
