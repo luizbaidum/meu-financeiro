@@ -83,6 +83,7 @@
                             <th>Data</th>
                             <th>Ação</th>
                             <th>Valor</th>
+                            <th>Objetivo</th>
                         </tr>
                     </theader>
                     <tbody>
@@ -99,16 +100,20 @@
                         ?>
                             <tr>
                                 <td><?= $value['conta']; ?></td>
-                                <td><?= $value['dataRendimento']; ?></td>
+                                <td><?= DateHelper::convertUStoBR($value['dataRendimento']); ?></td>
                                 <td><?= $acao; ?></td>
-                                <td>$ <?= $value['valorRendimento']; ?></td>
+                                <td>R$ <?= NumbersHelper::formatUStoBR($value['valorRendimento']); ?></td>
+                                <td>
+                                    <?php if ($acao == 'Resgate'): ?>
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr class="table-dark">
                             <td colspan="3" style="text-align: right">Resultado</td>
-                            <td>$ <?= $resultado_ext; ?>
+                            <td>R$ <?= NumbersHelper::formatUStoBR($resultado_ext); ?>
                         </tr>
                     </tfoot>
                 </table>

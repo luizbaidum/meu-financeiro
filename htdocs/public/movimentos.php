@@ -39,13 +39,13 @@
                             <select class="form-select select-categoria" id="idCategoria" name="idCategoria" required>
                                 <option value="">Selecione</option>
                                 <?php 
-                                    $categorias = $crud->selectAll("categoria", [], [], ["tipo" => "ASC", "categoria" => "ASC"]);
+                                    $categorias = $crud->selectAll('categoria', [], [], ['tipo' => 'ASC', 'categoria' => 'ASC']);
                                     foreach ($categorias as $cat):
                                 ?>
                                     <?php if (!empty($movimento) && $movimento['idCategoria'] == $cat['idCategoria']): ?>
-                                        <option value="<?= $cat["idCategoria"] . " - sinal: " . $cat["sinal"]; ?>" selected><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
+                                        <option value="<?= $cat['idCategoria'] . ' - sinal: ' . $cat['sinal']; ?>" selected><?= $cat['categoria'] . ' - ' . $cat['tipo']; ?></option>
                                     <?php else: ?>
-                                        <option value="<?= $cat["idCategoria"] . " - sinal: " . $cat["sinal"]; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
+                                        <option value="<?= $cat['idCategoria'] . ' - sinal: ' . $cat['sinal']; ?>"><?= $cat['categoria'] . ' - ' . $cat['tipo']; ?></option>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </select>
