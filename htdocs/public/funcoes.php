@@ -1,5 +1,9 @@
 <?php
 
+header('Content-type: text/html; charset=utf-8');    
+setlocale(LC_ALL, NULL);
+setlocale(LC_ALL, 'pt_BR.utf-8');
+
 include '../sql/scripts_sql.php';
 
 $function = $_GET['function'];

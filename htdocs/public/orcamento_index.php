@@ -8,10 +8,6 @@
 ?>
 
 <main class="container">
-	<form action="orcamento_index.php" data-method="post" id="idFormMesFiltro">
-        <?php require_once 'select_month.php'; ?>
-	</form>
-
     <div class="card mt-2">
         <div class="card-body">
             <table class="table table-striped">

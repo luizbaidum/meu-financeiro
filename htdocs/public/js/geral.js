@@ -18,7 +18,7 @@ if (document.getElementById('idMesFiltro')) {
     var select_mes_filtro = document.getElementById('idMesFiltro');
 
     select_mes_filtro.addEventListener('change', () => {
-        let formulario = document.getElementById('idFormMesFiltro');
+        let formulario = document.getElementById('idFormPesquisa');
         requireAjax(formulario);
     });
 }

@@ -20,6 +20,9 @@
     }
 
     $lembretes = (new CRUD())->selectAll('lembrete', [], [], []);
+
+    $explode_php_self = explode('/', $_SERVER['PHP_SELF']);
+    $search_submit_post = $explode_php_self[2];
 ?>
 
 <html lang="pt-br">
@@ -102,18 +105,20 @@
                             <a href="erros_do_bog.php">
                                 <button type="button" class="btn btn-light">Erros do bog</button>
                             </a>
-                        </li>      
+                        </li>
                     </ul>
-
-                    <form class="form-ajax d-flex" data-url-action="index.php" data-method="POST" role="search">
-                        <input type="text" class="form-control me-2" id="idPesquisa" name="pesquisa" value="<?= $pesquisa ?? ''; ?>">                        
-                        <button type="submit" class="btn btn-outline-primary">Pesquisar</button>
+                    <form id="idFormPesquisa" class="form-ajax d-flex mb-0" data-url-action="<?= $search_submit_post; ?>" data-method="POST" role="search">
+                        <?php require_once 'select_month.php'; ?>
+                        <?php if ($search_submit_post == 'index.php'): ?>
+                            <input type="text" class="form-control me-2 ms-2" name="pesquisa" value="<?= $pesquisa ?? ''; ?>">                        
+                            <button type="submit" class="btn btn-outline-primary">Pesquisar</button>
+                        <?php endif; ?>
                     </form>
                 </div>
             </div>
         </nav>
 
-        <div class="m-2">
+        <div class="m-1">
             <div class="collapse" id="collapseLembretes">
                 <div class="card card-body">
                     <div>
