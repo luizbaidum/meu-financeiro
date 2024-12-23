@@ -272,16 +272,15 @@ class CRUD extends retornoAjax {
     public function indexTable($pesquisa, $month = '')
     {
         $where = 'WHERE (MONTH(movimentos.dataMovimento) = MONTH(CURRENT_DATE()))';
-        if (!empty($month)) {
-            if ($month == 'Todos') {
-                $where = 'WHERE movimentos.dataMovimento IS NOT NULL';
-            } else {
-                $where = "WHERE DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
-            }
+
+        if ($month != '' && $month == 'Todos') {
+            $where = 'WHERE movimentos.dataMovimento IS NOT NULL';
+        } elseif ($month != '' && $month != 'Todos') {
+            $where = "WHERE DATE_FORMAT(movimentos.dataMovimento, '%b') = '$month'";
         }
 
         if ($pesquisa != '') {
-            $where = ' AND (categoria_movimentos.categoria LIKE "%' . $pesquisa . '%" OR movimentos.nomeMovimento LIKE "%' . $pesquisa . '%")';
+            $where .= ' AND (categoria_movimentos.categoria LIKE "%' . $pesquisa . '%" OR movimentos.nomeMovimento LIKE "%' . $pesquisa . '%")';
         }
 
         $query = "SELECT movimentos.*, categoria_movimentos.categoria, categoria_movimentos.tipo FROM movimentos INNER JOIN categoria_movimentos ON categoria_movimentos.idCategoria = movimentos.idCategoria $where ORDER BY dataMovimento DESC";

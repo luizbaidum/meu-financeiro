@@ -1,18 +1,18 @@
 <?php 
+    $pesquisa = '';
+    if (!empty($_POST['pesquisa']) && trim($_POST['pesquisa'], ' ') != '') {
+        $pesquisa = trim($_POST['pesquisa'], ' ');
+    }
+
     require_once 'header.php'; 
 
     $crud = new CRUD();
 
-    $pesquisa = '';
     $saldos_anteriores = array();
     $resultado = 0;
     $acumulado = 0;
     $result_lb = 0;
     $result_uepa = 0;
-
-    if (!empty($_POST['pesquisa']) && trim($_POST['pesquisa'], ' ') != '') {
-        $pesquisa = trim($_POST['pesquisa'], ' ');
-    }
 
     if (isset($_POST['mesFiltro']) && !empty($_POST['mesFiltro'])) {
         $movimentos = $crud->indexTable($pesquisa, $_POST['mesFiltro']);
@@ -39,10 +39,6 @@
 ?>
      
     <main class="container">
-        <form action="index.php" data-method="post" id="idFormMesFiltro">
-            <?php require_once "select_month.php"; ?>
-        </form>
-
         <table class="table">
             <theader>
                 <tr>

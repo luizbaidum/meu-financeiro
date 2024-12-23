@@ -58,7 +58,7 @@
                                         $categorias = $crud->selectAll('categoria', [], [], ['categoria' => 'ASC']);
                                         foreach ($categorias as $cat):
                                     ?>
-                                        <option value="<?= $cat['idCategoria'] . ' - sinal: ' . $cat['sinal']; ?>"><?= $cat["categoria"] . " - " . $cat["tipo"]; ?></option>
+                                        <option value="<?= $cat['idCategoria'] . ' - sinal: ' . $cat['sinal']; ?>"><?= $cat['categoria'] . ' - ' . $cat['tipo']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
