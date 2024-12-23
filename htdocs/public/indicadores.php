@@ -3,10 +3,13 @@
 
     $crud = new CRUD();
 
-    if (isset($_POST['mesFiltro']) && !empty($_POST['mesFiltro']))
-        $indicadores = $crud->indicadores($_POST['mesFiltro']);
-    else
-        $indicadores = $crud->indicadores();
+    if (isset($_POST['mesFiltro']) && !empty($_POST['mesFiltro'])) {
+		$indicadores = $crud->indicadores($_POST['mesFiltro']); 
+		$orcamentos = $crud->orcamentos($_POST['mesFiltro']);
+	} else {
+		$indicadores = $crud->indicadores(); 
+		$orcamentos = $crud->orcamentos();
+	}
 
 	$receitas = 0;
 	$aplicado = 0;
@@ -30,14 +33,21 @@
 			</div>
 		</div>
 		<div class="row">
-			<?php foreach ($indicadores as $value): ?>
+			<?php foreach ($indicadores as $id => $value): ?>
 				<div class="col-6 mb-2">
 					<div class="card">
 						<div class="card-header">
-							<?= $value["categoria"]; ?>
+							<?= $value['categoria']; ?>
 						</div>
 						<div class="card-body">
-							<?= NumbersHelper::formatUStoBR($value['total']); ?>
+							<div>
+								<?= NumbersHelper::formatUStoBR($value['total']); ?>
+							</div>
+							<?php if (isset($orcamentos[$id])): ?>
+								<small>Orçado: R$ <?= NumbersHelper::formatUStoBR($orcamentos[$id]['totalOrcado']); ?></small>
+							<?php else: ?>
+								<small>Orçado: R$ 0,00</small>
+							<?php endif; ?>
 						</div>
 					</div>
 				</div>
