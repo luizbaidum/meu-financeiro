@@ -335,7 +335,14 @@ class CRUD extends retornoAjax {
                     GROUP BY movimentos.idCategoria
                     ORDER BY total DESC";
 
-        return $this->executarQuery($query);
+        $result = $this->executarQuery($query);
+
+        $ret = [];
+        foreach ($result as $val) {
+            $ret[$val['idCategoria']] = $val;
+        }
+
+        return $ret;
     }
 
     public function orcamentos($month = '')
@@ -361,7 +368,14 @@ class CRUD extends retornoAjax {
                     GROUP BY orcamentos.idCategoria
                     ORDER BY totalOrcado DESC";
 
-        return $this->executarQuery($query);
+        $result = $this->executarQuery($query);
+
+        $ret = [];
+        foreach ($result as $val) {
+            $ret[$val['idCategoria']] = $val;
+        }
+
+        return $ret;
     }
 
     public function getSaldoAtual($action, $id_where)
